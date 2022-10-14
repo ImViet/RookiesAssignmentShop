@@ -5,9 +5,9 @@ VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RAShop.Backend", "RAShop.Backend\RAShop.Backend.csproj", "{70139C5F-3FB5-42D6-8613-F9A896E9EB77}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RAShop.CustomerSite", "RAShop.CustomerSite\RAShop.CustomerSite.csproj", "{AF506F1E-99CA-43B8-902A-ACA354490635}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RAShop.Shared", "RAShop.Shared\RAShop.Shared.csproj", "{CF7CE778-8BF8-42D8-A531-161A7566A651}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAShop.Shared", "RAShop.Shared\RAShop.Shared.csproj", "{CF7CE778-8BF8-42D8-A531-161A7566A651}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAShop.CustomerSite", "RAShop.CustomerSite\RAShop.CustomerSite.csproj", "{DC2CACB9-690B-4F7C-A50E-91BB79BC6D5B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{70139C5F-3FB5-42D6-8613-F9A896E9EB77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70139C5F-3FB5-42D6-8613-F9A896E9EB77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70139C5F-3FB5-42D6-8613-F9A896E9EB77}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AF506F1E-99CA-43B8-902A-ACA354490635}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AF506F1E-99CA-43B8-902A-ACA354490635}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AF506F1E-99CA-43B8-902A-ACA354490635}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AF506F1E-99CA-43B8-902A-ACA354490635}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CF7CE778-8BF8-42D8-A531-161A7566A651}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CF7CE778-8BF8-42D8-A531-161A7566A651}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF7CE778-8BF8-42D8-A531-161A7566A651}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF7CE778-8BF8-42D8-A531-161A7566A651}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC2CACB9-690B-4F7C-A50E-91BB79BC6D5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC2CACB9-690B-4F7C-A50E-91BB79BC6D5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC2CACB9-690B-4F7C-A50E-91BB79BC6D5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC2CACB9-690B-4F7C-A50E-91BB79BC6D5B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
