@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAShop.Shared", "RAShop\RAShop.Shared.csproj", "{44D3A654-424D-4ED0-A12F-1FACAA940FA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RAShop.Backend", "RAShop.Backend\RAShop.Backend.csproj", "{70139C5F-3FB5-42D6-8613-F9A896E9EB77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAShop.Backend", "RAShop.Backend\RAShop.Backend.csproj", "{70139C5F-3FB5-42D6-8613-F9A896E9EB77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RAShop.CustomerSite", "RAShop.CustomerSite\RAShop.CustomerSite.csproj", "{AF506F1E-99CA-43B8-902A-ACA354490635}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAShop.CustomerSite", "RAShop.CustomerSite\RAShop.CustomerSite.csproj", "{AF506F1E-99CA-43B8-902A-ACA354490635}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAShop.Shared", "RAShop.Shared\RAShop.Shared.csproj", "{CF7CE778-8BF8-42D8-A531-161A7566A651}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{44D3A654-424D-4ED0-A12F-1FACAA940FA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{44D3A654-424D-4ED0-A12F-1FACAA940FA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{44D3A654-424D-4ED0-A12F-1FACAA940FA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{44D3A654-424D-4ED0-A12F-1FACAA940FA4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{70139C5F-3FB5-42D6-8613-F9A896E9EB77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{70139C5F-3FB5-42D6-8613-F9A896E9EB77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70139C5F-3FB5-42D6-8613-F9A896E9EB77}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +23,10 @@ Global
 		{AF506F1E-99CA-43B8-902A-ACA354490635}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF506F1E-99CA-43B8-902A-ACA354490635}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF506F1E-99CA-43B8-902A-ACA354490635}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF7CE778-8BF8-42D8-A531-161A7566A651}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF7CE778-8BF8-42D8-A531-161A7566A651}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF7CE778-8BF8-42D8-A531-161A7566A651}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF7CE778-8BF8-42D8-A531-161A7566A651}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
