@@ -10,6 +10,9 @@ namespace RAShop.Backend.Data
         private DbSet<Order> Orders { get; set; }
         private DbSet<OrderDetail> OrderDetails { get; set; }
 
+        public RAShopDbContext(DbContextOptions options) : base(options)
+        {
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

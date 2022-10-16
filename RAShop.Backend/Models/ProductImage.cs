@@ -1,7 +1,10 @@
-﻿namespace RAShop.Backend.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace RAShop.Backend.Models
 {
     public class ProductImage
     {
+        [Key]
         public int ProdImageId { get; set; }
         public string MainImg { get; set; }
         public string? Img1 { get; set; }
