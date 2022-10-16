@@ -1,4 +1,6 @@
-﻿namespace RAShop.Backend.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace RAShop.Backend.Models
 {
     public class Product
     {
@@ -8,8 +10,10 @@
         public int Quantity { get; set; }
         public string? Description { get; set; }
         public string Origin { get; set; }
-        public string Unit { get; set; }    
+        public string Unit { get; set; }
+        [ForeignKey("ImageId")]
         public virtual ProductImage? Image { get; set; }
+        [ForeignKey("CateId")]
         public virtual Category Category { get; set; }
     }
 }

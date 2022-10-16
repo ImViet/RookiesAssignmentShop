@@ -12,7 +12,7 @@ using RAShop.Backend.Data;
 namespace RAShop.Backend.Migrations
 {
     [DbContext(typeof(RAShopDbContext))]
-    [Migration("20221016042219_createDb")]
+    [Migration("20221016080122_createDb")]
     partial class createDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,26 +76,23 @@ namespace RAShop.Backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderDetailId"), 1L, 1);
 
-                    b.Property<int>("OrdersOrderId")
+                    b.Property<int>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ProductsProductId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18,2)");
-
                     b.HasKey("OrderDetailId");
 
-                    b.HasIndex("OrdersOrderId");
+                    b.HasIndex("OrderId");
 
-                    b.HasIndex("ProductsProductId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("OrderDetails");
                 });
@@ -108,13 +105,13 @@ namespace RAShop.Backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"), 1L, 1);
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int>("CateId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ImageProdImageId")
+                    b.Property<int?>("ImageId")
                         .HasColumnType("int");
 
                     b.Property<string>("Origin")
@@ -137,9 +134,9 @@ namespace RAShop.Backend.Migrations
 
                     b.HasKey("ProductId");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("CateId");
 
-                    b.HasIndex("ImageProdImageId");
+                    b.HasIndex("ImageId");
 
                     b.ToTable("Products");
                 });
@@ -180,13 +177,13 @@ namespace RAShop.Backend.Migrations
                 {
                     b.HasOne("RAShop.Backend.Models.Order", "Orders")
                         .WithMany()
-                        .HasForeignKey("OrdersOrderId")
+                        .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("RAShop.Backend.Models.Product", "Products")
                         .WithMany()
-                        .HasForeignKey("ProductsProductId")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -199,13 +196,13 @@ namespace RAShop.Backend.Migrations
                 {
                     b.HasOne("RAShop.Backend.Models.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("CateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("RAShop.Backend.Models.ProductImage", "Image")
                         .WithMany()
-                        .HasForeignKey("ImageProdImageId");
+                        .HasForeignKey("ImageId");
 
                     b.Navigation("Category");
 
