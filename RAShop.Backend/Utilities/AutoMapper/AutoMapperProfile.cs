@@ -8,6 +8,8 @@ namespace RAShop.Backend.Utilities.AutoMapper
         public AutoMapperProfile()
         {
             CreateMap<Category, CategoryDTO>();
+            CreateMap<Product, ProductDTO>();
+
         }
     }
 }
