@@ -25,11 +25,11 @@ namespace RAShop.Backend.Controllers
 
         //Lay tat ca loai san pham
         [HttpGet]
-        public async Task<ActionResult<CategoryDTO>> GetAllCategory()
+        public async Task<ActionResult<List<CategoryDTO>>> GetAllCategory()
         {
             var categories = await _context.Categories.ToListAsync();
-            CategoryDTO cateDto = _mapper.Map<CategoryDTO>(categories);
-            return cateDto;
+            var listCateDTO = _mapper.Map<List<CategoryDTO>>(categories);
+            return listCateDTO;
         }
 
         //Lay loai san pham theo id
@@ -68,7 +68,7 @@ namespace RAShop.Backend.Controllers
                 category.Description = newCategory.Description;
             }
             await _context.SaveChangesAsync();
-            return category;
+            return Ok();
         }
 
         //Xoa category
@@ -81,7 +81,7 @@ namespace RAShop.Backend.Controllers
                  _context.Categories.Remove(category);
                 await _context.SaveChangesAsync();
             }
-            return category;
+            return Ok();
         }
     }
 }
