@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RAShop.Backend.Models;
+
 namespace RAShop.Backend.Data
 {
     public class RAShopDbContext: DbContext 
