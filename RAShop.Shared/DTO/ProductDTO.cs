@@ -10,7 +10,7 @@ namespace RAShop.Shared.DTO
         public string Description { get; set; }
         public string Origin { get; set; }
         public string Unit { get; set; }
-        public int CategoryName { get; set; }
+        public string CategoryName { get; set; }
         public string MainImg { get; set; }
     }
 }
