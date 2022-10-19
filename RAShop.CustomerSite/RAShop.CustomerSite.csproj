@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <Folder Include="Services\" />
+    <Folder Include="wwwroot\frontend\assets\font\" />
   </ItemGroup>
 
   <ItemGroup>

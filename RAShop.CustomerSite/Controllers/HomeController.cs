@@ -21,7 +21,6 @@ namespace RAShop.CustomerSite.Controllers
         public IActionResult Index()
         {
             var httpClient = _clientFactory.CreateClient("myclient");
-            httpClient.DefaultRequestHeaders.Clear();
             var response = httpClient.GetAsync("/category/getallcategory").Result;
             string jsonData = response.Content.ReadAsStringAsync().Result;
             List<CategoryDTO> data = JsonConvert.DeserializeObject<List<CategoryDTO>>(jsonData);

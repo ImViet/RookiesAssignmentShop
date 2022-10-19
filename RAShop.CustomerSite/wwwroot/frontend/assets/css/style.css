@@ -1,0 +1,16 @@
+html{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.container-logo{
+    width: 148px;
+    height: auto;
+}
+.header-logo{
+    max-width: 100%;
+}
+.nav-item{
+    margin: 0px 12px;
+}
