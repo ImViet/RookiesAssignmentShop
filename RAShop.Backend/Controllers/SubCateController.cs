@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RAShop.Backend.Models;
 using RAShop.Backend.Data;
@@ -13,57 +13,57 @@ namespace RAShop.Backend.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class SubCateController : ControllerBase
     {
         private readonly RAShopDbContext _context;
         private readonly IMapper _mapper;
-        public CategoryController(RAShopDbContext context, IMapper mapper)
+        public SubCateController(RAShopDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
         //Lay tat ca loai san pham
         [HttpGet]
-        public async Task<ActionResult<List<CategoryDTO>>> GetAllCategory()
+        public async Task<ActionResult<List<SubCateDTO>>> GetAllSubCategory()
         {
-            var categories = await _context.Categories.Include(p => p.SubCates).ToListAsync();
-            var listCateDTO = _mapper.Map<List<CategoryDTO>>(categories);
+            var categories = await _context.SubCategories.ToListAsync();
+            var listCateDTO = _mapper.Map<List<SubCateDTO>>(categories);
             return listCateDTO;
         }
 
         //Lay loai san pham theo id
         [HttpGet("{id}")]
-        public async Task<ActionResult<CategoryDTO>> GetCategoryById(int id)
+        public async Task<ActionResult<SubCateDTO>> GetSubCategoryById(int id)
         {
-            var category = await _context.Categories.FirstOrDefaultAsync(x => x.CategoryId == id);
+            var category = await _context.SubCategories.FirstOrDefaultAsync(x => x.SubCategoryId == id);
             //return category;
-            CategoryDTO cateDto = _mapper.Map<CategoryDTO>(category);
+            SubCateDTO cateDto = _mapper.Map<SubCateDTO>(category);
             return cateDto;
         }
 
         //Tao moi loai san pham
         [HttpPost]
-        public async Task<ActionResult<Category>> CreateCate(Category newCate)
+        public async Task<ActionResult<SubCategory>> CreateSubCate(SubCategory newCate)
         {
-            var cate = new Category()
+            var cate = new SubCategory()
             {
-                CategoryId = newCate.CategoryId,
-                CategoryName = newCate.CategoryName,
+                SubCategoryId = newCate.SubCategoryId,
+                SubCategoryName = newCate.SubCategoryName,
                 Description = newCate.Description
             };
-            await _context.Categories.AddAsync(cate);
+            await _context.SubCategories.AddAsync(cate);
             await _context.SaveChangesAsync();
             return cate;
         }
 
         //Sua mot category
         [HttpPut("{id}")]
-        public async Task<ActionResult<Category>> EditCategory(int id, Category newCategory)
+        public async Task<ActionResult<SubCategory>> EditSubCategory(int id, SubCategory newCategory)
         {
-            var category = _context.Categories.Find(id);
+            var category = _context.SubCategories.Find(id);
             if (category != null)
             {
-                category.CategoryName = newCategory.CategoryName;
+                category.SubCategoryName = newCategory.SubCategoryName;
                 category.Description = newCategory.Description;
             }
             await _context.SaveChangesAsync();
@@ -72,12 +72,12 @@ namespace RAShop.Backend.Controllers
 
         //Xoa category
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Category>> DeleteCategory(int id)
+        public async Task<ActionResult<SubCategory>> DeleteSubCategory(int id)
         {
-            var category = _context.Categories.FirstOrDefault(x => x.CategoryId == id);
+            var category = _context.SubCategories.FirstOrDefault(x => x.SubCategoryId == id);
             if (category != null)
             {
-                 _context.Categories.Remove(category);
+                 _context.SubCategories.Remove(category);
                 await _context.SaveChangesAsync();
             }
             return Ok();

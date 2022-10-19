@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using RAShop.Backend.Data;
 using RAShop.Backend.Models;
 using RAShop.Shared.DTO;
-using static System.Net.Mime.MediaTypeNames;
+
 
 namespace RAShop.Backend.Controllers
 {
@@ -19,12 +19,11 @@ namespace RAShop.Backend.Controllers
             _context = context;
             _mapper = mapper;
         }
-
         //Lay tat ca san pham
         [HttpGet]
         public async Task<ActionResult<List<ProductDTO>>> GetAllProduct()
         {
-            var products = await _context.Products.ToListAsync();
+            var products = await _context.Products.Include(x => x.SubCategory).Include(p => p.Image).ToListAsync();
             var listProdDTO = _mapper.Map<List<ProductDTO>>(products);
             return listProdDTO;
         }
@@ -33,7 +32,7 @@ namespace RAShop.Backend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductDTO>> GetProductById(int id)
         {
-            var product = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == id);
+            var product = await _context.Products.Include(x => x.SubCategory).Include(p => p.Image).FirstOrDefaultAsync(x => x.ProductId == id);
             ProductDTO productDto = _mapper.Map<ProductDTO>(product);
             return productDto;
         }
@@ -52,7 +51,7 @@ namespace RAShop.Backend.Controllers
                 Origin = newProduct.Origin,
                 Description = newProduct.Description,
                 Image = newProduct.Image,
-                Category = newProduct.Category
+                SubCategory = newProduct.SubCategory
             };
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
@@ -74,7 +73,7 @@ namespace RAShop.Backend.Controllers
                 product.Origin = newProduct.Origin;
                 product.Description = newProduct.Description;
                 product.Image = newProduct.Image;
-                product.Category = newProduct.Category;
+                product.SubCategory = newProduct.SubCategory;
             }
             await _context.SaveChangesAsync();
             return Ok();

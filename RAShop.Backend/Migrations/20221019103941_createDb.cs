@@ -15,8 +15,8 @@ namespace RAShop.Backend.Migrations
                 {
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CategoryName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -57,34 +57,56 @@ namespace RAShop.Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SubCategories",
+                columns: table => new
+                {
+                    SubCategoryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SubCategoryName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CateId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubCategories", x => x.SubCategoryId);
+                    table.ForeignKey(
+                        name: "FK_SubCategories_Categories_CateId",
+                        column: x => x.CateId,
+                        principalTable: "Categories",
+                        principalColumn: "CategoryId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
                     ProductId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Origin = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Unit = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageId = table.Column<int>(type: "int", nullable: true),
-                    CateId = table.Column<int>(type: "int", nullable: false)
+                    Origin = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Unit = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProdImgId = table.Column<int>(type: "int", nullable: false),
+                    SubCateId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.ProductId);
                     table.ForeignKey(
-                        name: "FK_Products_Categories_CateId",
-                        column: x => x.CateId,
-                        principalTable: "Categories",
-                        principalColumn: "CategoryId",
+                        name: "FK_Products_ProductImages_ProdImgId",
+                        column: x => x.ProdImgId,
+                        principalTable: "ProductImages",
+                        principalColumn: "ProdImageId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Products_ProductImages_ImageId",
-                        column: x => x.ImageId,
-                        principalTable: "ProductImages",
-                        principalColumn: "ProdImageId");
+                        name: "FK_Products_SubCategories_SubCateId",
+                        column: x => x.SubCateId,
+                        principalTable: "SubCategories",
+                        principalColumn: "SubCategoryId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -126,14 +148,19 @@ namespace RAShop.Backend.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_CateId",
+                name: "IX_Products_ProdImgId",
                 table: "Products",
-                column: "CateId");
+                column: "ProdImgId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_ImageId",
+                name: "IX_Products_SubCateId",
                 table: "Products",
-                column: "ImageId");
+                column: "SubCateId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubCategories_CateId",
+                table: "SubCategories",
+                column: "CateId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -148,10 +175,13 @@ namespace RAShop.Backend.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "ProductImages");
 
             migrationBuilder.DropTable(
-                name: "ProductImages");
+                name: "SubCategories");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
         }
     }
 }

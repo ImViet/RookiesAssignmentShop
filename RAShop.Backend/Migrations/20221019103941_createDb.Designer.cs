@@ -12,7 +12,7 @@ using RAShop.Backend.Data;
 namespace RAShop.Backend.Migrations
 {
     [DbContext(typeof(RAShopDbContext))]
-    [Migration("20221016080122_createDb")]
+    [Migration("20221019103941_createDb")]
     partial class createDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,10 +34,10 @@ namespace RAShop.Backend.Migrations
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CategoryId");
@@ -105,38 +105,37 @@ namespace RAShop.Backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"), 1L, 1);
 
-                    b.Property<int>("CateId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ImageId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Origin")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("ProdImgId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ProductName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<int>("SubCateId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Unit")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductId");
 
-                    b.HasIndex("CateId");
+                    b.HasIndex("ProdImgId");
 
-                    b.HasIndex("ImageId");
+                    b.HasIndex("SubCateId");
 
                     b.ToTable("Products");
                 });
@@ -173,6 +172,32 @@ namespace RAShop.Backend.Migrations
                     b.ToTable("ProductImages");
                 });
 
+            modelBuilder.Entity("RAShop.Backend.Models.SubCategory", b =>
+                {
+                    b.Property<int>("SubCategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubCategoryId"), 1L, 1);
+
+                    b.Property<int>("CateId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SubCategoryName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("SubCategoryId");
+
+                    b.HasIndex("CateId");
+
+                    b.ToTable("SubCategories");
+                });
+
             modelBuilder.Entity("RAShop.Backend.Models.OrderDetail", b =>
                 {
                     b.HasOne("RAShop.Backend.Models.Order", "Orders")
@@ -194,22 +219,40 @@ namespace RAShop.Backend.Migrations
 
             modelBuilder.Entity("RAShop.Backend.Models.Product", b =>
                 {
-                    b.HasOne("RAShop.Backend.Models.Category", "Category")
+                    b.HasOne("RAShop.Backend.Models.ProductImage", "Image")
+                        .WithMany()
+                        .HasForeignKey("ProdImgId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RAShop.Backend.Models.SubCategory", "SubCategory")
                         .WithMany("Products")
+                        .HasForeignKey("SubCateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Image");
+
+                    b.Navigation("SubCategory");
+                });
+
+            modelBuilder.Entity("RAShop.Backend.Models.SubCategory", b =>
+                {
+                    b.HasOne("RAShop.Backend.Models.Category", "Category")
+                        .WithMany("SubCates")
                         .HasForeignKey("CateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RAShop.Backend.Models.ProductImage", "Image")
-                        .WithMany()
-                        .HasForeignKey("ImageId");
-
                     b.Navigation("Category");
-
-                    b.Navigation("Image");
                 });
 
             modelBuilder.Entity("RAShop.Backend.Models.Category", b =>
+                {
+                    b.Navigation("SubCates");
+                });
+
+            modelBuilder.Entity("RAShop.Backend.Models.SubCategory", b =>
                 {
                     b.Navigation("Products");
                 });

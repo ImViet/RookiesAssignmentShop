@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using RAShop.Backend.Data;
 using RAShop.Backend.Utilities.AutoMapper;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,8 +22,8 @@ builder.Services.AddDbContext<RAShopDbContext>(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper
 (typeof(AutoMapperProfile).Assembly);
-var app = builder.Build();
 
+var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
