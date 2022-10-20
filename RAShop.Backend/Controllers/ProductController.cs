@@ -37,6 +37,15 @@ namespace RAShop.Backend.Controllers
             return productDto;
         }
 
+         //Lay san pham theo category id
+        [HttpGet("{cateid}")]
+        public async Task<ActionResult<List<ProductDTO>>> GetProductByCateId(int cateid)
+        {
+            var products = await _context.Products.Include(x => x.SubCategory).Include(p => p.Image).Where(x => x.SubCategory.SubCategoryId == cateid).ToListAsync();
+            var productDto = _mapper.Map<List<ProductDTO>>(products);
+            return productDto;
+        }
+
         //Tao moi san pham
         [HttpPost]
         public async Task<ActionResult<Product>> CreateProduct(Product newProduct)
