@@ -1,0 +1,26 @@
+@model List<RAShop.Shared.DTO.CategoryDTO>
+
+  <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" asp-controller="Product" asp-action="Index">Tất cả sản phẩm</a></li>
+    @foreach (var item in Model)
+    {
+        if(item.SubCates != null)
+        {
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    @item.CategoryName
+                </a>
+                <ul class="dropdown-menu">
+                    @foreach (var subcate in item.SubCates)
+                    {
+                        <li><a class="dropdown-item" asp-controller="Product" asp-action="GetProductbyCateId" asp-route-cateid="@subcate.SubCategoryId">@subcate.SubCategoryName</a></li>       
+                    }
+                </ul>
+            </li>
+        }
+        else
+        {
+         <li class="nav-item"><a class="nav-link" href="#">@item.CategoryName</a></li>
+        }
+    }                
+    </ul>

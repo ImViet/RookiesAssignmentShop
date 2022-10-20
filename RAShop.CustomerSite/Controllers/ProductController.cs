@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RAShop.CustomerSite.Interfaces;
 using RAShop.CustomerSite.Models;
@@ -9,11 +9,11 @@ using System.Text.Json;
 
 namespace RAShop.CustomerSite.Controllers
 {
-    public class HomeController : Controller
+    public class ProductController : Controller
     {
         private readonly IProduct _productService;
 
-        public HomeController(IProduct productService)
+        public ProductController(IProduct productService)
         {
             _productService = productService;
         }
@@ -24,8 +24,9 @@ namespace RAShop.CustomerSite.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult GetProductByCateId(int cateid)
         {
+            ViewBag.Products = _productService.GetProductByCateId(cateid);
             return View();
         }
 

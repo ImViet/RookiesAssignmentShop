@@ -1,38 +1,6 @@
-﻿@model IEnumerable<RAShop.Shared.DTO.CategoryDTO>
-@*@using RAShop.Shared.DTO;*@
+﻿@model IEnumerable<RAShop.Shared.DTO.ProductDTO>
 
 @{
     ViewData["Title"] = "Home Page";
 }
-
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">#</th>
-            <th scope="col">#</th>
-            <th scope="col">#</th>
-
-        </tr>
-  </thead>
-  <tbody>
-  @foreach (var item in ViewBag.Categories)
-    {
-        <tr>
-            <th scope="row">@item.CategoryId</th>
-            <td>@item.CategoryName</td>
-            <td>@item.Description</td>
-           <td>@{
-                if (@item.SubCates != null)
-                {
-                    @foreach (var subcate in item.SubCates)
-                    {
-                        @subcate.SubCategoryName
-                    }
-                 }
-           }
-        </td>
-        </tr>
-    }
-    </tbody>
-    </table>
+HOME
