@@ -5,8 +5,11 @@ html{
 }
 
 .container-logo{
-    width: 148px;
+    max-width: 148px;
     height: auto;
+}
+.logo-hide{
+    display: none;
 }
 .header-logo{
     max-width: 100%;

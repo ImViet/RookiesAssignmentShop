@@ -1,13 +1,24 @@
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.FileProviders;
+using RAShop.CustomerSite.Interfaces;
+using RAShop.CustomerSite.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+     .AddRazorOptions(options =>
+     {
+         options.ViewLocationFormats.Add("/Views/Shared/Components/");
+     }); ;
 
 //Cau hinh httpclient
 builder.Services.AddHttpClient("myclient", client =>
 {
     client.BaseAddress = new Uri("https://localhost:7150");
 });
+builder.Services.AddScoped<ICategory, CategoryService>();
+builder.Services.AddScoped<IProduct, ProductService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
