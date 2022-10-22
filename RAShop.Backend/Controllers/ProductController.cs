@@ -45,6 +45,14 @@ namespace RAShop.Backend.Controllers
             var productDto = _mapper.Map<List<ProductDTO>>(products);
             return productDto;
         }
+        //Tim kiem san pham theo ten
+        [HttpGet("{searchString}")]
+        public async Task<ActionResult<List<ProductDTO>>> SearchProducts(string searchString)
+        {
+            var product = await _context.Products.Include(x => x.SubCategory).Include(p => p.Image).Where(x => x.ProductName.ToUpper().Contains(searchString.ToUpper())).ToListAsync();
+            List<ProductDTO> productDto = _mapper.Map<List<ProductDTO>>(product);
+            return productDto;
+        }
 
         //Tao moi san pham
         [HttpPost]
