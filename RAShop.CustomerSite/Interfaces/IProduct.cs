@@ -7,6 +7,7 @@ namespace RAShop.CustomerSite.Interfaces
     {
         public List<ProductDTO> GetAll();
         public List<ProductDTO> GetProductByCateId(int id);
-
+        public List<ProductDTO> SearchProducts(string searchString);
+        public ProductDTO GetProductDetail(int id);
     }
 }

@@ -12,6 +12,7 @@ namespace RAShop.CustomerSite.Services
             _clientFactory = clientFactory;
         }
 
+        //Lay tat ca san pham
         public List<ProductDTO> GetAll()
         {
             var httpClient = _clientFactory.CreateClient("myclient");
@@ -19,11 +20,30 @@ namespace RAShop.CustomerSite.Services
             var data = httpClient.GetDataFromAPIAsync<List<ProductDTO>>(url);
             return data;
         }
+        //Lay san pham theo danh muc
         public List<ProductDTO> GetProductByCateId(int id)
         {
             var httpClient = _clientFactory.CreateClient("myclient");
             var url = $"/product/getproductbycateid/{id}";
             var data = httpClient.GetDataFromAPIAsync<List<ProductDTO>>(url);
+            return data;
+        }
+
+        //Tim kiem san pham
+         public List<ProductDTO> SearchProducts(string searchString)
+        {
+            var httpClient = _clientFactory.CreateClient("myclient");
+            var url = $"/product/searchproducts/{searchString}";
+            var data = httpClient.GetDataFromAPIAsync<List<ProductDTO>>(url);
+            return data;
+        }
+
+        //Lay 1 san pham, chi tiet
+         public ProductDTO GetProductDetail(int id)
+        {
+            var httpClient = _clientFactory.CreateClient("myclient");
+            var url = $"/product/getproductbyid/{id}";
+            var data = httpClient.GetDataFromAPIAsync<ProductDTO>(url);
             return data;
         }
     }
