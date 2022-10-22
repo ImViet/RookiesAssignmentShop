@@ -27,7 +27,18 @@ namespace RAShop.CustomerSite.Controllers
         public IActionResult GetProductByCateId(int cateid)
         {
             ViewBag.Products = _productService.GetProductByCateId(cateid);
-            return View();
+            return View("Index");
+        }
+        public IActionResult SearchProducts(string searchString)
+        {
+            searchString = Request.Query["searchString"];
+            ViewBag.Products = _productService.SearchProducts(searchString);
+            return View("Index");
+        }
+         public IActionResult GetProductDetail(int id)
+        {
+            var product = _productService.GetProductDetail(id);
+            return View(product);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

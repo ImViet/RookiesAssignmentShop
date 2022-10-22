@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.FileProviders;
 using RAShop.CustomerSite.Interfaces;
 using RAShop.CustomerSite.Services;
@@ -17,8 +18,22 @@ builder.Services.AddHttpClient("myclient", client =>
 {
     client.BaseAddress = new Uri("https://localhost:7150");
 });
+//Session
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = "rookiesassignment";
+    options.IdleTimeout = TimeSpan.FromSeconds(1000);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+//Interfaces
 builder.Services.AddScoped<ICategory, CategoryService>();
 builder.Services.AddScoped<IProduct, ProductService>();
+builder.Services.AddScoped<ICart, CartService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,6 +50,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

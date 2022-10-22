@@ -15,7 +15,8 @@
 
 <body>
     <header>
-        <div>Some information
+        <div style="background-color:#b1d238 ;">
+            <p></p>
         </div>
         <nav id="navbar_top" class="navbar navbar-expand-lg navbar-dark" style="background-color: #0c6363">
             <div class="container">
@@ -28,24 +29,18 @@
                 <div class="collapse navbar-collapse" id="main_nav">
                     @*Category view component*@
                     @await Component.InvokeAsync("Category")
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-light" type="submit">Search</button>
+                    <form class="d-flex" role="search" method="get">
+                        <input class="form-control me-2" name="searchString" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-light" type="submit" asp-controller="Product" asp-action="SearchProducts">Search</button>
                     </form>
                 </div> <!-- navbar-collapse.// -->
             </div> <!-- container-fluid.// -->
         </nav>
     </header>
     <div class="container-fluid d-flex">
-        @* <main role="main" class=""> *@
-            <div class="col-2">
-                haha
-            </div>
-            <div class="col-10">
+        <main role="main" class="">
                 @RenderBody()
-
-            </div>
-        @* </main> *@
+        </main>
         <div style="height: 800px"></div>
     </div>
     <footer class="border-top footer text-muted">

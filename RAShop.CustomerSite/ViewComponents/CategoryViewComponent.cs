@@ -7,11 +7,9 @@ namespace RAShop.CustomerSite.ViewComponents
 {
     public class CategoryViewComponent : ViewComponent
     {
-        private readonly IHttpClientFactory _clientFactory;
         private readonly ICategory _categoryService;
-        public CategoryViewComponent(IHttpClientFactory clientFactory, ICategory category)
+        public CategoryViewComponent( ICategory category)
         {
-            _clientFactory = clientFactory;
             _categoryService = category;
         }
         public IViewComponentResult Invoke()

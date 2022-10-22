@@ -17,3 +17,47 @@ html{
 .nav-item{
     margin: 0px 12px;
 }
+
+.card-fix:hover{
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.btn-addtocart {
+    background-color: white;
+    border: none;
+    color: black;
+    padding: 8px 16px;
+    display: inline-block;
+    font-size: 16px;
+    margin: auto;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    text-decoration: none;
+    border: 2px solid #c47135;
+}
+
+    .btn-addtocart:hover {
+        background-color: #0c6363;
+        color: #FF2;
+        text-decoration: none;
+    }
+
+.btn-backtolist {
+    background-color: #0c6363;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    display: inline-block;
+    font-size: 16px;
+    margin: auto;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    text-decoration: none;
+    border: 2px solid #c47135;
+}
+
+    .btn-backtolist:hover {
+        background-color: #0c6363;
+        color: #FF2;
+        text-decoration: none;
+    }

@@ -1,0 +1,38 @@
+@model RAShop.Shared.DTO.ProductDTO
+@{
+    var pathImage = "../../frontend/assets/img/product/" + Model.MainImg + ".png";
+}
+<section class="py-5">
+    <div class="container px-4 px-lg-5  ">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0"
+                    src="@pathImage" alt="..." /></div>
+            <div class="col-md-6">
+                <h1 class="display-6 fw-bolder">@Model.ProductName</h1>
+                <div class="small mb-1">Xuất xứ: @Model.Origin</div>
+                <div class="fs-5 mb-1">
+                    Giá:
+                    <span style="color:#e68b24"> @string.Format("{0:#,##0.##}₫", Model.Price)</span>
+                </div>
+                <hr>
+                    <pre class="commit">
+        CAM KẾT KHI MUA SẮM
+        - Tư vấn nhiệt tình & tận tâm.
+        - Đảm bảo nguồn gốc & chất lượng sản phẩm.
+        - Tích lũy điểm, nâng hạng thẻ VIP & tận hưởng ưu đãi đặc quyền.
+                        </pre>
+                <p class="lead">@Model.Description</p>
+                <div class="">
+                     <a class="btn-addtocart" href="#">
+                    <div class="glyphicon glyphicon-shopping-cart"></div>
+                    Thêm vào giỏ hàng
+                </a>
+                <a class="btn-backtolist" asp-controller="Product" asp-action="Index">
+                    <div class="glyphicon glyphicon-backward"></div>
+                    Quay lại
+                </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
