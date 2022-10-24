@@ -10,38 +10,17 @@
     <link rel="stylesheet" href="~/DemoWebMVC.styles.css" asp-append-version="true" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/frontend/assets/css/style.css">
+    <link rel="stylesheet" href="~/frontend/assets/css/cart.css">
 </head>
 
 <body>
-    <header>
-        <div style="background-color:#b1d238 ;">
-            <p></p>
-        </div>
-        <nav id="navbar_top" class="navbar navbar-expand-lg navbar-dark" style="background-color: #0c6363">
-            <div class="container">
-                <a class="navbar-brand container-logo" asp-controller="Home" asp-action="Index">
-                    <img class="header-logo" src="~/frontend/assets/img/logo/boologo.png">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="main_nav">
-                    @*Category view component*@
-                    @await Component.InvokeAsync("Category")
-                    <form class="d-flex" role="search" method="get">
-                        <input class="form-control me-2" name="searchString" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-light" type="submit" asp-controller="Product" asp-action="SearchProducts">Search</button>
-                    </form>
-                </div> <!-- navbar-collapse.// -->
-            </div> <!-- container-fluid.// -->
-        </nav>
-    </header>
-    <div class="container-fluid d-flex">
+    <partial name="Header/HeaderPartialView" />
+    <div class="container-flud">
         <main role="main" class="">
-                @RenderBody()
+            @RenderBody()
         </main>
-        <div style="height: 800px"></div>
     </div>
     <footer class="border-top footer text-muted">
         <div class="container">

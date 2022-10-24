@@ -9,7 +9,8 @@
                     src="@pathImage" alt="..." /></div>
             <div class="col-md-6">
                 <h1 class="display-6 fw-bolder">@Model.ProductName</h1>
-                <div class="small mb-1">Xuất xứ: @Model.Origin</div>
+                <div class="small mb-1" style="display: inline-block ;">Xuất xứ: @Model.Origin</div>
+                <div class="small mb-1" style="display: inline-block ; float:right;">Đơn vị tính: @Model.Unit</div>
                 <div class="fs-5 mb-1">
                     Giá:
                     <span style="color:#e68b24"> @string.Format("{0:#,##0.##}₫", Model.Price)</span>
@@ -23,7 +24,7 @@
                         </pre>
                 <p class="lead">@Model.Description</p>
                 <div class="">
-                     <a class="btn-addtocart" href="#">
+                <a class="btn-addtocart" asp-controller="ShoppingCart" asp-action="AddProdToCart" asp-route-prodid="@Model.ProductId">
                     <div class="glyphicon glyphicon-shopping-cart"></div>
                     Thêm vào giỏ hàng
                 </a>
@@ -35,4 +36,9 @@
             </div>
         </div>
     </div>
+    <div style="height:200px ;"></div>
 </section>
+<div class="rounded p-3 mb-3 row" style="background-color: #fff;">
+    <h2 class="p-0">Detail information</h2>
+    @Model.Description
+</div>

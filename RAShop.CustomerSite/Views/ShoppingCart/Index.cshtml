@@ -1,27 +1,73 @@
 @model IEnumerable<RAShop.Shared.DTO.CartDTO>
-@{int stt = 1;}
-    <table class="table">
-        <thead>
+@{
+  double total = 0;
+}
+<div class="container px-3 my-5 clearfix">
+  <!-- Shopping cart table -->
+  <div class="card">
+    <div class="card-header">
+      <h2>Giỏ hàng</h2>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered m-0">
+          <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-                <th scope="col">Handle</th>
-                <th scope="col">Handle</th>          
+              <!-- Set columns width -->
+              <th class="text-center py-3 px-4" style="min-width: 400px;">Sản phẩm</th>
+              <th class="text-right py-3 px-4" style="width: 100px;">Giá</th>
+              <th class="text-center py-3 px-4" style="width: 120px;">Số lượng</th>
+              <th class="text-right py-3 px-4" style="width: 100px;">Tổng tiền</th>
+              <th class="text-center align-middle py-3 px-0" style="width: 40px;"><a href="#"
+                  class="shop-tooltip float-none text-light" title="" data-original-title="Clear cart"><i
+                    class="ino ion-md-trash"></i></a></th>
             </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <th scope="row">@stt</th>
-                    <th>@item.Product.ProductId</th>
-                <td>@item.Product.ProductName</td>
-                <td>@item.Quantity</td>
-                <td>@item.Product.Price</td>
-                <td>@item.Total</td>
-                </tr>
+              var pathImage = "../../frontend/assets/img/product/" + @item.Product.MainImg + ".png"; 
+              total = total + @item.Total;
+              <tr>
+                <td class="p-4">
+                  <div class="media align-items-center">
+                    <img src="@pathImage" class="d-inline-block ui-w-40 ui-bordered mr-4" alt="@item.Product.ProductName">
+                      <a href="#" class="d-inline-block text-dark fs-5">@item.Product.ProductName</a>
+                    <div class="media-body">
+                      <small>
+                        <span class="text-muted">Xuất xứ: @item.Product.Origin</span>
+                        <span class="text-muted ms-3">Đơn vị: @item.Product.Unit</span> 
+                      </small>
+                    </div>
+                  </div>
+                </td>
+                <td class="text-right font-weight-semibold align-middle p-4">@string.Format("{0:#,##0.##}₫", @item.Product.Price)</td>
+                <td class="align-middle p-4"><input type="text" class="form-control text-center" value="@item.Quantity"></td>
+                <td class="text-right font-weight-semibold align-middle p-4">@string.Format("{0:#,##0.##}₫", @item.Total)</td>
+                <td class="text-center align-middle px-0"><a asp-controller="ShoppingCart" asp-action="RemoveItem" asp-route-prodid="@item.Product.ProductId" class="shop-tooltip close float-none text-danger"
+                  title="" data-original-title="Remove">X</a></td>
+              </tr>
             }
-        </tbody>
-    </table>
+
+          </tbody>
+        </table>
+      </div>
+      <!-- / Shopping cart table -->
+
+      <div class="d-flex flex-wrap justify-content-between align-items-center pb-4">
+        <div class="d-flex">
+          <div class="text-right mt-4 ">
+            <label class="text-muted font-weight-normal m-0">Tổng tiền</label>
+            <div class="text-large"><strong>@string.Format("{0:#,##0.##}₫", @total)</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="float-right">
+        <button type="button" class="btn btn-pay btn-danger mt-2" style="float:right ;">Thanh toán</button>
+        <a asp-controller="Product" asp-action="Index" type="button" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3" style="float: left;">Trở lại</a>
+      </div>
+
+    </div>
+  </div>
+</div>

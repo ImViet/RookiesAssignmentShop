@@ -64,5 +64,19 @@ namespace RAShop.CustomerSite.Services
             }
             SaveCartSession(cart);
         }
+        public void RemoveItem(int productid)
+        {
+            var product = _productService.GetProductDetail(productid);
+            var cart = GetCart();
+            var cartItem = cart.Find(p => p.Product.ProductId == productid);
+            cart.Remove(cartItem);
+            SaveCartSession(cart);
+        }
+        public int CountItem()
+        {
+            if(GetCart().Count() == 0)
+                return 0;
+            return GetCart().Count;
+        }
     }
 }

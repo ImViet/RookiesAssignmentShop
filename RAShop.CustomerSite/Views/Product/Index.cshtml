@@ -1,18 +1,21 @@
 @model IEnumerable<RAShop.Shared.DTO.ProductDTO>
 
+<div class="container mt-5">
 <div class="d-flex flex-wrap">
     @foreach (var item in ViewBag.Products)
     {
         var pathImage = "../frontend/assets/img/product/" + @item.MainImg + ".png";
-        <div class="card card-fix m-1" style="width: 24%;">
+        <div class="card-fix">
             <a asp-controller="Product" asp-action="GetProductDetail" asp-route-id="@item.ProductId">
                 <img src="@pathImage" class="card-img-top" alt="@item.ProductName">
             </a>
             <div class="card-body">
                 <h5 class="card-title">@item.ProductName</h5>
-                <p class="card-text">@item.Price</p>
-                <a class="btn btn-addtocart" asp-controller="ShoppingCart" asp-action="AddProdToCart" asp-route-prodid="@item.ProductId">Buy</a>
+                <hr>
+                <p class="card-text text-center fs-5">@string.Format("{0:#,##0.##}₫", @item.Price)</p>
+                @* <a class="btn btn-addtocart" asp-controller="ShoppingCart" asp-action="AddProdToCart" asp-route-prodid="@item.ProductId">Buy</a> *@
             </div>
         </div>
     }
+</div>
 </div>
