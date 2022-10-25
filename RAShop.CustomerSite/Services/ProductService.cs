@@ -46,5 +46,14 @@ namespace RAShop.CustomerSite.Services
             var data = httpClient.GetDataFromAPIAsync<ProductDTO>(url);
             return data;
         }
+
+        //Lay so sao trung binh
+        public double GetRatingAVG(int id)
+        {
+            var httpClient = _clientFactory.CreateClient("myclient");
+            var url = $"/product/ratingavg/{id}";
+            var data = httpClient.GetDataFromAPIAsync<double>(url);
+            return data;
+        }
     }
 }

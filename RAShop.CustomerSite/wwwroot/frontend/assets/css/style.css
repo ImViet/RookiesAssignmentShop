@@ -56,6 +56,7 @@ ul .nav-item{
     border: none;
     margin: 6px;
     width: 24%;
+    border-bottom: 2px solid transparent;
 }
 .card-fix:hover{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -63,6 +64,7 @@ ul .nav-item{
     -webkit-transform: scale(0.5); /* Safari 3-8 */
     transform: scale(1.03); 
     border: rgba(0, 0, 0, 0.2);
+    border-bottom: 3px solid #0c6363;
 }
 
 

@@ -38,6 +38,15 @@ namespace RAShop.CustomerSite.Controllers
          public IActionResult GetProductDetail(int id)
         {
             var product = _productService.GetProductDetail(id);
+            var ratingAvg = _productService.GetRatingAVG(id);
+            if(ratingAvg != 0)
+            {
+                ViewData["ratingAvg"] = ratingAvg;
+            }
+            else
+            {
+                ViewData["ratingAvg"] = 0;
+            }
             return View(product);
         }
 

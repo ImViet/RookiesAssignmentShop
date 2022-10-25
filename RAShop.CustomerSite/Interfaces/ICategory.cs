@@ -5,6 +5,6 @@ namespace RAShop.CustomerSite.Interfaces
 {
     public interface ICategory 
     {
-        public List<CategoryDTO> GetAll();
+        List<CategoryDTO> GetAll();
     }
 }

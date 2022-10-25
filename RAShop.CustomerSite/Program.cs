@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.FileProviders;
 using RAShop.CustomerSite.Interfaces;
 using RAShop.CustomerSite.Services;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

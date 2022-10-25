@@ -1,13 +1,14 @@
 @model RAShop.Shared.DTO.ProductDTO
 @{
     var pathImage = "../../frontend/assets/img/product/" + Model.MainImg + ".png";
+    var ratingAvg = Convert.ToDouble(ViewData["ratingAvg"]);
 }
-<section class="py-5">
+<section class="py-4">
     <div class="container px-4 px-lg-5  ">
         <div class="row gx-4 gx-lg-5 align-items-center">
-            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0"
-                    src="@pathImage" alt="..." /></div>
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="@pathImage" alt="..." /></div>
             <div class="col-md-6">
+                <div class="small mb-1 pb-3" style="display: inline-block ;">Loại sản phẩm: @Model.CategoryName</div>
                 <h1 class="display-6 fw-bolder">@Model.ProductName</h1>
                 <div class="small mb-1" style="display: inline-block ;">Xuất xứ: @Model.Origin</div>
                 <div class="small mb-1" style="display: inline-block ; float:right;">Đơn vị tính: @Model.Unit</div>
@@ -16,29 +17,69 @@
                     <span style="color:#e68b24"> @string.Format("{0:#,##0.##}₫", Model.Price)</span>
                 </div>
                 <hr>
-                    <pre class="commit">
+                <pre class="commit">
         CAM KẾT KHI MUA SẮM
         - Tư vấn nhiệt tình & tận tâm.
         - Đảm bảo nguồn gốc & chất lượng sản phẩm.
         - Tích lũy điểm, nâng hạng thẻ VIP & tận hưởng ưu đãi đặc quyền.
                         </pre>
-                <p class="lead">@Model.Description</p>
                 <div class="">
-                <a class="btn-addtocart" asp-controller="ShoppingCart" asp-action="AddProdToCart" asp-route-prodid="@Model.ProductId">
-                    <div class="glyphicon glyphicon-shopping-cart"></div>
-                    Thêm vào giỏ hàng
-                </a>
-                <a class="btn-backtolist" asp-controller="Product" asp-action="Index">
-                    <div class="glyphicon glyphicon-backward"></div>
-                    Quay lại
-                </a>
+                    <a class="btn-addtocart" asp-controller="ShoppingCart" asp-action="AddProdToCart"
+                        asp-route-prodid="@Model.ProductId">
+                        <div class="glyphicon glyphicon-shopping-cart"></div>
+                        Thêm vào giỏ hàng
+                    </a>
+                    <a class="btn-backtolist" asp-controller="Product" asp-action="Index">
+                        <div class="glyphicon glyphicon-backward"></div>
+                        Quay lại
+                    </a>
                 </div>
             </div>
         </div>
     </div>
-    <div style="height:200px ;"></div>
 </section>
-<div class="rounded p-3 mb-3 row" style="background-color: #fff;">
-    <h2 class="p-0">Detail information</h2>
-    @Model.Description
+<div style="background-color: #F5F5F5; padding-bottom: 20px;">
+    <h5 class="pt-2 ms-3" style="border-bottom: 3px solid #0c6363; display: inline-block">CHI TIẾT SẢN PHẨM</h5>
+    <div class="container">
+        <div class="rounded p-3 mb-3 row" style="background-color: #fff;">
+            <p>@Model.Description</p>
+        </div>
+    </div>
 </div>
+<div style="background-color: #F5F5F5; padding-bottom: 20px;">
+    <h5 class="pt-2 ms-3" style="border-bottom: 3px solid #0c6363; display: inline-block">ĐÁNH GIÁ SẢN PHẨM</h5>
+    <div class="container">
+        <div class="rounded p-3 mb-3 row" style="background-color: #fff;">
+            <div class="rounded p-3 mb-3 row" style="background-color: #fff;">
+                <h2 class="p-0 mb-3">Đánh giá @Model.ProductName</h2>
+                <div class="row">
+                    <div class="col-4">
+                        <h1>@ratingAvg<i style="color: #FDD836;" class="fas fa-star"></i></h1>
+                        <button class="btn btn-primary">Viết đánh giá</button>
+                    </div>
+                    <div class="col-8">
+                        @{
+                            if(ratingAvg == 0)
+                            {
+                                <h3>Chưa có đánh giá</h3>
+                            }
+                            else
+                            {
+                                foreach (var rating in Model.Ratings)
+                                {
+                                    <div class="row" style="min-height: 100px; margin-bottom: 15px;">
+                                        <div>
+                                            <h4>@rating.Star<i style="color: #FDD836;" class="fas fa-star"></i></h4>
+                                            <p>@rating.DateCreated</p>
+                                            <p>@rating.Comment</p>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -5,9 +5,11 @@ namespace RAShop.CustomerSite.Interfaces
 {
     public interface IProduct
     {
-        public List<ProductDTO> GetAll();
-        public List<ProductDTO> GetProductByCateId(int id);
-        public List<ProductDTO> SearchProducts(string searchString);
-        public ProductDTO GetProductDetail(int id);
+        List<ProductDTO> GetAll();
+        List<ProductDTO> GetProductByCateId(int id);
+        List<ProductDTO> SearchProducts(string searchString);
+        ProductDTO GetProductDetail(int id);
+        double GetRatingAVG(int id);
+
     }
 }

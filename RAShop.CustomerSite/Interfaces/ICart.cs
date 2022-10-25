@@ -4,11 +4,11 @@ namespace RAShop.CustomerSite.Interfaces
 {
     public interface ICart 
     {
-        public List<CartDTO>? GetCart();
-        public void AddToCart(int productid);
-        public void RemoveItem(int productid);
-        public void ClearCart();
-        public void SaveCartSession(List<CartDTO> lst);
-        public int CountItem();
+        List<CartDTO>? GetCart();
+        void AddToCart(int productid);
+        void RemoveItem(int productid);
+        void ClearCart();
+        void SaveCartSession(List<CartDTO> lst);
+        int CountItem();
     }
 }
