@@ -15,72 +15,48 @@ namespace RAShop.Backend.Controllers
     [ApiController]
     public class SubCateController : ControllerBase
     {
-        private readonly RAShopDbContext _context;
-        private readonly IMapper _mapper;
-        public SubCateController(RAShopDbContext context, IMapper mapper)
+        private readonly ISubCategory _subCategoryRepo;
+        public SubCateController(ISubCategory subCategoryRepo)
         {
-            _context = context;
-            _mapper = mapper;
+             _subCategoryRepo = subCategoryRepo;
         }
         //Lay tat ca loai san pham
         [HttpGet]
         public async Task<ActionResult<List<SubCateDTO>>> GetAllSubCategory()
         {
-            var categories = await _context.SubCategories.ToListAsync();
-            var listCateDTO = _mapper.Map<List<SubCateDTO>>(categories);
-            return listCateDTO;
+            return await _subCategoryRepo.GetAllSubCategory();
         }
 
         //Lay loai san pham theo id
         [HttpGet("{id}")]
         public async Task<ActionResult<SubCateDTO>> GetSubCategoryById(int id)
         {
-            var category = await _context.SubCategories.FirstOrDefaultAsync(x => x.SubCategoryId == id);
-            //return category;
-            SubCateDTO cateDto = _mapper.Map<SubCateDTO>(category);
-            return cateDto;
+            return await _subCategoryRepo.GetSubCategoryById(id);
+            
         }
 
         //Tao moi loai san pham
         [HttpPost]
         public async Task<ActionResult<SubCategory>> CreateSubCate(SubCategory newCate)
         {
-            var cate = new SubCategory()
-            {
-                SubCategoryId = newCate.SubCategoryId,
-                SubCategoryName = newCate.SubCategoryName,
-                Description = newCate.Description
-            };
-            await _context.SubCategories.AddAsync(cate);
-            await _context.SaveChangesAsync();
-            return cate;
+            return await _subCategoryRepo.CreateSubCate(newCate);
+         
         }
 
         //Sua mot category
         [HttpPut("{id}")]
         public async Task<ActionResult<SubCategory>> EditSubCategory(int id, SubCategory newCategory)
         {
-            var category = _context.SubCategories.Find(id);
-            if (category != null)
-            {
-                category.SubCategoryName = newCategory.SubCategoryName;
-                category.Description = newCategory.Description;
-            }
-            await _context.SaveChangesAsync();
-            return Ok();
+            return await _subCategoryRepo.EditSubCategory(id, newCategory);
+            
         }
 
         //Xoa category
         [HttpDelete("{id}")]
         public async Task<ActionResult<SubCategory>> DeleteSubCategory(int id)
         {
-            var category = _context.SubCategories.FirstOrDefault(x => x.SubCategoryId == id);
-            if (category != null)
-            {
-                 _context.SubCategories.Remove(category);
-                await _context.SaveChangesAsync();
-            }
-            return Ok();
+            return await _subCategoryRepo.DeleteSubCategory(id);
+           
         }
     }
 }

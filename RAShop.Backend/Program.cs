@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
+using RAShop.Backend;
 using RAShop.Backend.Data;
 using RAShop.Backend.Utilities.AutoMapper;
 using System.Text.Json;
@@ -22,6 +23,10 @@ builder.Services.AddDbContext<RAShopDbContext>(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper
 (typeof(AutoMapperProfile).Assembly);
+
+builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
+builder.Services.AddScoped<IProductRepo, ProductRepo>();
+builder.Services.AddScoped<ISubCategory, SubCategoryRepo>();
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
