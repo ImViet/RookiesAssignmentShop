@@ -18,9 +18,13 @@ namespace RAShop.Backend.Models
         public int? ProdImgId{get; set;}
         [ForeignKey("ProdImgId")]
         public virtual ProductImage? Image { get; set; }
-        public int SubCateId { get; set; }
+        public int? SubCateId { get; set; }
         [ForeignKey("SubCateId")]
-        public virtual SubCategory SubCategory { get; set; }
+        public virtual SubCategory? SubCategory { get; set; }
+
+        public int? CateId { get; set; }
+        [ForeignKey("CateId")]
+        public virtual Category? Category { get; set; }
         public IList<Rating>? Ratings { get; set; }
 
     }

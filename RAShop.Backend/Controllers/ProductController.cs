@@ -19,7 +19,7 @@ namespace RAShop.Backend.Controllers
         }
         //Lay tat ca san pham
         [HttpGet]
-        public async Task<PagingDTO> GetAllProduct([FromQuery(Name = "pageCurrent")] int pageNumber = 1)
+        public async Task<ActionResult<PagingDTO>> GetAllProduct([FromQuery(Name = "pageCurrent")] int pageNumber = 1)
         {
             return await _productRepo.GetAllProduct(pageNumber, PagingDTO.PAGESIZE);
         }
@@ -31,17 +31,17 @@ namespace RAShop.Backend.Controllers
             return await _productRepo.GetProductById(id);
         }
 
-        //Lay san pham theo category id
-        [HttpGet("{cateid}")]
-        public async Task<ActionResult<List<ProductDTO>>> GetProductByCateId(int cateid)
+        //Lay san pham theo sub category id
+        [HttpGet()]
+        public async Task<ActionResult<PagingDTO>> GetProductBySubCateId([FromQuery(Name = "cateid")]int cateid, [FromQuery(Name = "pageCurrent")] int pageNumber = 1)
         {
-            return await _productRepo.GetProductByCateId(cateid);
+            return await _productRepo.GetProductBySubCateId(cateid, pageNumber, PagingDTO.PAGESIZE);
         }
         //Tim kiem san pham theo ten
-        [HttpGet("{searchString}")]
-        public async Task<ActionResult<List<ProductDTO>>> SearchProducts(string searchString, int pageNumber, int pageSize)
+        [HttpGet()]
+        public async Task<ActionResult<PagingDTO>> SearchProducts([FromQuery(Name = "searchstring")] string searchString,[FromQuery(Name = "pageCurrent")] int pageNumber = 1)
         {
-            return await _productRepo.SearchProducts(searchString, pageNumber, pageSize);
+            return await _productRepo.SearchProducts(searchString, pageNumber, PagingDTO.PAGESIZE);
         }
 
         //Lay so sao trung binh

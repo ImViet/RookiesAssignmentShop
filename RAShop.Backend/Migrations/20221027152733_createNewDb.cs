@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RAShop.Backend.Migrations
 {
-    public partial class createDb : Migration
+    public partial class createNewDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -89,24 +89,28 @@ namespace RAShop.Backend.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Origin = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Unit = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProdImgId = table.Column<int>(type: "int", nullable: false),
-                    SubCateId = table.Column<int>(type: "int", nullable: false)
+                    ProdImgId = table.Column<int>(type: "int", nullable: true),
+                    SubCateId = table.Column<int>(type: "int", nullable: true),
+                    CateId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.ProductId);
                     table.ForeignKey(
+                        name: "FK_Products_Categories_CateId",
+                        column: x => x.CateId,
+                        principalTable: "Categories",
+                        principalColumn: "CategoryId");
+                    table.ForeignKey(
                         name: "FK_Products_ProductImages_ProdImgId",
                         column: x => x.ProdImgId,
                         principalTable: "ProductImages",
-                        principalColumn: "ProdImageId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ProdImageId");
                     table.ForeignKey(
                         name: "FK_Products_SubCategories_SubCateId",
                         column: x => x.SubCateId,
                         principalTable: "SubCategories",
-                        principalColumn: "SubCategoryId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "SubCategoryId");
                 });
 
             migrationBuilder.CreateTable(
@@ -137,6 +141,28 @@ namespace RAShop.Backend.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Ratings",
+                columns: table => new
+                {
+                    RatingId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Star = table.Column<int>(type: "int", nullable: false),
+                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ratings", x => x.RatingId);
+                    table.ForeignKey(
+                        name: "FK_Ratings_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_OrderDetails_OrderId",
                 table: "OrderDetails",
@@ -146,6 +172,11 @@ namespace RAShop.Backend.Migrations
                 name: "IX_OrderDetails_ProductId",
                 table: "OrderDetails",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_CateId",
+                table: "Products",
+                column: "CateId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_ProdImgId",
@@ -158,6 +189,11 @@ namespace RAShop.Backend.Migrations
                 column: "SubCateId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Ratings_ProductId",
+                table: "Ratings",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SubCategories_CateId",
                 table: "SubCategories",
                 column: "CateId");
@@ -167,6 +203,9 @@ namespace RAShop.Backend.Migrations
         {
             migrationBuilder.DropTable(
                 name: "OrderDetails");
+
+            migrationBuilder.DropTable(
+                name: "Ratings");
 
             migrationBuilder.DropTable(
                 name: "Orders");

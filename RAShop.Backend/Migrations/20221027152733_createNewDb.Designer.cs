@@ -12,8 +12,8 @@ using RAShop.Backend.Data;
 namespace RAShop.Backend.Migrations
 {
     [DbContext(typeof(RAShopDbContext))]
-    [Migration("20221025060357_updateDb")]
-    partial class updateDb
+    [Migration("20221027152733_createNewDb")]
+    partial class createNewDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -105,6 +105,9 @@ namespace RAShop.Backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"), 1L, 1);
 
+                    b.Property<int?>("CateId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -125,13 +128,15 @@ namespace RAShop.Backend.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("SubCateId")
+                    b.Property<int?>("SubCateId")
                         .HasColumnType("int");
 
                     b.Property<string>("Unit")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductId");
+
+                    b.HasIndex("CateId");
 
                     b.HasIndex("ProdImgId");
 
@@ -246,15 +251,19 @@ namespace RAShop.Backend.Migrations
 
             modelBuilder.Entity("RAShop.Backend.Models.Product", b =>
                 {
+                    b.HasOne("RAShop.Backend.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CateId");
+
                     b.HasOne("RAShop.Backend.Models.ProductImage", "Image")
                         .WithMany()
                         .HasForeignKey("ProdImgId");
 
                     b.HasOne("RAShop.Backend.Models.SubCategory", "SubCategory")
                         .WithMany("Products")
-                        .HasForeignKey("SubCateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SubCateId");
+
+                    b.Navigation("Category");
 
                     b.Navigation("Image");
 
