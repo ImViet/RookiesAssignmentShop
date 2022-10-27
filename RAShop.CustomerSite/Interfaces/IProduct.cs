@@ -6,8 +6,8 @@ namespace RAShop.CustomerSite.Interfaces
     public interface IProduct
     {
         PagingDTO GetAll(int pageNumber);
-        List<ProductDTO> GetProductByCateId(int id);
-        List<ProductDTO> SearchProducts(string searchString);
+        PagingDTO GetProductBySubCateId(int id, int pageNumber);
+        PagingDTO SearchProducts(string searchString, int pageNumber);
         ProductDTO GetProductDetail(int id);
         double GetRatingAVG(int id);
 

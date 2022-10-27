@@ -20,23 +20,40 @@ namespace RAShop.CustomerSite.Controllers
 
         public IActionResult Index([FromQuery(Name = "pageCurrent")] int pageCurrent = 1)
         {
-            ViewData["page"] = pageCurrent;
+            if(pageCurrent > 1)
+                ViewData["page"] = pageCurrent;
+            else
+                ViewData["page"] = 1;
             var data = _productService.GetAll(pageCurrent);
             ViewData["totalPage"] = data.TotalPages;
             ViewBag.Products = data.Products;
             return View();
         }
 
-        public IActionResult GetProductByCateId(int cateid)
+        public IActionResult GetProductBySubCateId(int cateid, int pageCurrent = 1)
         {
-            ViewBag.Products = _productService.GetProductByCateId(cateid);
-            return View("Index");
+            if(pageCurrent > 1)
+                ViewData["page"] = pageCurrent;
+            else
+                ViewData["page"] = 1;
+            var data = _productService.GetProductBySubCateId(cateid, pageCurrent);
+            ViewData["totalPage"] = data.TotalPages;
+            ViewData["subCateId"] = cateid;
+            ViewBag.Products = data.Products;
+            return View();
         }
-        public IActionResult SearchProducts(string searchString)
+        public IActionResult SearchProducts(string searchString, int pageCurrent = 1)
         {
+            if(pageCurrent > 1)
+                ViewData["page"] = pageCurrent;
+            else
+                ViewData["page"] = 1;
             searchString = Request.Query["searchString"];
-            ViewBag.Products = _productService.SearchProducts(searchString);
-            return View("Index");
+            var data = _productService.SearchProducts(searchString, pageCurrent);
+            ViewData["totalPage"] = data.TotalPages;
+            ViewData["searchString"] = searchString;
+            ViewBag.Products = data.Products;
+            return View();
         }
          public IActionResult GetProductDetail(int id)
         {

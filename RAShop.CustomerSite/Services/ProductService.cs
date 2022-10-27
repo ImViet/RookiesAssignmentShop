@@ -21,20 +21,20 @@ namespace RAShop.CustomerSite.Services
             return data;
         }
         //Lay san pham theo danh muc
-        public List<ProductDTO> GetProductByCateId(int id)
+        public PagingDTO GetProductBySubCateId(int id, int pageCurrent)
         {
             var httpClient = _clientFactory.CreateClient("myclient");
-            var url = $"/product/getproductbycateid/{id}";
-            var data = httpClient.GetDataFromAPIAsync<List<ProductDTO>>(url);
+            var url = $"/product/getproductbysubcateid?cateid={id}&pageCurrent={pageCurrent}";
+            var data = httpClient.GetDataFromAPIAsync<PagingDTO>(url);
             return data;
         }
 
         //Tim kiem san pham
-         public List<ProductDTO> SearchProducts(string searchString)
+         public PagingDTO SearchProducts(string searchString, int pageCurrent)
         {
             var httpClient = _clientFactory.CreateClient("myclient");
-            var url = $"/product/searchproducts/{searchString}";
-            var data = httpClient.GetDataFromAPIAsync<List<ProductDTO>>(url);
+            var url = $"/product/searchproducts?searchstring={searchString}&pageCurrent={pageCurrent}";
+            var data = httpClient.GetDataFromAPIAsync<PagingDTO>(url);
             return data;
         }
 
