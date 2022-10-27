@@ -15,11 +15,18 @@ namespace RAShop.Backend
             _context = context;
             _mapper = mapper;
         }
-        public async Task<List<ProductDTO>> GetAllProduct()
+        public async Task<PagingDTO> GetAllProduct(int pageNumber, int pageSize)
         {
-            var products = await _context.Products.Include(x => x.SubCategory).Include(p => p.Image).Include(r => r.Ratings).ToListAsync();
+            var query = await _context.Products.ToListAsync();
+            var products = await _context.Products.Skip((pageNumber - 1)*pageSize)
+                                    .Take(pageSize)
+                                    .Include(x => x.SubCategory)
+                                    .Include(p => p.Image)
+                                    .Include(r => r.Ratings)
+                                    .ToListAsync();
             var listProdDTO = _mapper.Map<List<ProductDTO>>(products);
-            return listProdDTO;
+            var totalPages = (int)Math.Ceiling((double)query.Count / PagingDTO.PAGESIZE);
+            return new PagingDTO{TotalPages = totalPages, Products = listProdDTO};
         }
 
         public async Task<List<ProductDTO>> GetProductByCateId(int cateid)
@@ -35,9 +42,16 @@ namespace RAShop.Backend
             ProductDTO productDto = _mapper.Map<ProductDTO>(product);
             return productDto;
         }
-        public async Task<List<ProductDTO>> SearchProducts(string searchString)
+        public async Task<List<ProductDTO>> SearchProducts(string searchString, int pageNumber, int pageSize)
         {
-            var product = await _context.Products.Include(x => x.SubCategory).Include(p => p.Image).Include(r => r.Ratings).Where(x => x.ProductName.ToUpper().Contains(searchString.ToUpper())).ToListAsync();
+            var product = await _context.Products
+                                    .Skip((pageNumber - 1)*pageSize)
+                                    .Take(pageSize)
+                                    .Include(x => x.SubCategory)
+                                    .Include(p => p.Image)
+                                    .Include(r => r.Ratings)
+                                    .Where(x => x.ProductName.ToUpper().Contains(searchString.ToUpper()))
+                                    .ToListAsync();
             List<ProductDTO> productDto = _mapper.Map<List<ProductDTO>>(product);
             return productDto;
         }

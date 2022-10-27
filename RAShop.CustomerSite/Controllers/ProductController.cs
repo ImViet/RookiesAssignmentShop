@@ -18,9 +18,12 @@ namespace RAShop.CustomerSite.Controllers
             _productService = productService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index([FromQuery(Name = "pageCurrent")] int pageCurrent = 1)
         {
-            ViewBag.Products = _productService.GetAll();
+            ViewData["page"] = pageCurrent;
+            var data = _productService.GetAll(pageCurrent);
+            ViewData["totalPage"] = data.TotalPages;
+            ViewBag.Products = data.Products;
             return View();
         }
 

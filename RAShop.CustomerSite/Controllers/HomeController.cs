@@ -20,7 +20,7 @@ namespace RAShop.CustomerSite.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Products = _productService.GetAll();
+            // ViewBag.Products = _productService.GetAll();
             return View();
         }
 

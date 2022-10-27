@@ -19,9 +19,9 @@ namespace RAShop.Backend.Controllers
         }
         //Lay tat ca san pham
         [HttpGet]
-        public async Task<ActionResult<List<ProductDTO>>> GetAllProduct()
+        public async Task<PagingDTO> GetAllProduct([FromQuery(Name = "pageCurrent")] int pageNumber = 1)
         {
-            return await _productRepo.GetAllProduct();
+            return await _productRepo.GetAllProduct(pageNumber, PagingDTO.PAGESIZE);
         }
 
         //Lay san pham theo id
@@ -39,9 +39,9 @@ namespace RAShop.Backend.Controllers
         }
         //Tim kiem san pham theo ten
         [HttpGet("{searchString}")]
-        public async Task<ActionResult<List<ProductDTO>>> SearchProducts(string searchString)
+        public async Task<ActionResult<List<ProductDTO>>> SearchProducts(string searchString, int pageNumber, int pageSize)
         {
-            return await _productRepo.SearchProducts(searchString);
+            return await _productRepo.SearchProducts(searchString, pageNumber, pageSize);
         }
 
         //Lay so sao trung binh

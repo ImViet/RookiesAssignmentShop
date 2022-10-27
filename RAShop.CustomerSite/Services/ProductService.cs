@@ -13,11 +13,11 @@ namespace RAShop.CustomerSite.Services
         }
 
         //Lay tat ca san pham
-        public List<ProductDTO> GetAll()
+        public PagingDTO GetAll(int pageNumber)
         {
             var httpClient = _clientFactory.CreateClient("myclient");
-            var url = "/product/getallproduct";
-            var data = httpClient.GetDataFromAPIAsync<List<ProductDTO>>(url);
+            var url = $"/product/getallproduct?pageCurrent={pageNumber}";
+            var data = httpClient.GetDataFromAPIAsync<PagingDTO>(url);
             return data;
         }
         //Lay san pham theo danh muc

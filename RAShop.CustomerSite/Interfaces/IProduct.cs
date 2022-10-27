@@ -5,7 +5,7 @@ namespace RAShop.CustomerSite.Interfaces
 {
     public interface IProduct
     {
-        List<ProductDTO> GetAll();
+        PagingDTO GetAll(int pageNumber);
         List<ProductDTO> GetProductByCateId(int id);
         List<ProductDTO> SearchProducts(string searchString);
         ProductDTO GetProductDetail(int id);
