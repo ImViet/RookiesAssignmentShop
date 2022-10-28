@@ -20,7 +20,15 @@ namespace RAShop.CustomerSite.Services
             var data = httpClient.GetDataFromAPIAsync<PagingDTO>(url);
             return data;
         }
-        //Lay san pham theo danh muc
+          //Lay san pham theo danh muc
+        public PagingDTO GetProductByCateId(int id, int pageCurrent)
+        {
+            var httpClient = _clientFactory.CreateClient("myclient");
+            var url = $"/product/getproductbycateid?cateid={id}&pageCurrent={pageCurrent}";
+            var data = httpClient.GetDataFromAPIAsync<PagingDTO>(url);
+            return data;
+        }
+        //Lay san pham theo danh muc con
         public PagingDTO GetProductBySubCateId(int id, int pageCurrent)
         {
             var httpClient = _clientFactory.CreateClient("myclient");

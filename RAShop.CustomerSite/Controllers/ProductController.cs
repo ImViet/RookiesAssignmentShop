@@ -29,6 +29,18 @@ namespace RAShop.CustomerSite.Controllers
             ViewBag.Products = data.Products;
             return View();
         }
+        public IActionResult GetProductByCateId(int cateid, int pageCurrent = 1)
+        {
+            if(pageCurrent > 1)
+                ViewData["page"] = pageCurrent;
+            else
+                ViewData["page"] = 1;
+            var data = _productService.GetProductByCateId(cateid, pageCurrent);
+            ViewData["totalPage"] = data.TotalPages;
+            ViewData["cateId"] = cateid;
+            ViewBag.Products = data.Products;
+            return View();
+        }
 
         public IActionResult GetProductBySubCateId(int cateid, int pageCurrent = 1)
         {
