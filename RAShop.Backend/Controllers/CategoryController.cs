@@ -15,8 +15,8 @@ namespace RAShop.Backend.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private readonly ICategoryRepo _categoryRepo;
-        public CategoryController(ICategoryRepo categoryRepo)
+        private readonly ICategoryRepository _categoryRepo;
+        public CategoryController(ICategoryRepository categoryRepo)
         {
             _categoryRepo = categoryRepo;
         }

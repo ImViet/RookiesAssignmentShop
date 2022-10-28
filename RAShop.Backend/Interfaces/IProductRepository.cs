@@ -4,10 +4,11 @@ using RAShop.Shared.DTO;
 
 namespace RAShop.Backend
 {
-    public interface IProductRepo
+    public interface IProductRepository
     {
         Task<PagingDTO> GetAllProduct(int pageNumber, int pageSize);
         Task<ProductDTO> GetProductById(int id);
+        Task<PagingDTO> GetProductByCateId(int cateid, int pageNumber, int pageSize);
         Task<PagingDTO> GetProductBySubCateId(int cateid, int pageNumber, int pageSize);
         Task<PagingDTO> SearchProducts(string searchString, int pageNumber, int pageSize);
         Task<double> RatingAVG(int id);

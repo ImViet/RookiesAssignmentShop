@@ -12,8 +12,8 @@ namespace RAShop.Backend.Controllers
     [ApiController]
     public class ProductController : Controller
     {
-        private readonly IProductRepo _productRepo;
-        public ProductController(IProductRepo productRepo)
+        private readonly IProductRepository _productRepo;
+        public ProductController(IProductRepository productRepo)
         {
             _productRepo = productRepo;
         }
@@ -31,15 +31,21 @@ namespace RAShop.Backend.Controllers
             return await _productRepo.GetProductById(id);
         }
 
+        //Lay san pham theo category id
+        [HttpGet()]
+        public async Task<ActionResult<PagingDTO>> GetProductByCateId([FromQuery(Name = "cateid")] int cateid, [FromQuery(Name = "pageCurrent")] int pageNumber = 1)
+        {
+            return await _productRepo.GetProductByCateId(cateid, pageNumber, PagingDTO.PAGESIZE);
+        }
         //Lay san pham theo sub category id
         [HttpGet()]
-        public async Task<ActionResult<PagingDTO>> GetProductBySubCateId([FromQuery(Name = "cateid")]int cateid, [FromQuery(Name = "pageCurrent")] int pageNumber = 1)
+        public async Task<ActionResult<PagingDTO>> GetProductBySubCateId([FromQuery(Name = "cateid")] int cateid, [FromQuery(Name = "pageCurrent")] int pageNumber = 1)
         {
             return await _productRepo.GetProductBySubCateId(cateid, pageNumber, PagingDTO.PAGESIZE);
         }
         //Tim kiem san pham theo ten
         [HttpGet()]
-        public async Task<ActionResult<PagingDTO>> SearchProducts([FromQuery(Name = "searchstring")] string searchString,[FromQuery(Name = "pageCurrent")] int pageNumber = 1)
+        public async Task<ActionResult<PagingDTO>> SearchProducts([FromQuery(Name = "searchstring")] string searchString, [FromQuery(Name = "pageCurrent")] int pageNumber = 1)
         {
             return await _productRepo.SearchProducts(searchString, pageNumber, PagingDTO.PAGESIZE);
         }

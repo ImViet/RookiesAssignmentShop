@@ -4,7 +4,7 @@ using RAShop.Shared.DTO;
 
 namespace RAShop.Backend
 {
-    public interface ISubCategory
+    public interface ISubCategoryRepository
     {
         Task<List<SubCateDTO>> GetAllSubCategory();
         Task<SubCateDTO> GetSubCategoryById(int id);

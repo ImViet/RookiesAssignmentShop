@@ -6,11 +6,11 @@ using RAShop.Shared.DTO;
 
 namespace RAShop.Backend
 {
-    public class ProductRepo : IProductRepo
+    public class ProductRepository : IProductRepository
     {
         private readonly RAShopDbContext _context;
         private readonly IMapper _mapper;
-        public ProductRepo(RAShopDbContext context, IMapper mapper)
+        public ProductRepository(RAShopDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -18,7 +18,7 @@ namespace RAShop.Backend
         public async Task<PagingDTO> GetAllProduct(int pageNumber, int pageSize)
         {
             var query = await _context.Products.ToListAsync();
-            var products = await _context.Products.Skip((pageNumber - 1)*pageSize)
+            var products = await _context.Products.Skip((pageNumber - 1) * pageSize)
                                     .Take(pageSize)
                                     .Include(x => x.SubCategory)
                                     .Include(x => x.Category)
@@ -27,9 +27,25 @@ namespace RAShop.Backend
                                     .ToListAsync();
             var listProdDTO = _mapper.Map<List<ProductDTO>>(products);
             var totalPages = (int)Math.Ceiling((double)query.Count / PagingDTO.PAGESIZE);
-            return new PagingDTO{TotalPages = totalPages, Products = listProdDTO};
+            return new PagingDTO { TotalPages = totalPages, Products = listProdDTO };
         }
 
+        public async Task<PagingDTO> GetProductByCateId(int cateid, int pageNumber, int pageSize)
+        {
+            var productQuery = _context.Products.Where(x => x.Category.CategoryId == cateid);
+            var products = await productQuery
+                                    .Skip((pageNumber - 1) * pageSize)
+                                    .Take(pageSize)
+                                    .Include(x => x.SubCategory)
+                                    .Include(x => x.Category)
+                                    .Include(p => p.Image)
+                                    .Include(r => r.Ratings)
+                                    .ToListAsync();
+            var countProduct = await productQuery.CountAsync();
+            var listProdDTO = _mapper.Map<List<ProductDTO>>(products);
+            var totalPages = (int)Math.Ceiling((double)countProduct / PagingDTO.PAGESIZE);
+            return new PagingDTO { TotalPages = totalPages, Products = listProdDTO };
+        }
         public async Task<PagingDTO> GetProductBySubCateId(int cateid, int pageNumber, int pageSize)
         {
             var productQuery = _context.Products.Where(x => x.SubCategory.SubCategoryId == cateid);
@@ -44,7 +60,7 @@ namespace RAShop.Backend
             var countProduct = await productQuery.CountAsync();
             var listProdDTO = _mapper.Map<List<ProductDTO>>(products);
             var totalPages = (int)Math.Ceiling((double)countProduct / PagingDTO.PAGESIZE);
-            return new PagingDTO{TotalPages = totalPages, Products = listProdDTO};
+            return new PagingDTO { TotalPages = totalPages, Products = listProdDTO };
         }
 
         public async Task<ProductDTO> GetProductById(int id)
@@ -57,7 +73,7 @@ namespace RAShop.Backend
         {
             var productQuery = _context.Products.Where(x => x.ProductName.ToUpper().Contains(searchString.ToUpper()));
             var products = await productQuery
-                                    .Skip((pageNumber - 1)*pageSize)
+                                    .Skip((pageNumber - 1) * pageSize)
                                     .Take(pageSize)
                                     .Include(x => x.SubCategory)
                                     .Include(x => x.Category)
@@ -67,20 +83,20 @@ namespace RAShop.Backend
             var countProduct = await productQuery.CountAsync();
             List<ProductDTO> listProdDTO = _mapper.Map<List<ProductDTO>>(products);
             var totalPages = (int)Math.Ceiling((double)countProduct / PagingDTO.PAGESIZE);
-            return new PagingDTO{TotalPages = totalPages, Products = listProdDTO};
+            return new PagingDTO { TotalPages = totalPages, Products = listProdDTO };
         }
 
         public async Task<double> RatingAVG(int id)
         {
-              double ratingAvg = 0;
+            double ratingAvg = 0;
             var ratingProduct = await _context.Ratings.FirstOrDefaultAsync(x => x.ProductId == id);
-            if(ratingProduct != null)
+            if (ratingProduct != null)
             {
                 ratingAvg = await _context.Products.Where(p => p.ProductId == id).Select(r => r.Ratings.Average(s => s.Star)).FirstOrDefaultAsync();
             }
             else
             {
-                ratingAvg=0;
+                ratingAvg = 0;
             }
             return ratingAvg;
         }
@@ -117,7 +133,7 @@ namespace RAShop.Backend
 
         public async Task<Product> EditProduct(int id, Product newProduct)
         {
-             var product = _context.Products.Find(id);
+            var product = _context.Products.Find(id);
             if (product != null)
             {
                 product.ProductId = newProduct.ProductId;

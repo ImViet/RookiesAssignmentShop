@@ -6,11 +6,11 @@ using RAShop.Shared.DTO;
 
 namespace RAShop.Backend
 {
-    public class CategoryRepo : ICategoryRepo
+    public class CategoryRepository : ICategoryRepository
     {
         private readonly RAShopDbContext _context;
         private readonly IMapper _mapper;
-        public CategoryRepo(RAShopDbContext context, IMapper mapper)
+        public CategoryRepository(RAShopDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

@@ -24,9 +24,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper
 (typeof(AutoMapperProfile).Assembly);
 
-builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
-builder.Services.AddScoped<IProductRepo, ProductRepo>();
-builder.Services.AddScoped<ISubCategory, SubCategoryRepo>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ISubCategory, SubCategoryRepository>();
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.

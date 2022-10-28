@@ -15,8 +15,8 @@ namespace RAShop.Backend.Controllers
     [ApiController]
     public class SubCateController : ControllerBase
     {
-        private readonly ISubCategory _subCategoryRepo;
-        public SubCateController(ISubCategory subCategoryRepo)
+        private readonly ISubCategoryRepository _subCategoryRepo;
+        public SubCateController(ISubCategoryRepository subCategoryRepo)
         {
              _subCategoryRepo = subCategoryRepo;
         }
