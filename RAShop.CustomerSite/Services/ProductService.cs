@@ -13,35 +13,35 @@ namespace RAShop.CustomerSite.Services
         }
 
         //Lay tat ca san pham
-        public PagingDTO GetAll(int pageNumber)
+        public PagingDTO GetAll(string sortOrder, int pageNumber)
         {
             var httpClient = _clientFactory.CreateClient("myclient");
-            var url = $"/product/getallproduct?pageCurrent={pageNumber}";
+            var url = $"/product/getallproduct?sort={sortOrder}&pageCurrent={pageNumber}";
             var data = httpClient.GetDataFromAPIAsync<PagingDTO>(url);
             return data;
         }
           //Lay san pham theo danh muc
-        public PagingDTO GetProductByCateId(int id, int pageCurrent)
+        public PagingDTO GetProductByCateId(int id, string sortOrder, int pageCurrent)
         {
             var httpClient = _clientFactory.CreateClient("myclient");
-            var url = $"/product/getproductbycateid?cateid={id}&pageCurrent={pageCurrent}";
+            var url = $"/product/getproductbycateid?cateid={id}&sort={sortOrder}&pageCurrent={pageCurrent}";
             var data = httpClient.GetDataFromAPIAsync<PagingDTO>(url);
             return data;
         }
         //Lay san pham theo danh muc con
-        public PagingDTO GetProductBySubCateId(int id, int pageCurrent)
+        public PagingDTO GetProductBySubCateId(int id, string sortOrder, int pageCurrent)
         {
             var httpClient = _clientFactory.CreateClient("myclient");
-            var url = $"/product/getproductbysubcateid?cateid={id}&pageCurrent={pageCurrent}";
+            var url = $"/product/getproductbysubcateid?cateid={id}&sort={sortOrder}&pageCurrent={pageCurrent}";
             var data = httpClient.GetDataFromAPIAsync<PagingDTO>(url);
             return data;
         }
 
         //Tim kiem san pham
-         public PagingDTO SearchProducts(string searchString, int pageCurrent)
+         public PagingDTO SearchProducts(string searchString, string sortOrder, int pageCurrent)
         {
             var httpClient = _clientFactory.CreateClient("myclient");
-            var url = $"/product/searchproducts?searchstring={searchString}&pageCurrent={pageCurrent}";
+            var url = $"/product/searchproducts?searchstring={searchString}&sort={sortOrder}&pageCurrent={pageCurrent}";
             var data = httpClient.GetDataFromAPIAsync<PagingDTO>(url);
             return data;
         }

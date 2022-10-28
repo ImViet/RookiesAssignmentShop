@@ -3,8 +3,68 @@
     var pageCurrent = (int)ViewData["page"];
     int totalPages = (int)ViewData["totalPage"];
     string searchString = (string)ViewData["searchString"];
+    string sort = (string)ViewData["sort"];
 }
 <div class="container mt-5">
+    <div class="row">
+        <div class="btn-group float-end" style="width: 15%!important; margin-bottom: 20px;">
+            @switch (sort)
+            {
+                case "price":
+                    <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                        Sắp xếp: Giá tăng dần
+                    </button>
+                    break;
+                case "price_desc":
+                    <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                        Sắp xếp: Giá giảm dần
+                    </button>
+                    break;
+                case "name":
+                    <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                        Sắp xếp: Tên a-z
+                    </button>
+                    break;
+                case "name_desc":
+                    <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                        Sắp xếp: Tên z-a
+                    </button>
+                    break;
+                default:
+                    <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                        Sắp xếp
+                    </button>
+                    break;
+            }
+            <ul class="dropdown-menu">
+                <li>
+                    <a a class="dropdown-item" asp-controller="Product" asp-action="SearchProducts"  asp-route-searchString="@searchString"
+                        asp-route-sortorder="price" asp-route-pageCurrent="@pageCurrent">Giá tăng dần
+                    </a>
+                </li>
+                <li>
+                    <a a class="dropdown-item" asp-controller="Product" asp-action="SearchProducts"  asp-route-searchString="@searchString"
+                        asp-route-sortorder="price_desc" asp-route-pageCurrent="@pageCurrent">Giá giảm dần
+                    </a>
+                </li>
+                 <li>
+                    <a a class="dropdown-item" asp-controller="Product" asp-action="SearchProducts"  asp-route-searchString="@searchString"
+                        asp-route-sortorder="name" asp-route-pageCurrent="@pageCurrent">Tên a-z
+                    </a>
+                </li>
+                 <li>
+                    <a a class="dropdown-item" asp-controller="Product" asp-action="SearchProducts"  asp-route-searchString="@searchString"
+                        asp-route-sortorder="name_desc" asp-route-pageCurrent="@pageCurrent">Tên z-a
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
     <div class="d-flex flex-wrap">
         @foreach (var item in ViewBag.Products)
         {
@@ -18,24 +78,23 @@
                     <hr>
                     <p class="card-text text-center fs-5" style="color:#e68b24 ;">@string.Format("{0:#,##0.##}₫",
                     @item.Price)</p>
-                    @* <a class="btn btn-addtocart" asp-controller="ShoppingCart" asp-action="AddProdToCart"
-                        asp-route-prodid="@item.ProductId">Buy</a> *@
                 </div>
             </div>
         }
     </div>
 </div>
 
-@if(totalPages == 1)
+@if (totalPages == 1)
 {
-    
+
 }
 else if (pageCurrent == 1)
 {
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-end">
             <li class="page-item "><a class="page-link" asp-controller="Product" asp-action="SearchProducts"
-               asp-route-searchString="@searchString" asp-route-pageCurrent="@(pageCurrent + 1)">Next</a></li>
+                asp-route-searchString="@searchString" asp-route-sortorder="@sort"
+                asp-route-pageCurrent="@(pageCurrent + 1)">Next</a></li>
         </ul>
     </nav>
 }
@@ -44,17 +103,21 @@ else if (pageCurrent == totalPages)
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-end">
             <li class="page-item "><a class="page-link" asp-controller="Product" asp-action="SearchProducts"
-               asp-route-searchString="@searchString" asp-route-pageCurrent="@(pageCurrent - 1)">Previous</a></li>
+                asp-route-searchString="@searchString" asp-route-sortorder="@sort"
+                asp-route-pageCurrent="@(pageCurrent - 1)">Previous</a></li>
         </ul>
     </nav>
 }
-else{
-  <nav aria-label="Page navigation example">
+else
+{
+    <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-end">
             <li class="page-item "><a class="page-link" asp-controller="Product" asp-action="SearchProducts"
-                asp-route-searchString="@searchString" asp-route-pageCurrent="@(pageCurrent - 1)" >Previous</a></li>
+                asp-route-searchString="@searchString" asp-route-sortorder="@sort"
+                asp-route-pageCurrent="@(pageCurrent - 1)">Previous</a></li>
             <li class="page-item "><a class="page-link" asp-controller="Product" asp-action="SearchProducts"
-                asp-route-searchString="@searchString" asp-route-pageCurrent="@(pageCurrent + 1)">Next</a></li>
+                asp-route-searchString="@searchString" asp-route-sortorder="@sort"
+                asp-route-pageCurrent="@(pageCurrent + 1)">Next</a></li>
         </ul>
     </nav>
 }

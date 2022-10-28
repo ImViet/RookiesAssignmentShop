@@ -26,7 +26,7 @@ builder.Services.AddAutoMapper
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<ISubCategory, SubCategoryRepository>();
+builder.Services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.

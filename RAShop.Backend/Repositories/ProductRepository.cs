@@ -15,10 +15,33 @@ namespace RAShop.Backend
             _context = context;
             _mapper = mapper;
         }
-        public async Task<PagingDTO> GetAllProduct(int pageNumber, int pageSize)
+        public async Task<PagingDTO> GetAllProduct(string sortOrder, int pageNumber, int pageSize)
         {
-            var query = await _context.Products.ToListAsync();
-            var products = await _context.Products.Skip((pageNumber - 1) * pageSize)
+
+            var productQuery = _context.Products.AsQueryable();
+            if (sortOrder != "0")
+            {
+                switch (sortOrder)
+                {
+                    case "price":
+                        productQuery = productQuery.OrderBy(p => p.Price);
+                        break;
+                    case "price_desc":
+                        productQuery = productQuery.OrderByDescending(p => p.Price);
+                        break;
+                    case "name":
+                        productQuery = productQuery.OrderBy(p => p.ProductName);
+                        break;
+                    case "name_desc":
+                        productQuery = productQuery.OrderByDescending(p => p.ProductName);
+                        break;
+                    default:
+                        productQuery = productQuery.OrderBy(p => p.ProductId);
+                        break;
+                }
+            }
+            var countProduct = await productQuery.CountAsync();
+            var products = await productQuery.Skip((pageNumber - 1) * pageSize)
                                     .Take(pageSize)
                                     .Include(x => x.SubCategory)
                                     .Include(x => x.Category)
@@ -26,13 +49,35 @@ namespace RAShop.Backend
                                     .Include(r => r.Ratings)
                                     .ToListAsync();
             var listProdDTO = _mapper.Map<List<ProductDTO>>(products);
-            var totalPages = (int)Math.Ceiling((double)query.Count / PagingDTO.PAGESIZE);
+            var totalPages = (int)Math.Ceiling((double)countProduct / PagingDTO.PAGESIZE);
             return new PagingDTO { TotalPages = totalPages, Products = listProdDTO };
         }
 
-        public async Task<PagingDTO> GetProductByCateId(int cateid, int pageNumber, int pageSize)
+        public async Task<PagingDTO> GetProductByCateId(int cateid, string sortOrder, int pageNumber, int pageSize)
         {
             var productQuery = _context.Products.Where(x => x.Category.CategoryId == cateid);
+            if (!string.IsNullOrEmpty(sortOrder))
+            {
+                switch (sortOrder)
+                {
+                    case "price":
+                        productQuery = productQuery.OrderBy(p => p.Price);
+                        break;
+                    case "price_desc":
+                        productQuery = productQuery.OrderByDescending(p => p.Price);
+                        break;
+                    case "name":
+                        productQuery = productQuery.OrderBy(p => p.ProductName);
+                        break;
+                    case "name_desc":
+                        productQuery = productQuery.OrderByDescending(p => p.ProductName);
+                        break;
+                    default:
+                        productQuery = productQuery.OrderBy(p => p.ProductId);
+                        break;
+                }
+            }
+            var countProduct = await productQuery.CountAsync();
             var products = await productQuery
                                     .Skip((pageNumber - 1) * pageSize)
                                     .Take(pageSize)
@@ -41,14 +86,34 @@ namespace RAShop.Backend
                                     .Include(p => p.Image)
                                     .Include(r => r.Ratings)
                                     .ToListAsync();
-            var countProduct = await productQuery.CountAsync();
             var listProdDTO = _mapper.Map<List<ProductDTO>>(products);
             var totalPages = (int)Math.Ceiling((double)countProduct / PagingDTO.PAGESIZE);
             return new PagingDTO { TotalPages = totalPages, Products = listProdDTO };
         }
-        public async Task<PagingDTO> GetProductBySubCateId(int cateid, int pageNumber, int pageSize)
+        public async Task<PagingDTO> GetProductBySubCateId(int cateid, string sortOrder, int pageNumber, int pageSize)
         {
             var productQuery = _context.Products.Where(x => x.SubCategory.SubCategoryId == cateid);
+            if (!string.IsNullOrEmpty(sortOrder))
+            {
+                switch (sortOrder)
+                {
+                    case "price":
+                        productQuery = productQuery.OrderBy(p => p.Price);
+                        break;
+                    case "price_desc":
+                        productQuery = productQuery.OrderByDescending(p => p.Price);
+                        break;
+                    case "name":
+                        productQuery = productQuery.OrderBy(p => p.ProductName);
+                        break;
+                    case "name_desc":
+                        productQuery = productQuery.OrderByDescending(p => p.ProductName);
+                        break;
+                    default:
+                        productQuery = productQuery.OrderBy(p => p.ProductId);
+                        break;
+                }
+            }
             var products = await productQuery
                                     .Skip((pageNumber - 1) * pageSize)
                                     .Take(pageSize)
@@ -69,9 +134,36 @@ namespace RAShop.Backend
             ProductDTO productDto = _mapper.Map<ProductDTO>(product);
             return productDto;
         }
-        public async Task<PagingDTO> SearchProducts(string searchString, int pageNumber, int pageSize)
+        public async Task<PagingDTO> SearchProducts(string searchString, string sortOrder, int pageNumber, int pageSize)
         {
             var productQuery = _context.Products.Where(x => x.ProductName.ToUpper().Contains(searchString.ToUpper()));
+            if (searchString != "")
+            {
+                if (!string.IsNullOrEmpty(sortOrder))
+                {
+                    switch (sortOrder)
+                    {
+                        case "price":
+                            productQuery = productQuery.OrderBy(p => p.Price);
+                            break;
+                        case "price_desc":
+                            productQuery = productQuery.OrderByDescending(p => p.Price);
+                            break;
+                        case "name":
+                            productQuery = productQuery.OrderBy(p => p.ProductName);
+                            break;
+                        case "name_desc":
+                            productQuery = productQuery.OrderByDescending(p => p.ProductName);
+                            break;
+                        default:
+                            productQuery = productQuery.OrderBy(p => p.ProductId);
+                            break;
+                    }
+                }
+            }
+            else
+                return new PagingDTO{TotalPages = 1, Products = null};
+
             var products = await productQuery
                                     .Skip((pageNumber - 1) * pageSize)
                                     .Take(pageSize)

@@ -18,60 +18,76 @@ namespace RAShop.CustomerSite.Controllers
             _productService = productService;
         }
 
-        public IActionResult Index([FromQuery(Name = "pageCurrent")] int pageCurrent = 1)
+        public IActionResult Index(string sortOrder = "desc", int pageCurrent = 1)
         {
-            if(pageCurrent > 1)
+            if (pageCurrent > 1)
                 ViewData["page"] = pageCurrent;
             else
                 ViewData["page"] = 1;
-            var data = _productService.GetAll(pageCurrent);
+            if (sortOrder != "0")
+                ViewData["sort"] = sortOrder;
+            else
+                ViewData["sort"] = "0";
+            var data = _productService.GetAll(sortOrder, pageCurrent);
             ViewData["totalPage"] = data.TotalPages;
             ViewBag.Products = data.Products;
             return View();
         }
-        public IActionResult GetProductByCateId(int cateid, int pageCurrent = 1)
+        public IActionResult GetProductByCateId(int cateid, string sortOrder = "0", int pageCurrent = 1)
         {
-            if(pageCurrent > 1)
+            if (pageCurrent > 1)
                 ViewData["page"] = pageCurrent;
             else
                 ViewData["page"] = 1;
-            var data = _productService.GetProductByCateId(cateid, pageCurrent);
+            if (sortOrder != "0")
+                ViewData["sort"] = sortOrder;
+            else
+                ViewData["sort"] = "0";
+            var data = _productService.GetProductByCateId(cateid, sortOrder, pageCurrent);
             ViewData["totalPage"] = data.TotalPages;
             ViewData["cateId"] = cateid;
             ViewBag.Products = data.Products;
             return View();
         }
 
-        public IActionResult GetProductBySubCateId(int cateid, int pageCurrent = 1)
+        public IActionResult GetProductBySubCateId(int cateid, string sortOrder = "0", int pageCurrent = 1)
         {
-            if(pageCurrent > 1)
+            if (pageCurrent > 1)
                 ViewData["page"] = pageCurrent;
             else
                 ViewData["page"] = 1;
-            var data = _productService.GetProductBySubCateId(cateid, pageCurrent);
+            if (sortOrder != "0")
+                ViewData["sort"] = sortOrder;
+            else
+                ViewData["sort"] = "0";
+            var data = _productService.GetProductBySubCateId(cateid, sortOrder, pageCurrent);
             ViewData["totalPage"] = data.TotalPages;
             ViewData["subCateId"] = cateid;
             ViewBag.Products = data.Products;
             return View();
         }
-        public IActionResult SearchProducts(string searchString, int pageCurrent = 1)
+        public IActionResult SearchProducts(string searchString, string sortOrder = "0", int pageCurrent = 1)
         {
-            if(pageCurrent > 1)
+            if (pageCurrent > 1)
                 ViewData["page"] = pageCurrent;
             else
                 ViewData["page"] = 1;
+            if (sortOrder != "0")
+                ViewData["sort"] = sortOrder;
+            else
+                ViewData["sort"] = "0";
             searchString = Request.Query["searchString"];
-            var data = _productService.SearchProducts(searchString, pageCurrent);
+            var data = _productService.SearchProducts(searchString, sortOrder, pageCurrent);
             ViewData["totalPage"] = data.TotalPages;
             ViewData["searchString"] = searchString;
             ViewBag.Products = data.Products;
             return View();
         }
-         public IActionResult GetProductDetail(int id)
+        public IActionResult GetProductDetail(int id)
         {
             var product = _productService.GetProductDetail(id);
             var ratingAvg = _productService.GetRatingAVG(id);
-            if(ratingAvg != 0)
+            if (ratingAvg != 0)
             {
                 ViewData["ratingAvg"] = ratingAvg;
             }
