@@ -13,7 +13,7 @@ namespace RAShop.CustomerSite.Services
         }
 
         //Lay tat ca san pham
-        public PagingDTO GetAll(string sortOrder, int pageNumber)
+        public async Task<PagingDTO> GetAll(string sortOrder, int pageNumber)
         {
             var httpClient = _clientFactory.CreateClient("myclient");
             var url = $"/product/getallproduct?sort={sortOrder}&pageCurrent={pageNumber}";
@@ -21,7 +21,7 @@ namespace RAShop.CustomerSite.Services
             return data;
         }
           //Lay san pham theo danh muc
-        public PagingDTO GetProductByCateId(int id, string sortOrder, int pageCurrent)
+        public async Task<PagingDTO> GetProductByCateId(int id, string sortOrder, int pageCurrent)
         {
             var httpClient = _clientFactory.CreateClient("myclient");
             var url = $"/product/getproductbycateid?cateid={id}&sort={sortOrder}&pageCurrent={pageCurrent}";
@@ -29,7 +29,7 @@ namespace RAShop.CustomerSite.Services
             return data;
         }
         //Lay san pham theo danh muc con
-        public PagingDTO GetProductBySubCateId(int id, string sortOrder, int pageCurrent)
+        public async Task<PagingDTO> GetProductBySubCateId(int id, string sortOrder, int pageCurrent)
         {
             var httpClient = _clientFactory.CreateClient("myclient");
             var url = $"/product/getproductbysubcateid?cateid={id}&sort={sortOrder}&pageCurrent={pageCurrent}";
@@ -38,7 +38,7 @@ namespace RAShop.CustomerSite.Services
         }
 
         //Tim kiem san pham
-         public PagingDTO SearchProducts(string searchString, string sortOrder, int pageCurrent)
+         public async Task<PagingDTO> SearchProducts(string searchString, string sortOrder, int pageCurrent)
         {
             var httpClient = _clientFactory.CreateClient("myclient");
             var url = $"/product/searchproducts?searchstring={searchString}&sort={sortOrder}&pageCurrent={pageCurrent}";
@@ -47,7 +47,7 @@ namespace RAShop.CustomerSite.Services
         }
 
         //Lay 1 san pham, chi tiet
-         public ProductDTO GetProductDetail(int id)
+         public async Task<ProductDTO> GetProductDetail(int id)
         {
             var httpClient = _clientFactory.CreateClient("myclient");
             var url = $"/product/getproductbyid/{id}";
@@ -56,7 +56,7 @@ namespace RAShop.CustomerSite.Services
         }
 
         //Lay so sao trung binh
-        public double GetRatingAVG(int id)
+        public async Task<double> GetRatingAVG(int id)
         {
             var httpClient = _clientFactory.CreateClient("myclient");
             var url = $"/product/ratingavg/{id}";

@@ -18,7 +18,7 @@ namespace RAShop.CustomerSite.Controllers
             _productService = productService;
         }
 
-        public IActionResult Index(string sortOrder = "desc", int pageCurrent = 1)
+        public async Task<IActionResult> Index(string sortOrder = "desc", int pageCurrent = 1)
         {
             if (pageCurrent > 1)
                 ViewData["page"] = pageCurrent;
@@ -28,12 +28,12 @@ namespace RAShop.CustomerSite.Controllers
                 ViewData["sort"] = sortOrder;
             else
                 ViewData["sort"] = "0";
-            var data = _productService.GetAll(sortOrder, pageCurrent);
+            var data = await _productService.GetAll(sortOrder, pageCurrent);
             ViewData["totalPage"] = data.TotalPages;
             ViewBag.Products = data.Products;
             return View();
         }
-        public IActionResult GetProductByCateId(int cateid, string sortOrder = "0", int pageCurrent = 1)
+        public async Task<IActionResult> GetProductByCateId(int cateid, string sortOrder = "0", int pageCurrent = 1)
         {
             if (pageCurrent > 1)
                 ViewData["page"] = pageCurrent;
@@ -43,14 +43,14 @@ namespace RAShop.CustomerSite.Controllers
                 ViewData["sort"] = sortOrder;
             else
                 ViewData["sort"] = "0";
-            var data = _productService.GetProductByCateId(cateid, sortOrder, pageCurrent);
+            var data = await _productService.GetProductByCateId(cateid, sortOrder, pageCurrent);
             ViewData["totalPage"] = data.TotalPages;
             ViewData["cateId"] = cateid;
             ViewBag.Products = data.Products;
             return View();
         }
 
-        public IActionResult GetProductBySubCateId(int cateid, string sortOrder = "0", int pageCurrent = 1)
+        public async Task<IActionResult> GetProductBySubCateId(int cateid, string sortOrder = "0", int pageCurrent = 1)
         {
             if (pageCurrent > 1)
                 ViewData["page"] = pageCurrent;
@@ -60,13 +60,13 @@ namespace RAShop.CustomerSite.Controllers
                 ViewData["sort"] = sortOrder;
             else
                 ViewData["sort"] = "0";
-            var data = _productService.GetProductBySubCateId(cateid, sortOrder, pageCurrent);
+            var data = await _productService.GetProductBySubCateId(cateid, sortOrder, pageCurrent);
             ViewData["totalPage"] = data.TotalPages;
             ViewData["subCateId"] = cateid;
             ViewBag.Products = data.Products;
             return View();
         }
-        public IActionResult SearchProducts(string searchString, string sortOrder = "0", int pageCurrent = 1)
+        public async Task<IActionResult> SearchProducts(string searchString, string sortOrder = "0", int pageCurrent = 1)
         {
             if (pageCurrent > 1)
                 ViewData["page"] = pageCurrent;
@@ -77,16 +77,16 @@ namespace RAShop.CustomerSite.Controllers
             else
                 ViewData["sort"] = "0";
             searchString = Request.Query["searchString"];
-            var data = _productService.SearchProducts(searchString, sortOrder, pageCurrent);
+            var data = await _productService.SearchProducts(searchString, sortOrder, pageCurrent);
             ViewData["totalPage"] = data.TotalPages;
             ViewData["searchString"] = searchString;
             ViewBag.Products = data.Products;
             return View();
         }
-        public IActionResult GetProductDetail(int id)
+        public async Task<IActionResult> GetProductDetail(int id)
         {
-            var product = _productService.GetProductDetail(id);
-            var ratingAvg = _productService.GetRatingAVG(id);
+            var product = await _productService.GetProductDetail(id);
+            var ratingAvg = await _productService.GetRatingAVG(id);
             if (ratingAvg != 0)
             {
                 ViewData["ratingAvg"] = ratingAvg;

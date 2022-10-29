@@ -5,11 +5,10 @@ html {
 }
 @font-face {
     font-family: myFont;
-    src: url(RAShop.CustomerSite/wwwroot/frontend/assets/font/00286-SFUFuturaBold.TTF);
+    src: url(RAShop.CustomerSite/wwwroot/frontend/assets/font/Pacifico-Regular.ttf);
 }
 body{
     font-family: myFont;
-
 }
 ul .nav-item{
     margin: 0 5px;
@@ -43,7 +42,7 @@ ul .nav-item{
     background-color: #c67605;
   }
   #lblCartCount {
-      font-size: 12px;
+      font-size: 14px;
       background: #ff0000;
       color: #fff;
       padding: 0 5px;

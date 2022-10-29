@@ -69,7 +69,7 @@
         <div class="d-flex flex-wrap">
             @foreach (var item in ViewBag.Products)
             {
-                var pathImage = "../frontend/assets/img/product/" + @item.MainImg + ".png";
+                var pathImage = "../frontend/assets/img/product/" + @item.MainImg;
                 <div class="card-fix">
                     <a asp-controller="Product" asp-action="GetProductDetail" asp-route-id="@item.ProductId">
                         <img src="@pathImage" class="card-img-top" alt="@item.ProductName">
@@ -100,7 +100,7 @@ else if (pageCurrent == 1)
             @* <li class="page-item disabled"><a class="page-link" asp-controller="Product" asp-action="Index"
                 asp-route-pageCurrent="@(pageCurrent - 1)">Previous</a></li> *@
             <li class="page-item "><a class="page-link" asp-controller="Product" asp-action="Index"
-                asp-route-sortorder="@sort" asp-route-pageCurrent="@(pageCurrent + 1)">Next</a></li>
+                asp-route-sortorder="@sort" asp-route-pageCurrent="@(pageCurrent + 1)">Sau</a></li>
         </ul>
     </nav>
 }
@@ -109,7 +109,7 @@ else if (pageCurrent == totalPages)
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-end">
             <li class="page-item "><a class="page-link" asp-controller="Product" asp-action="Index"
-                asp-route-sortorder="@sort" asp-route-pageCurrent="@(pageCurrent - 1)">Previous</a></li>
+                asp-route-sortorder="@sort" asp-route-pageCurrent="@(pageCurrent - 1)">Trước</a></li>
         </ul>
     </nav>
 }
@@ -118,9 +118,9 @@ else
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-end">
             <li class="page-item "><a class="page-link" asp-controller="Product" asp-action="Index"
-                asp-route-sortorder="@sort" asp-route-pageCurrent="@(pageCurrent - 1)">Previous</a></li>
+                asp-route-sortorder="@sort" asp-route-pageCurrent="@(pageCurrent - 1)">Trước</a></li>
             <li class="page-item "><a class="page-link" asp-controller="Product" asp-action="Index"
-                asp-route-sortorder="@sort" asp-route-pageCurrent="@(pageCurrent + 1)">Next</a></li>
+                asp-route-sortorder="@sort" asp-route-pageCurrent="@(pageCurrent + 1)">Sau</a></li>
         </ul>
     </nav>
 }

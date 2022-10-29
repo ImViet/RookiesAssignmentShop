@@ -44,7 +44,7 @@ namespace RAShop.CustomerSite.Services
         session.SetString (CARTKEY, jsoncart);
         }
           //Them 1 san pham vao Cart
-        public void AddToCart(int productid)
+        public async void AddToCart(int productid)
         {
             var product = _productService.GetProductDetail(productid);
             var cart = GetCart();
@@ -58,7 +58,7 @@ namespace RAShop.CustomerSite.Services
                 CartDTO newItem = new CartDTO()
                 {
                     Quantity = 1,
-                    Product = product
+                    Product = await product
                 };
                 cart.Add(newItem);
             }

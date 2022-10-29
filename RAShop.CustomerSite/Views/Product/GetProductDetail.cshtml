@@ -1,6 +1,6 @@
 @model RAShop.Shared.DTO.ProductDTO
 @{
-    var pathImage = "../../frontend/assets/img/product/" + Model.MainImg + ".png";
+    var pathImage = "../../frontend/assets/img/product/" + Model.MainImg;
     var ratingAvg = Convert.ToDouble(ViewData["ratingAvg"]);
 }
 <section class="py-4">
@@ -39,47 +39,94 @@
     </div>
 </section>
 <div style="background-color: #F5F5F5; padding-bottom: 20px;">
-    <h5 class="pt-2 ms-3" style="border-bottom: 3px solid #0c6363; display: inline-block">CHI TIẾT SẢN PHẨM</h5>
-    <div class="container">
-        <div class="rounded p-3 mb-3 row" style="background-color: #fff;">
-            <p>@Model.Description</p>
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                <button class="accordion-button fs-5" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                    aria-controls="panelsStayOpen-collapseOne"
+                    style="border-bottom: 3px solid #0c6363; display: inline-block">
+                    CHI TIẾT SẢN PHẨM
+                </button>
+            </h2>
+            <div class="container">
+                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+                    aria-labelledby="panelsStayOpen-headingOne">
+                    <div class="accordion-body">
+                        <strong>This is the first item's accordion body.</strong> It is shown by default, until the
+                        collapse
+                        plugin adds the appropriate classes that we use to style each element. These classes control the
+                        overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of
+                        this with custom CSS or overriding our default variables. It's also worth noting that just about
+                        any
+                        HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
 <div style="background-color: #F5F5F5; padding-bottom: 20px;">
-    <h5 class="pt-2 ms-3" style="border-bottom: 3px solid #0c6363; display: inline-block">ĐÁNH GIÁ SẢN PHẨM</h5>
-    <div class="container">
-        <div class="rounded p-3 mb-3 row" style="background-color: #fff;">
-            <div class="rounded p-3 mb-3 row" style="background-color: #fff;">
-                <h2 class="p-0 mb-3">Đánh giá @Model.ProductName</h2>
-                <div class="row">
-                    <div class="col-4">
-                        <h1>@ratingAvg<i style="color: #FDD836;" class="fas fa-star"></i></h1>
-                        <button class="btn btn-primary">Viết đánh giá</button>
-                    </div>
-                    <div class="col-8">
-                        @{
-                            if(ratingAvg == 0)
-                            {
-                                <h3>Chưa có đánh giá</h3>
-                            }
-                            else
-                            {
-                                foreach (var rating in Model.Ratings)
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                <button class="accordion-button fs-5" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true"
+                    aria-controls="panelsStayOpen-collapseTwo"
+                    style="border-bottom: 3px solid #0c6363; display: inline-block">
+                    ĐÁNH GIÁ SẢN PHẨM
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show"
+                aria-labelledby="panelsStayOpen-headingTwo">
+                <div class="accordion-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <h1>@ratingAvg<i style="color: #FDD836;" class="fas fa-star"></i></h1>
+                            <button class="btn btn-primary">Viết đánh giá</button>
+                        </div>
+                        <div class="col-8">
+                            @{
+                                if (ratingAvg == 0)
                                 {
-                                    <div class="row" style="min-height: 100px; margin-bottom: 15px;">
-                                        <div>
-                                            <h4>@rating.Star<i style="color: #FDD836;" class="fas fa-star"></i></h4>
-                                            <p>@rating.DateCreated</p>
-                                            <p>@rating.Comment</p>
+                                    <h3>Chưa có đánh giá</h3>
+                                }
+                                else
+                                {
+                                    foreach (var rating in Model.Ratings)
+                                    {
+                                        <div class="row" style="min-height: 100px; margin-bottom: 15px;">
+                                            <div>
+                                                <h4>@rating.Star<i style="color: #FDD836;" class="fas fa-star"></i></h4>
+                                                <p>@rating.DateCreated</p>
+                                                <p>@rating.Comment</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
                                 }
                             }
-                        }
-                       
+
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<style>
+    .accordion-button:not(.collapsed) {
+        background-color: #fff;
+        color: #0c6363;
+    }
+
+    .accordion-button:hover {
+        border-color: #fff;
+        box-shadow: none;
+    }
+
+    .accordion-button:focus {
+        border-color: #fff;
+        box-shadow: none;
+    }
+</style>

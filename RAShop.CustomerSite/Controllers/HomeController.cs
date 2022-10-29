@@ -12,18 +12,21 @@ namespace RAShop.CustomerSite.Controllers
     public class HomeController : Controller
     {
         private readonly IProduct _productService;
-
-        public HomeController(IProduct productService)
+        private readonly ICategory _categoryService;
+        private readonly ISubCategory _subCategoryService;
+        public HomeController(IProduct productService, ICategory categoryService, ISubCategory subCategoryService)
         {
             _productService = productService;
+            _categoryService = categoryService;
+            _subCategoryService = subCategoryService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            // ViewBag.Products = _productService.GetAll();
+            ViewData["categories"] = await _categoryService.GetAll();
+            ViewData["subcategories"] = await _subCategoryService.GetAll();
             return View();
         }
-
         public IActionResult Privacy()
         {
             return View();

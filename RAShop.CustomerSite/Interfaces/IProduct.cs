@@ -5,12 +5,12 @@ namespace RAShop.CustomerSite.Interfaces
 {
     public interface IProduct
     {
-        PagingDTO GetAll(string sortOrder, int pageNumber);
-        PagingDTO GetProductByCateId(int id, string sortOrder, int pageNumber);
-        PagingDTO GetProductBySubCateId(int id, string sortOrder, int pageNumber);
-        PagingDTO SearchProducts(string searchString, string sortOrder, int pageNumber);
-        ProductDTO GetProductDetail(int id);
-        double GetRatingAVG(int id);
+        Task<PagingDTO> GetAll(string sortOrder, int pageNumber);
+        Task<PagingDTO> GetProductByCateId(int id, string sortOrder, int pageNumber);
+        Task<PagingDTO> GetProductBySubCateId(int id, string sortOrder, int pageNumber);
+        Task<PagingDTO> SearchProducts(string searchString, string sortOrder, int pageNumber);
+        Task<ProductDTO> GetProductDetail(int id);
+        Task<double> GetRatingAVG(int id);
 
     }
 }

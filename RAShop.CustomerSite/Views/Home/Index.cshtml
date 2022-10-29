@@ -1,6 +1,59 @@
-﻿@model IEnumerable<RAShop.Shared.DTO.ProductDTO>
+﻿@using RAShop.Shared.DTO
+@model IEnumerable<RAShop.Shared.DTO.ProductDTO>
 
 @{
-    ViewData["Title"] = "Home Page";
-}
+	ViewData["Title"] = "Home Page";
+	var productbyCate = ViewData["categories"] as List<CategoryDTO>;
+	var productbySubCate = ViewData["subcategories"] as List<SubCateDTO>;
 
+}
+<div class="container-fluid">
+	@if (productbyCate.Count != 0)
+	{
+		@foreach (var item in productbyCate)
+		{
+			@if (item.Products.Count != 0)
+			{
+				<div class="row">
+					<div class="col-3">
+						@item.CategoryName
+					</div>
+					<div class="col-9">
+						<div class="slider">
+							@foreach (var product in item.Products)
+							{
+								var pathImage = "../../frontend/assets/img/product/" + product.MainImg;
+								<img src="@pathImage" style="margin: 0 5px;" />
+							}
+						</div>
+
+					</div>
+				</div>
+			}
+		}
+	}
+	@if (productbySubCate.Count != 0)
+	{
+		@foreach (var item in productbySubCate)
+		{
+			@if (item.Products.Count != 0)
+			{
+				<div class="row">
+					<div class="col-3">
+						@item.SubCategoryName
+					</div>
+					<div class="col-9">
+						<div class="slider">
+							@foreach (var product in item.Products)
+							{
+								var pathImage = "../../frontend/assets/img/product/" + @product.MainImg;
+								<img src="@pathImage" style="margin: 0 5px;" />
+							}
+						</div>
+
+					</div>
+				</div>
+			}
+		}
+	}
+</div>

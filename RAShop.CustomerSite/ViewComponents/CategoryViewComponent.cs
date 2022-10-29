@@ -12,9 +12,9 @@ namespace RAShop.CustomerSite.ViewComponents
         {
             _categoryService = category;
         }
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            var data = _categoryService.GetAll();
+            var data = await _categoryService.GetAll();
             return View(data);
         }
     }
