@@ -17,7 +17,7 @@ namespace RAShop.Backend
         }
         public async Task<List<SubCateDTO>> GetAllSubCategory()
         {
-            var categories = await _context.SubCategories.ToListAsync();
+            var categories = await _context.SubCategories.Include(p => p.Products).ToListAsync();
             var listCateDTO = _mapper.Map<List<SubCateDTO>>(categories);
             return listCateDTO;
         }

@@ -8,10 +8,11 @@ namespace RAShop.Backend.Models
         [Required]
         [StringLength(50)]
         public string SubCategoryName { get; set; }
+        public string? SubCategoryImg {get; set;}
         public string? Description { get; set; }
         public int CateId { get; set; }
         [ForeignKey("CateId")]
         public virtual Category Category { get; set; } 
-        public IList<Product> Products { get; set; }
+        public IList<Product>? Products { get; set; }
     }
 }

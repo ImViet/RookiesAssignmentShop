@@ -45,7 +45,6 @@ namespace RAShop.Backend
                                     .Take(pageSize)
                                     .Include(x => x.SubCategory)
                                     .Include(x => x.Category)
-                                    .Include(p => p.Image)
                                     .Include(r => r.Ratings)
                                     .ToListAsync();
             var listProdDTO = _mapper.Map<List<ProductDTO>>(products);
@@ -83,7 +82,6 @@ namespace RAShop.Backend
                                     .Take(pageSize)
                                     .Include(x => x.SubCategory)
                                     .Include(x => x.Category)
-                                    .Include(p => p.Image)
                                     .Include(r => r.Ratings)
                                     .ToListAsync();
             var listProdDTO = _mapper.Map<List<ProductDTO>>(products);
@@ -119,7 +117,6 @@ namespace RAShop.Backend
                                     .Take(pageSize)
                                     .Include(x => x.SubCategory)
                                     .Include(x => x.Category)
-                                    .Include(p => p.Image)
                                     .Include(r => r.Ratings)
                                     .ToListAsync();
             var countProduct = await productQuery.CountAsync();
@@ -130,7 +127,7 @@ namespace RAShop.Backend
 
         public async Task<ProductDTO> GetProductById(int id)
         {
-            var product = await _context.Products.Include(x => x.SubCategory).Include(p => p.Image).Include(r => r.Ratings).FirstOrDefaultAsync(x => x.ProductId == id);
+            var product = await _context.Products.Include(x => x.SubCategory).Include(r => r.Ratings).FirstOrDefaultAsync(x => x.ProductId == id);
             ProductDTO productDto = _mapper.Map<ProductDTO>(product);
             return productDto;
         }
@@ -169,7 +166,6 @@ namespace RAShop.Backend
                                     .Take(pageSize)
                                     .Include(x => x.SubCategory)
                                     .Include(x => x.Category)
-                                    .Include(p => p.Image)
                                     .Include(r => r.Ratings)
                                     .ToListAsync();
             var countProduct = await productQuery.CountAsync();
@@ -204,7 +200,7 @@ namespace RAShop.Backend
                 Unit = newProduct.Unit,
                 Origin = newProduct.Origin,
                 Description = newProduct.Description,
-                Image = newProduct.Image,
+                MainImg = newProduct.MainImg,
                 SubCategory = newProduct.SubCategory
             };
             await _context.Products.AddAsync(product);
@@ -235,7 +231,7 @@ namespace RAShop.Backend
                 product.Unit = newProduct.Unit;
                 product.Origin = newProduct.Origin;
                 product.Description = newProduct.Description;
-                product.Image = newProduct.Image;
+                product.MainImg = newProduct.MainImg;
                 product.SubCategory = newProduct.SubCategory;
             }
             await _context.SaveChangesAsync();
