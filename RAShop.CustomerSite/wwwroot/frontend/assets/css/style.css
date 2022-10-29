@@ -66,6 +66,23 @@ ul .nav-item{
     border-bottom: 3px solid #0c6363;
 }
 
+.btn-more {
+    background-color: white;
+    border: none;
+    color: black;
+    display: inline-block;
+    margin: auto;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    text-decoration: none;
+    border: 2px solid #c47135;
+}
+
+.btn-more:hover {
+    background-color: #0c6363;
+    color: #FF2;
+    text-decoration: none;
+}
 
 .btn-addtocart {
     background-color: white;

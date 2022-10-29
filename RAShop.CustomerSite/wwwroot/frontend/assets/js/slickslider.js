@@ -6,13 +6,13 @@ jQuery(document).ready(function($) {
       slidesToShow: 4,
       slidesToScroll: 1,
       autoplay: true,
-      autoplaySpeed: 1000,
+      autoplaySpeed: 5000,
       arrows: true,
       responsive: [{
         breakpoint: 600,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 4
+          slidesToScroll: 1
         }
       },
       {
@@ -20,7 +20,7 @@ jQuery(document).ready(function($) {
          settings: {
             arrows: false,
             slidesToShow: 1,
-            slidesToScroll: 4
+            slidesToScroll: 1
          }
       }]
   });

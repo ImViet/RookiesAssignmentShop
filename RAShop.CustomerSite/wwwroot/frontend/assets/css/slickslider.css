@@ -8,24 +8,30 @@
   .slick-list {
     margin: 0px -5px 0px -5px;
   }
-  button.slick-next, button.slick-next:hover {
+  .slick-slider:hover button.slick-next {
     position: absolute;
     top: 41%;
     right: 54px;
     width: 47px;
     height: 75px;
-    background-image: url("http://maggiesadler.com/wp-content/uploads/2015/10/left-right-arrow.png");
-    background-size: 95px;
+    margin-right: -60px;
+    background-image: url("https://cdn-icons-png.flaticon.com/512/271/271228.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
   }
-  button.slick-prev, button.slick-prev:hover {
+  .slick-slider:hover button.slick-prev {
     position: absolute;
     top: 41%;
     left: 15px;
     z-index: 1;
     width: 47px;
     height: 75px;
-    background-image: url("http://maggiesadler.com/wp-content/uploads/2015/10/left-right-arrow.png");
-    background-size: 95px;
+    margin-left: -60px;
+    background-image: url("https://cdn-icons-png.flaticon.com/512/271/271220.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
         background-position-x: right;
   }
   .slick-prev:before, .slick-next:before {
@@ -187,8 +193,8 @@
   
       display: block;
   
-      width: 20px;
-      height: 20px;
+      width: 98px;
+      height: 98px;
       margin-top: -10px;
       padding: 0;
   
