@@ -16,6 +16,7 @@ namespace RAShop.Backend.Migrations
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CategoryImg = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -39,30 +40,13 @@ namespace RAShop.Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductImages",
-                columns: table => new
-                {
-                    ProdImageId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    MainImg = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Img1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Img2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Img3 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Img4 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Img5 = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductImages", x => x.ProdImageId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "SubCategories",
                 columns: table => new
                 {
                     SubCategoryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SubCategoryName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    SubCategoryImg = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CateId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -86,10 +70,12 @@ namespace RAShop.Backend.Migrations
                     ProductName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Origin = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Unit = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProdImgId = table.Column<int>(type: "int", nullable: true),
+                    MainImg = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SubCateId = table.Column<int>(type: "int", nullable: true),
                     CateId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -101,11 +87,6 @@ namespace RAShop.Backend.Migrations
                         column: x => x.CateId,
                         principalTable: "Categories",
                         principalColumn: "CategoryId");
-                    table.ForeignKey(
-                        name: "FK_Products_ProductImages_ProdImgId",
-                        column: x => x.ProdImgId,
-                        principalTable: "ProductImages",
-                        principalColumn: "ProdImageId");
                     table.ForeignKey(
                         name: "FK_Products_SubCategories_SubCateId",
                         column: x => x.SubCateId,
@@ -179,11 +160,6 @@ namespace RAShop.Backend.Migrations
                 column: "CateId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_ProdImgId",
-                table: "Products",
-                column: "ProdImgId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Products_SubCateId",
                 table: "Products",
                 column: "SubCateId");
@@ -212,9 +188,6 @@ namespace RAShop.Backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "Products");
-
-            migrationBuilder.DropTable(
-                name: "ProductImages");
 
             migrationBuilder.DropTable(
                 name: "SubCategories");

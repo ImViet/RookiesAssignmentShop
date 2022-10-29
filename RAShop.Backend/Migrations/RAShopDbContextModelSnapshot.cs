@@ -30,6 +30,9 @@ namespace RAShop.Backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"), 1L, 1);
 
+                    b.Property<string>("CategoryImg")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CategoryName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -106,7 +109,16 @@ namespace RAShop.Backend.Migrations
                     b.Property<int?>("CateId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateUpdated")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MainImg")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Origin")
@@ -114,9 +126,6 @@ namespace RAShop.Backend.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("ProdImgId")
-                        .HasColumnType("int");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
@@ -136,43 +145,9 @@ namespace RAShop.Backend.Migrations
 
                     b.HasIndex("CateId");
 
-                    b.HasIndex("ProdImgId");
-
                     b.HasIndex("SubCateId");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("RAShop.Backend.Models.ProductImage", b =>
-                {
-                    b.Property<int>("ProdImageId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProdImageId"), 1L, 1);
-
-                    b.Property<string>("Img1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Img2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Img3")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Img4")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Img5")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MainImg")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ProdImageId");
-
-                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("RAShop.Backend.Models.Rating", b =>
@@ -216,6 +191,9 @@ namespace RAShop.Backend.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SubCategoryImg")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SubCategoryName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -250,20 +228,14 @@ namespace RAShop.Backend.Migrations
             modelBuilder.Entity("RAShop.Backend.Models.Product", b =>
                 {
                     b.HasOne("RAShop.Backend.Models.Category", "Category")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("CateId");
-
-                    b.HasOne("RAShop.Backend.Models.ProductImage", "Image")
-                        .WithMany()
-                        .HasForeignKey("ProdImgId");
 
                     b.HasOne("RAShop.Backend.Models.SubCategory", "SubCategory")
                         .WithMany("Products")
                         .HasForeignKey("SubCateId");
 
                     b.Navigation("Category");
-
-                    b.Navigation("Image");
 
                     b.Navigation("SubCategory");
                 });
@@ -292,6 +264,8 @@ namespace RAShop.Backend.Migrations
 
             modelBuilder.Entity("RAShop.Backend.Models.Category", b =>
                 {
+                    b.Navigation("Products");
+
                     b.Navigation("SubCates");
                 });
 
