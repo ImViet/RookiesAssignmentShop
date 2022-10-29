@@ -6,5 +6,6 @@
         public string CategoryName { get; set; } 
         public string Description { get; set; }
         public IList<SubCateDTO>? SubCates{get; set;} = null;
+        public IList<ProductDTO>? Products{get; set;}
     }
 }
