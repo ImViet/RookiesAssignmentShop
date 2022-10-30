@@ -6,11 +6,7 @@ using RAShop.CustomerSite.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews()
-     .AddRazorOptions(options =>
-     {
-         options.ViewLocationFormats.Add("/Views/Shared/Components/");
-     }); ;
+builder.Services.AddRazorPages();
 
 //Cau hinh httpclient
 builder.Services.AddHttpClient("myclient", client =>
@@ -34,6 +30,11 @@ builder.Services.AddScoped<ISubCategory, SubCategoryService>();
 builder.Services.AddScoped<IProduct, ProductService>();
 builder.Services.AddScoped<ICart, CartService>();
 
+//Razor Page
+builder.Services.AddRazorPages()
+    .AddRazorPagesOptions(options => {
+        options.Conventions.AddPageRoute("/Home/Index", "");
+    });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -52,9 +53,14 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.UseSession();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
+   app.UseEndpoints(endpoints =>
+    {
+        // Thêm endpoint chuyển đến các trang Razor Page
+        // trong thư mục Pages
+        endpoints.MapRazorPages();
+    });
+// app.MapControllerRoute(
+//     name: "default",
+//     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapRazorPages();
 app.Run();

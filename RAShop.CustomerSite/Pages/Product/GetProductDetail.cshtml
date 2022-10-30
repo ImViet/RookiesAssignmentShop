@@ -1,6 +1,8 @@
-@model RAShop.Shared.DTO.ProductDTO
+@page 
+@using RAShop.CustomerSite.Pages.Home
+@model GetProductDetail
 @{
-    var pathImage = "../../frontend/assets/img/product/" + Model.MainImg;
+    var pathImage = "../../frontend/assets/img/product/" + Model.product.MainImg;
     var ratingAvg = Convert.ToDouble(ViewData["ratingAvg"]);
 }
 <section class="py-4">
@@ -8,13 +10,13 @@
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="@pathImage" alt="..." /></div>
             <div class="col-md-6">
-                <div class="small mb-1 pb-3" style="display: inline-block ;">Loại sản phẩm: @Model.CategoryName</div>
-                <h1 class="display-6 fw-bolder">@Model.ProductName</h1>
-                <div class="small mb-1" style="display: inline-block ;">Xuất xứ: @Model.Origin</div>
-                <div class="small mb-1" style="display: inline-block ; float:right;">Đơn vị tính: @Model.Unit</div>
+                <div class="small mb-1 pb-3" style="display: inline-block ;">Loại sản phẩm: @Model.product.CategoryName</div>
+                <h1 class="display-6 fw-bolder">@Model.product.ProductName</h1>
+                <div class="small mb-1" style="display: inline-block ;">Xuất xứ: @Model.product.Origin</div>
+                <div class="small mb-1" style="display: inline-block ; float:right;">Đơn vị tính: @Model.product.Unit</div>
                 <div class="fs-5 mb-1">
                     Giá:
-                    <span style="color:#e68b24"> @string.Format("{0:#,##0.##}₫", Model.Price)</span>
+                    <span style="color:#e68b24"> @string.Format("{0:#,##0.##}₫", Model.product.Price)</span>
                 </div>
                 <hr>
                 <pre class="commit">
@@ -24,12 +26,12 @@
         - Tích lũy điểm, nâng hạng thẻ VIP & tận hưởng ưu đãi đặc quyền.
                         </pre>
                 <div class="">
-                    <a class="btn-addtocart" asp-controller="ShoppingCart" asp-action="AddProdToCart"
-                        asp-route-prodid="@Model.ProductId">
+                    <a class="btn-addtocart" asp-page="/Cart/ShoppingCart" asp-page-handler="AddToCart"
+                        asp-route-id="@Model.product.ProductId">
                         <div class="glyphicon glyphicon-shopping-cart"></div>
                         Thêm vào giỏ hàng
                     </a>
-                    <a class="btn-backtolist" asp-controller="Product" asp-action="Index">
+                    <a class="btn-backtolist" asp-page="/Product/ProductIndex">
                         <div class="glyphicon glyphicon-backward"></div>
                         Quay lại
                     </a>
@@ -94,7 +96,7 @@
                                 }
                                 else
                                 {
-                                    foreach (var rating in Model.Ratings)
+                                    foreach (var rating in Model.product.Ratings)
                                     {
                                         <div class="row" style="min-height: 100px; margin-bottom: 15px;">
                                             <div>

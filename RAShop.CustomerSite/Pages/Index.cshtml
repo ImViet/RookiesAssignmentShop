@@ -1,11 +1,11 @@
-﻿@using RAShop.Shared.DTO
-@model IEnumerable<RAShop.Shared.DTO.ProductDTO>
-
+@page 
+@using RAShop.Shared.DTO
+@using RAShop.CustomerSite.Pages.Home
+@model IndexModel
 @{
 	ViewData["Title"] = "Home Page";
 	var productbyCate = ViewData["categories"] as List<CategoryDTO>;
 	var productbySubCate = ViewData["subcategories"] as List<SubCateDTO>;
-
 }
 
 <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
@@ -71,8 +71,8 @@
 						</div>
 						</div>
 						<div class="col-1">
-							<a class="btn btn-more btn-sm mt-1" asp-controller="Product" asp-action="GetProductBySubCateId"
-                asp-route-cateid="@item.SubCategoryId" asp-route-pageCurrent="1">Xem thêm</a>
+				<a class="btn btn-more btn-sm mt-1" asp-page="/Product/GetProductBySubCateid" asp-route-cateid="@item.SubCategoryId">Xem thêm</a>
+
 					</div>
 				</div>
 			}
@@ -100,8 +100,7 @@
 						</div>
 					</div>
 					<div class="col-1">
-						<a class="btn btn-more btn-sm mt-1" asp-controller="Product" asp-action="GetProductByCateId"
-                asp-route-cateid="@item.CategoryId" asp-route-pageCurrent="1">Xem thêm</a>
+				<a class="btn btn-more btn-sm mt-1" asp-page="/Product/GetProductByCateid" asp-route-cateid="@item.CategoryId">Xem thêm</a>
 					</div>
 				</div>
 			}

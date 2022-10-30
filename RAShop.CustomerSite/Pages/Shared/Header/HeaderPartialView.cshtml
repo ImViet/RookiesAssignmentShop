@@ -11,18 +11,17 @@
                 <div class="collapse navbar-collapse" id="main_nav">
                     @*Category view component*@
                     @await Component.InvokeAsync("Category")
-                    <a class="navbar-brand container-logo" asp-controller="Home" asp-action="Index">
+                    <a class="navbar-brand container-logo" asp-page="/Index">
                         <img class="header-logo text-center" src="~/frontend/assets/img/logo/boologo.png">
                     </a>
                     <form class="d-flex ms-5" role="search" method="get">
                         <input class="form-control me-2" name="searchString" type="search" placeholder="Nhập tên sản phẩm..."
                             aria-label="Search" required>
-                        <button class="btn btn-light" type="submit" asp-controller="Product"
-                            asp-action="SearchProducts">Tìm</button>
+                        <button class="btn btn-light" type="submit" asp-page="/Product/SearchProduct">Tìm</button>
                     </form>
                     <div class="btn-nav">
                         <div class="cart-icon">
-                            <a class="fa-solid fa-bag-shopping" asp-controller="ShoppingCart" asp-action="Index" style="color: #fff; font-size: 30px; margin-left: 30px"></a>
+                            <a class="fa-solid fa-bag-shopping" asp-page="/Cart/ShoppingCart" style="color: #fff; font-size: 30px; margin-left: 30px"></a>
                             <span class="badge badge-warning" id="lblCartCount"> @CountCart.countItem </span>
                         </div>
                     </div>

@@ -1,9 +1,12 @@
-@model IEnumerable<RAShop.Shared.DTO.ProductDTO>
+@page
+@model SearchProductModel
 @{
     var pageCurrent = (int)ViewData["page"];
     int totalPages = (int)ViewData["totalPage"];
     string searchString = (string)ViewData["searchString"];
     string sort = (string)ViewData["sort"];
+    var products = ViewData["products"] as List<ProductDTO>;
+
 }
 <div class="container mt-5">
     <div class="row">
@@ -43,34 +46,38 @@
             }
             <ul class="dropdown-menu">
                 <li>
-                    <a a class="dropdown-item" asp-controller="Product" asp-action="SearchProducts"  asp-route-searchString="@searchString"
-                        asp-route-sortorder="price" asp-route-pageCurrent="@pageCurrent">Giá tăng dần
+                    <a a class="dropdown-item" asp-page="/Product/SearchProduct"
+                        asp-route-searchString="@searchString" asp-route-sortorder="price"
+                        asp-route-pageCurrent="@pageCurrent">Giá tăng dần
                     </a>
                 </li>
                 <li>
-                    <a a class="dropdown-item" asp-controller="Product" asp-action="SearchProducts"  asp-route-searchString="@searchString"
-                        asp-route-sortorder="price_desc" asp-route-pageCurrent="@pageCurrent">Giá giảm dần
+                    <a a class="dropdown-item" asp-page="/Product/SearchProduct"
+                        asp-route-searchString="@searchString" asp-route-sortorder="price_desc"
+                        asp-route-pageCurrent="@pageCurrent">Giá giảm dần
                     </a>
                 </li>
-                 <li>
-                    <a a class="dropdown-item" asp-controller="Product" asp-action="SearchProducts"  asp-route-searchString="@searchString"
-                        asp-route-sortorder="name" asp-route-pageCurrent="@pageCurrent">Tên a-z
+                <li>
+                    <a a class="dropdown-item" asp-page="/Product/SearchProduct"
+                        asp-route-searchString="@searchString" asp-route-sortorder="name"
+                        asp-route-pageCurrent="@pageCurrent">Tên a-z
                     </a>
                 </li>
-                 <li>
-                    <a a class="dropdown-item" asp-controller="Product" asp-action="SearchProducts"  asp-route-searchString="@searchString"
-                        asp-route-sortorder="name_desc" asp-route-pageCurrent="@pageCurrent">Tên z-a
+                <li>
+                    <a a class="dropdown-item" asp-page="/Product/SearchProduct"
+                        asp-route-searchString="@searchString" asp-route-sortorder="name_desc"
+                        asp-route-pageCurrent="@pageCurrent">Tên z-a
                     </a>
                 </li>
             </ul>
         </div>
     </div>
     <div class="d-flex flex-wrap">
-        @foreach (var item in ViewBag.Products)
+        @foreach (var item in products)
         {
             var pathImage = "../frontend/assets/img/product/" + @item.MainImg;
             <div class="card-fix">
-                <a asp-controller="Product" asp-action="GetProductDetail" asp-route-id="@item.ProductId">
+                <a asp-page="/Product/GetProductDetail" asp-route-id="@item.ProductId">
                     <img src="@pathImage" class="card-img-top" alt="@item.ProductName">
                 </a>
                 <div class="card-body">
@@ -92,7 +99,7 @@ else if (pageCurrent == 1)
 {
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-end">
-            <li class="page-item "><a class="page-link" asp-controller="Product" asp-action="SearchProducts"
+            <li class="page-item "><a class="page-link" asp-page="/Product/SearchProduct"
                 asp-route-searchString="@searchString" asp-route-sortorder="@sort"
                 asp-route-pageCurrent="@(pageCurrent + 1)">Sau</a></li>
         </ul>
@@ -102,7 +109,7 @@ else if (pageCurrent == totalPages)
 {
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-end">
-            <li class="page-item "><a class="page-link" asp-controller="Product" asp-action="SearchProducts"
+            <li class="page-item "><a class="page-link" asp-page="/Product/SearchProduct"
                 asp-route-searchString="@searchString" asp-route-sortorder="@sort"
                 asp-route-pageCurrent="@(pageCurrent - 1)">Trước</a></li>
         </ul>
@@ -112,10 +119,10 @@ else
 {
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-end">
-            <li class="page-item "><a class="page-link" asp-controller="Product" asp-action="SearchProducts"
+            <li class="page-item "><a class="page-link" asp-page="/Product/SearchProduct"
                 asp-route-searchString="@searchString" asp-route-sortorder="@sort"
                 asp-route-pageCurrent="@(pageCurrent - 1)">Trước</a></li>
-            <li class="page-item "><a class="page-link" asp-controller="Product" asp-action="SearchProducts"
+            <li class="page-item "><a class="page-link" asp-page="/Product/SearchProduct"
                 asp-route-searchString="@searchString" asp-route-sortorder="@sort"
                 asp-route-pageCurrent="@(pageCurrent + 1)">Sau</a></li>
         </ul>

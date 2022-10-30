@@ -1,7 +1,7 @@
 @model List<RAShop.Shared.DTO.CategoryDTO>
 
   <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" style="text-transform: uppercase" asp-controller="Product" asp-action="Index">Tất cả sản phẩm</a></li>
+        <li class="nav-item"><a class="nav-link" style="text-transform: uppercase" asp-page="/Product/ProductIndex">Tất cả sản phẩm</a></li>
     @foreach (var item in Model)
     {
         if(item.SubCates?.Count != 0)
@@ -13,14 +13,14 @@
                 <ul class="dropdown-menu">
                     @foreach (var subcate in item.SubCates)
                     {
-                        <li><a class="dropdown-item" asp-controller="Product" asp-action="GetProductBySubCateId" asp-route-cateid="@subcate.SubCategoryId">@subcate.SubCategoryName</a></li>       
+                        <li><a class="dropdown-item" asp-page="/Product/GetProductBySubCateId" asp-route-cateid="@subcate.SubCategoryId">@subcate.SubCategoryName</a></li>       
                     }
                 </ul>
             </li>
         }
         else
         {
-         <li class="nav-item"><a class="nav-link" style="text-transform: uppercase" asp-controller="Product" asp-action="GetProductByCateId" asp-route-cateid="@item.CategoryId">@item.CategoryName</a></li>
+         <li class="nav-item"><a class="nav-link" style="text-transform: uppercase" asp-page="/Product/GetProductByCateId" asp-route-cateid="@item.CategoryId">@item.CategoryName</a></li>
         }
     }                
     </ul>
