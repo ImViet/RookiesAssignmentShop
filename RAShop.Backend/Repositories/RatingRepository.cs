@@ -22,7 +22,7 @@ namespace RAShop.Backend
             if(product != null)
             {
                 rating = _mapper.Map<Rating>(newRating);
-                product.Ratings?.Add(rating);
+                _context.Ratings.Add(rating);
             }
             await _context.SaveChangesAsync();         
             return _mapper.Map<RatingDTO>(rating);
