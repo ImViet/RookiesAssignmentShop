@@ -18,6 +18,7 @@ namespace RAShop.Backend.Utilities.AutoMapper
                 .ForMember(dest => dest.MainImg, cof => cof.MapFrom(src => src.MainImg))
                 .ForMember(dest => dest.Ratings, cof => cof.MapFrom(src => src.Ratings));     
             CreateMap<Rating, RatingDTO>();
+            CreateMap<AddRatingDTO, Rating>();
 
         }
     }
