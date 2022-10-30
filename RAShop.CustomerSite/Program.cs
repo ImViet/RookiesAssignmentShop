@@ -52,12 +52,12 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.UseCors(
-    builder =>
-    {
-        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-    }
-    );
+//app.UseCors(
+//    builder =>
+//    {
+//        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+//    }
+//    );
 
 app.UseSession();
    app.UseEndpoints(endpoints =>
