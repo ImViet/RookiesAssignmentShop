@@ -8,7 +8,7 @@ namespace RAShop.CustomerSite.Pages.Home
     {
         private readonly IProduct _productService;
         [BindProperty]
-        public ProductDTO product {get; set;} = new ProductDTO();
+        public ProductDTO product { get; set; } = new ProductDTO();
         public GetProductDetail(IProduct productService)
         {
             _productService = productService;
@@ -26,6 +26,15 @@ namespace RAShop.CustomerSite.Pages.Home
                 ViewData["ratingAvg"] = 0;
             }
             return Page();
+        }
+        public async Task<IActionResult> OnPostCreateRating()
+        {
+            AddRatingDTO newRating = new AddRatingDTO();
+            newRating.ProductId = Convert.ToInt32(Request.Form["ProductId"]);
+            newRating.Star = Convert.ToInt32(Request.Form["Star"]);
+            newRating.Comment = Request.Form["Comment"];
+            await _productService.CreateRating(newRating);
+            return RedirectToPage(new {id = newRating.ProductId});
         }
     }
 }

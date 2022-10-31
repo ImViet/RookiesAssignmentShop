@@ -2,9 +2,11 @@ using Newtonsoft.Json;
 using RAShop.CustomerSite.Interfaces;
 using RAShop.Shared.DTO;
 using RAShop.CustomerSite.Extensions;
+using System.Text;
+
 namespace RAShop.CustomerSite.Services
 {
-    public class ProductService: IProduct
+    public class ProductService : IProduct
     {
         private readonly IHttpClientFactory _clientFactory;
         public ProductService(IHttpClientFactory clientFactory)
@@ -20,7 +22,7 @@ namespace RAShop.CustomerSite.Services
             var data = httpClient.GetDataFromAPIAsync<PagingDTO>(url);
             return data;
         }
-          //Lay san pham theo danh muc
+        //Lay san pham theo danh muc
         public async Task<PagingDTO> GetProductByCateId(int id, string sortOrder, int pageCurrent)
         {
             var httpClient = _clientFactory.CreateClient("myclient");
@@ -38,7 +40,7 @@ namespace RAShop.CustomerSite.Services
         }
 
         //Tim kiem san pham
-         public async Task<PagingDTO> SearchProducts(string searchString, string sortOrder, int pageCurrent)
+        public async Task<PagingDTO> SearchProducts(string searchString, string sortOrder, int pageCurrent)
         {
             var httpClient = _clientFactory.CreateClient("myclient");
             var url = $"/product/searchproducts?searchstring={searchString}&sort={sortOrder}&pageCurrent={pageCurrent}";
@@ -47,7 +49,7 @@ namespace RAShop.CustomerSite.Services
         }
 
         //Lay 1 san pham, chi tiet
-         public async Task<ProductDTO> GetProductDetail(int id)
+        public async Task<ProductDTO> GetProductDetail(int id)
         {
             var httpClient = _clientFactory.CreateClient("myclient");
             var url = $"/product/getproductbyid/{id}";
@@ -61,6 +63,19 @@ namespace RAShop.CustomerSite.Services
             var httpClient = _clientFactory.CreateClient("myclient");
             var url = $"/product/ratingavg/{id}";
             var data = httpClient.GetDataFromAPIAsync<double>(url);
+            return data;
+        }
+
+        //Tao rating
+        public async Task<RatingDTO> CreateRating(AddRatingDTO newRating)
+        {
+            var httpClient = _clientFactory.CreateClient("myclient");
+            string url = "/rating/createrating";
+            var jsonString = JsonConvert.SerializeObject(newRating);
+            HttpContent content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync(url, content);
+            var jsonData = response.Content.ReadAsStringAsync().Result;
+            var data = JsonConvert.DeserializeObject<RatingDTO>(jsonData);
             return data;
         }
     }

@@ -11,6 +11,8 @@ namespace RAShop.CustomerSite.Interfaces
         Task<PagingDTO> SearchProducts(string searchString, string sortOrder, int pageNumber);
         Task<ProductDTO> GetProductDetail(int id);
         Task<double> GetRatingAVG(int id);
+        Task<RatingDTO> CreateRating(AddRatingDTO newRating);
+
 
     }
 }

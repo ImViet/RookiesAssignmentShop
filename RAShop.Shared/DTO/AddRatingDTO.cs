@@ -5,6 +5,6 @@ namespace RAShop.Shared.DTO
         public int ProductId {get; set;}
         public int Star {get; set;}
         public string? Comment {get; set;}
-        public DateTime DateCreated {get; set;}
+        public DateTime DateCreated {get; set;} = DateTime.Now;
     }
 }

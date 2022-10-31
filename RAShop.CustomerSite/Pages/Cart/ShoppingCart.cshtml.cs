@@ -14,7 +14,7 @@ namespace RAShop.CustomerSite.Pages.Home
         {
             _cartService = cartService;
         }
-        public async Task<IActionResult> OnGetAsync()
+        public ActionResult OnGetAsync()
         {
             cart = _cartService.GetCart();
             return Page();

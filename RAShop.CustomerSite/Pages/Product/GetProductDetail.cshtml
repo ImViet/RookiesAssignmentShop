@@ -1,4 +1,4 @@
-@page 
+@page
 @using RAShop.CustomerSite.Pages.Home
 @model GetProductDetail
 @{
@@ -10,10 +10,12 @@
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="@pathImage" alt="..." /></div>
             <div class="col-md-6">
-                <div class="small mb-1 pb-3" style="display: inline-block ;">Loại sản phẩm: @Model.product.CategoryName</div>
+                <div class="small mb-1 pb-3" style="display: inline-block ;">Loại sản phẩm: @Model.product.CategoryName
+                </div>
                 <h1 class="display-6 fw-bolder">@Model.product.ProductName</h1>
                 <div class="small mb-1" style="display: inline-block ;">Xuất xứ: @Model.product.Origin</div>
-                <div class="small mb-1" style="display: inline-block ; float:right;">Đơn vị tính: @Model.product.Unit</div>
+                <div class="small mb-1" style="display: inline-block ; float:right;">Đơn vị tính: @Model.product.Unit
+                </div>
                 <div class="fs-5 mb-1">
                     Giá:
                     <span style="color:#e68b24"> @string.Format("{0:#,##0.##}₫", Model.product.Price)</span>
@@ -85,8 +87,48 @@
                 <div class="accordion-body">
                     <div class="row">
                         <div class="col-4">
-                            <h1>@ratingAvg<i style="color: #FDD836;" class="fas fa-star"></i></h1>
-                            <button class="btn btn-primary">Viết đánh giá</button>
+                            <h1>@string.Format("{0:#,##0.##}",@ratingAvg)<i style="color: #FDD836;"
+                                    class="fas fa-star"></i></h1>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" data-bs-whatever="@@getbootstrap">Viết đánh giá</button>
+                            @* Start form rating *@
+
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Đánh giá: @Model.product.ProductName</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form asp-page="/Product/GetProductDetail" asp-page-handler="CreateRating" method="post">
+                                                <div class="mb-3">
+                                                    <label for="star" 
+                                                        class="col-form-label">Số sao:</label>
+                                                    <input type="number" name="Star" min="1" max="5" class="form-control" id="star">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="comment" class="col-form-label">Nhận xét:</label>
+                                                    <textarea class="form-control" name="Comment" id="comment"></textarea>
+                                                </div>
+                                                <div class="mb-3" hidden>
+                                                    <label for="productid" name="Star"
+                                                        class="col-form-label">Số sao:</label>
+                                                    <input type="text" class="form-control" name="ProductId" value="@Model.product.ProductId" id="productid">
+                                                </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Đóng</button>
+                                                <button type="submit" class="btn btn-primary">Đánh giá</button>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @* End form rating *@
                         </div>
                         <div class="col-8">
                             @{
@@ -108,7 +150,6 @@
                                     }
                                 }
                             }
-
                         </div>
                     </div>
                 </div>
@@ -132,3 +173,9 @@
         box-shadow: none;
     }
 </style>
+<script>
+    const starInput = document.getElementById('star');
+    starInput.addEventListener('keypress', (e) => {
+  e.preventDefault();
+});
+</script>
