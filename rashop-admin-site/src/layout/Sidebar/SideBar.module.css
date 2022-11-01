@@ -1,0 +1,16 @@
+.sidebar{
+    background-color: #000;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+.logo{
+    width: 246px;
+    height: auto;
+}
+
+.list a{
+    color: #fff;
+    background-color: #000;
+}
