@@ -3,13 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import Layout from './layout/Layout';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Product from './pages/Product';
+import Category from './pages/Category';
+
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <>
-    <Layout/>
-  </>
+  <BrowserRouter>
+  <Layout/>
+</BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function
