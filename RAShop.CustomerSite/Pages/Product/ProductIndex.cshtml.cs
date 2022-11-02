@@ -27,7 +27,7 @@ namespace RAShop.CustomerSite.Pages.Home
                 ViewData["sort"] = "0";
             var data = await _productService.GetAll(sortOrder, pageCurrent);
             ViewData["totalPage"] = data.TotalPages;
-            ViewData["products"] = data.Products;
+            ViewData["products"] = data.items;
             return Page();
         }
     }

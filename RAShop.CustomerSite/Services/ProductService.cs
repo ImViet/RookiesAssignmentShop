@@ -15,36 +15,36 @@ namespace RAShop.CustomerSite.Services
         }
 
         //Lay tat ca san pham
-        public async Task<PagingDTO> GetAll(string sortOrder, int pageNumber)
+        public async Task<PagingDTO<ProductDTO>> GetAll(string sortOrder, int pageNumber)
         {
             var httpClient = _clientFactory.CreateClient("myclient");
             var url = $"/product/getallproduct?sort={sortOrder}&pageCurrent={pageNumber}";
-            var data = httpClient.GetDataFromAPIAsync<PagingDTO>(url);
+            var data = httpClient.GetDataFromAPIAsync<PagingDTO<ProductDTO>>(url);
             return data;
         }
         //Lay san pham theo danh muc
-        public async Task<PagingDTO> GetProductByCateId(int id, string sortOrder, int pageCurrent)
+        public async Task<PagingDTO<ProductDTO>> GetProductByCateId(int id, string sortOrder, int pageCurrent)
         {
             var httpClient = _clientFactory.CreateClient("myclient");
             var url = $"/product/getproductbycateid?cateid={id}&sort={sortOrder}&pageCurrent={pageCurrent}";
-            var data = httpClient.GetDataFromAPIAsync<PagingDTO>(url);
+            var data = httpClient.GetDataFromAPIAsync<PagingDTO<ProductDTO>>(url);
             return data;
         }
         //Lay san pham theo danh muc con
-        public async Task<PagingDTO> GetProductBySubCateId(int id, string sortOrder, int pageCurrent)
+        public async Task<PagingDTO<ProductDTO>> GetProductBySubCateId(int id, string sortOrder, int pageCurrent)
         {
             var httpClient = _clientFactory.CreateClient("myclient");
             var url = $"/product/getproductbysubcateid?cateid={id}&sort={sortOrder}&pageCurrent={pageCurrent}";
-            var data = httpClient.GetDataFromAPIAsync<PagingDTO>(url);
+            var data = httpClient.GetDataFromAPIAsync<PagingDTO<ProductDTO>>(url);
             return data;
         }
 
         //Tim kiem san pham
-        public async Task<PagingDTO> SearchProducts(string searchString, string sortOrder, int pageCurrent)
+        public async Task<PagingDTO<ProductDTO>> SearchProducts(string searchString, string sortOrder, int pageCurrent)
         {
             var httpClient = _clientFactory.CreateClient("myclient");
             var url = $"/product/searchproducts?searchstring={searchString}&sort={sortOrder}&pageCurrent={pageCurrent}";
-            var data = httpClient.GetDataFromAPIAsync<PagingDTO>(url);
+            var data = httpClient.GetDataFromAPIAsync<PagingDTO<ProductDTO>>(url);
             return data;
         }
 

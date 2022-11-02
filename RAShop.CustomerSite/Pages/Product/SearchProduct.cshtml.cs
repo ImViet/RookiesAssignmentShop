@@ -30,7 +30,7 @@ namespace RAShop.CustomerSite.Pages.Home
             var data = await _productService.SearchProducts(searchString, sortOrder, pageCurrent);
             ViewData["totalPage"] = data.TotalPages;
             ViewData["searchString"] = searchString;
-            ViewData["products"] = data.Products;
+            ViewData["products"] = data.items;
             return Page();
         }
     }

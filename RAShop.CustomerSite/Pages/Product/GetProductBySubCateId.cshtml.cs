@@ -28,7 +28,7 @@ namespace RAShop.CustomerSite.Pages.Home
             var data = await _productService.GetProductBySubCateId(cateid, sortOrder, pageCurrent);
             ViewData["totalPage"] = data.TotalPages;
             ViewData["cateId"] = cateid;
-            ViewData["products"] = data.Products;
+            ViewData["products"] = data.items;
             return Page();
         }
     }
