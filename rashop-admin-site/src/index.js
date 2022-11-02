@@ -4,8 +4,8 @@ import './index.css';
 import Layout from './layout/Layout';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Product from './pages/Product';
-import Category from './pages/Category';
+
+
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';

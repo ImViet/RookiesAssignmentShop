@@ -4,11 +4,11 @@ import Col from 'react-bootstrap/Col';
 import SideBar from "./Sidebar/SideBar";
 import NavBar from "./Navbar/NavBar";
 import { Routes, Route } from "react-router-dom";
-import Product from '../pages/Product';
-import Category from '../pages/Category';
+import Product from '../pages/Product/Product';
+import Category from '../pages/Category/Category';
 function Layout() {
     return (
-        <Container fluid className="p-0">
+        <Container fluid className="p-0 h-100">
             <Row className="p-0 m-0">
                 <Col md={2} className="p-0">
                     <SideBar />
