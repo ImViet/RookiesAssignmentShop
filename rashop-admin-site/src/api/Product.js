@@ -2,9 +2,12 @@ import axiosClient from "./axiosClient";
 
 
 const END_POINT = {
-    GETPRODUCT: "product/getallproduct?sort=0&pagecurrent=1",
+    GETPRODUCT: (sort, page) =>{
+
+        return`product/getallproduct?sort=${sort}&pagecurrent=${page}`;
+    }
 }
-export const getProductAPI  = () =>
+export const getProductAPI = (sort, page) =>
 {
-    return axiosClient.get(END_POINT.GETPRODUCT);
+    return axiosClient.get(END_POINT.GETPRODUCT(sort, page));
 }

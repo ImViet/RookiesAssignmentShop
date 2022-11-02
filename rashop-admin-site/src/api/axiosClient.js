@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL : 'https://localhost:7150/',
-    timeout: 30000
+    baseURL : 'https://localhost:7150/'
 });
 
 instance.interceptors.response.use(
