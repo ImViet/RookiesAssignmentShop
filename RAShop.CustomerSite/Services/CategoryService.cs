@@ -11,7 +11,7 @@ namespace RAShop.CustomerSite.Services
         {
             _clientFactory = clientFactory;
         }
-
+        //Lay danh muc cho customer
         public async Task<List<CategoryDTO>> GetAll()
         {
             var httpClient = _clientFactory.CreateClient("myclient");

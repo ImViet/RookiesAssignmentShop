@@ -6,6 +6,7 @@ namespace RAShop.Backend
 {
     public interface ICategoryRepository
     {
+        Task<PagingDTO<CategoryDTO>> GetCategoryAdmin(string search,  string sortOrder, int pageNumber, int pageSize);
         Task<List<CategoryDTO>> GetAllCategory();
         Task<CategoryDTO> GetCategoryById(int id);
         Task<Category> CreateCate(Category newCate);

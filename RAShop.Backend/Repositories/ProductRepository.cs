@@ -36,7 +36,7 @@ namespace RAShop.Backend
                                     .Include(r => r.Ratings)
                                     .ToListAsync();
             var listProdDTO = _mapper.Map<List<ProductDTO>>(products);
-            var totalPages = (int)Math.Ceiling((double)countProduct / PagingDTO<ProductDTO>.PAGESIZE);
+            var totalPages = (int)Math.Ceiling((double)countProduct / pageSize);
             return new PagingDTO<ProductDTO> { TotalPages = totalPages, items = listProdDTO };
         }
         public async Task<PagingDTO<ProductDTO>> GetAllProduct(string sortOrder, int pageNumber, int pageSize)

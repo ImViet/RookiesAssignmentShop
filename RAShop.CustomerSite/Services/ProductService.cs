@@ -13,7 +13,6 @@ namespace RAShop.CustomerSite.Services
         {
             _clientFactory = clientFactory;
         }
-
         //Lay tat ca san pham
         public async Task<PagingDTO<ProductDTO>> GetAll(string sortOrder, int pageNumber)
         {

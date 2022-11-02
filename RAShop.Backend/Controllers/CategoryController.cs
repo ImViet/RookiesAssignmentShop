@@ -20,6 +20,14 @@ namespace RAShop.Backend.Controllers
         {
             _categoryRepo = categoryRepo;
         }
+
+        //Lay danh muc cho Admin
+        [HttpPost]
+        public async Task<ActionResult<PagingDTO<CategoryDTO>>> GetCategoryAdmin(
+            [FromBody] CategoryAdminSearchDTO model)
+        {
+            return await _categoryRepo.GetCategoryAdmin(model.Query, model.SortOrder, model.Page, model.PageSize);
+        }
         //Lay tat ca loai san pham
         [HttpGet]
         public async Task<ActionResult<List<CategoryDTO>>> GetAllCategory()

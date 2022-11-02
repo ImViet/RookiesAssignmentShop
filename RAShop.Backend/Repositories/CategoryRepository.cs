@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using RAShop.Backend.Data;
+using RAShop.Backend.Extensions;
 using RAShop.Backend.Models;
 using RAShop.Shared.DTO;
 
@@ -15,6 +16,30 @@ namespace RAShop.Backend
             _context = context;
             _mapper = mapper;
         }
+        //Lay danh muc cho admin
+         public async Task<PagingDTO<CategoryDTO>> GetCategoryAdmin(string search,  string sortOrder, int pageNumber, int pageSize)
+        {
+            //Query category
+            var cateQuery = _context.Categories.AsQueryable();
+            if(search != "")
+            {
+                cateQuery = cateQuery.Where(x => x.CategoryName.ToUpper().Contains(search.ToUpper()));
+            }
+           
+            //Sort 
+            cateQuery = SortCategory.Sorting(cateQuery, sortOrder);
+
+            var countCate = await cateQuery.CountAsync();
+            //Paging
+            var categories = await cateQuery.Skip((pageNumber - 1) * pageSize)
+                                    .Take(pageSize)
+                                    .Include(x => x.SubCates)
+                                    .ToListAsync();
+            var listCateDTO = _mapper.Map<List<CategoryDTO>>(categories);
+            var totalPages = (int)Math.Ceiling((double)countCate / pageSize);
+            return new PagingDTO<CategoryDTO> { TotalPages = totalPages, items = listCateDTO };
+        }
+
         public async Task<List<CategoryDTO>> GetAllCategory()
         {
             var categories = await _context.Categories.Include(s => s.SubCates).Include(p => p.Products).ToListAsync();
