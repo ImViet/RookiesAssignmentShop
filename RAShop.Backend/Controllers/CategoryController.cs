@@ -44,21 +44,21 @@ namespace RAShop.Backend.Controllers
 
         //Tao moi loai san pham
         [HttpPost]
-        public async Task<ActionResult<Category>> CreateCate(Category newCate)
+        public async Task<ActionResult<CategoryDTO>> CreateCate([FromBody] CreateCategoryDTO newCate)
         {
             return await _categoryRepo.CreateCate(newCate);
         }
 
         //Sua mot category
-        [HttpPut("{id}")]
-        public async Task<ActionResult<Category>> EditCategory(int id, Category newCategory)
+        [HttpPut]
+        public async Task<ActionResult<CategoryDTO>> EditCategory([FromBody] EditCategoryDTO newCate)
         {
-            return await _categoryRepo.EditCategory(id, newCategory);
+            return await _categoryRepo.EditCategory(newCate);
         }
 
         //Xoa category
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Category>> DeleteCategory(int id)
+        public async Task<ActionResult<CategoryDTO>> DeleteCategory(int id)
         {
             return await _categoryRepo.DeleteCategory(id);
         }

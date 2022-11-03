@@ -17,15 +17,15 @@ namespace RAShop.Backend
             _mapper = mapper;
         }
         //Lay danh muc cho admin
-         public async Task<PagingDTO<CategoryDTO>> GetCategoryAdmin(string search,  string sortOrder, int pageNumber, int pageSize)
+        public async Task<PagingDTO<CategoryDTO>> GetCategoryAdmin(string search, string sortOrder, int pageNumber, int pageSize)
         {
             //Query category
             var cateQuery = _context.Categories.AsQueryable();
-            if(search != "")
+            if (search != "")
             {
                 cateQuery = cateQuery.Where(x => x.CategoryName.ToUpper().Contains(search.ToUpper()));
             }
-           
+
             //Sort 
             cateQuery = SortCategory.Sorting(cateQuery, sortOrder);
 
@@ -50,45 +50,42 @@ namespace RAShop.Backend
         public async Task<CategoryDTO> GetCategoryById(int id)
         {
             var category = await _context.Categories.FirstOrDefaultAsync(x => x.CategoryId == id);
-            //return category;
             CategoryDTO cateDto = _mapper.Map<CategoryDTO>(category);
             return cateDto;
         }
-        public async Task<Category> CreateCate(Category newCate)
+        public async Task<CategoryDTO> CreateCate(CreateCategoryDTO newCate)
         {
-            var cate = new Category()
-            {
-                CategoryId = newCate.CategoryId,
-                CategoryName = newCate.CategoryName,
-                Description = newCate.Description
-            };
+            var cate = _mapper.Map<Category>(newCate);
             await _context.Categories.AddAsync(cate);
             await _context.SaveChangesAsync();
-            return cate;
+            var result = _mapper.Map<CategoryDTO>(cate);
+            return result;
         }
 
-        public async Task<Category> DeleteCategory(int id)
+        public async Task<CategoryDTO> DeleteCategory(int id)
         {
-
             var category = _context.Categories.FirstOrDefault(x => x.CategoryId == id);
             if (category != null)
             {
                 _context.Categories.Remove(category);
                 await _context.SaveChangesAsync();
             }
-            return category;
+            var result = _mapper.Map<CategoryDTO>(category);
+
+            return result;
         }
 
-        public async Task<Category> EditCategory(int id, Category newCategory)
+        public async Task<CategoryDTO> EditCategory(EditCategoryDTO newCate)
         {
-            var category = _context.Categories.Find(id);
+            var category = _context.Categories.FirstOrDefault(x => x.CategoryId == newCate.CateId);
             if (category != null)
             {
-                category.CategoryName = newCategory.CategoryName;
-                category.Description = newCategory.Description;
+                _context.Categories.Update(category);
+                _mapper.Map(newCate, category);
+                await _context.SaveChangesAsync();
             }
-            await _context.SaveChangesAsync();
-            return category;
+            var result = _mapper.Map<CategoryDTO>(category);
+            return result;
         }
     }
 }
