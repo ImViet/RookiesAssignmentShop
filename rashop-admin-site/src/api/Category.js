@@ -8,3 +8,7 @@ export const getCategoryAPI = (query, page, sortOrder) => {
         PageSize: 2
     });
 }
+
+export const postCategoryAPI = (newCategory) => {
+    return axiosClient.post(`category/getcategoryadmin`, newCategory);
+}

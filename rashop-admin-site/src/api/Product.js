@@ -5,6 +5,6 @@ export const getProductAPI = (query, page, sortOrder) => {
         query: query,
         page: page,
         sortOrder: sortOrder,
-        PageSize: 8
+        PageSize: 10
     });
 }

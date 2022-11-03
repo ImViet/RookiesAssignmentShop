@@ -12,6 +12,7 @@ function Product() {
   const [sort, setSort] = useState("0");
   const [query, setQuery] = useState("");
   const [pageIndex, setPageIndex] = useState(1);
+
   useEffect(() => {
     getProductAPI(query, pageIndex, sort)
       .then((res) => {
@@ -48,16 +49,16 @@ function Product() {
         id="dropdown-item-button"
         title="Sắp xếp"
       >
-        <Dropdown.Item onClick={() => setSort((s) => "price")}>
+        <Dropdown.Item onClick={() =>{ setSort((s) => "price"); setPageIndex((i) => (i = 1));}}>
           Giá tăng dần
         </Dropdown.Item>
-        <Dropdown.Item as="button" onClick={() => setSort((s) => "price_desc")}>
+        <Dropdown.Item as="button" onClick={() =>{ setSort((s) => "price_desc"); setPageIndex((i) => (i = 1));}}>
           Giá giảm dần
         </Dropdown.Item>
-        <Dropdown.Item as="button" onClick={() => setSort((s) => "name")}>
+        <Dropdown.Item as="button" onClick={() =>{ setSort((s) => "name"); setPageIndex((i) => (i = 1));}}>
           Tên a-z
         </Dropdown.Item>
-        <Dropdown.Item as="button" onClick={() => setSort((s) => "name_desc")}>
+        <Dropdown.Item as="button" onClick={() =>{ setSort((s) => "name_desc"); setPageIndex((i) => (i = 1));}}>
           Tên z-a
         </Dropdown.Item>
       </DropdownButton>
