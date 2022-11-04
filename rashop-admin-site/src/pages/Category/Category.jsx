@@ -11,13 +11,15 @@ import {
 import { getCategoryAPI } from "../../api/Category";
 import AddCategoryModal from "../../components/Modal/Category/AddCategoryModal";
 import EditCategoryModal from "../../components/Modal/Category/EditCategoryModal";
+import DeleteCategoryModal from "../../components/Modal/Category/DeleteCategoryModal";
 function Category() {
   const [categoriesData, setCatesData] = useState();
   const [sort, setSort] = useState("0");
   const [query, setQuery] = useState("");
   const [pageIndex, setPageIndex] = useState(1);
-  const [showEditModal, setShowEditModal] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [current, setCurrent] = useState();
   useEffect(() => {
     getCategoryAPI(query, pageIndex, sort)
@@ -41,9 +43,6 @@ function Category() {
   //End: Function handle pagination
 
   //Start: Function handle click to call modal
-  function handleShowEditModal() {
-    setShowEditModal(true);
-  }
   function handleShowAddModal() {
     setShowAddModal(true);
   }
@@ -111,7 +110,10 @@ function Category() {
                   >
                     Sửa
                   </Button>
-                  <Button variant="outline-danger">Xóa</Button>
+                  <Button  onClick={() => {
+                      setCurrent(item);
+                      setShowDeleteModal(true);
+                    }} variant="outline-danger">Xóa</Button>
                 </td>
               </tr>
             ))}
@@ -123,14 +125,22 @@ function Category() {
           Sau
         </Button>
       </table>
+      {/* Add category modal */}
+      <AddCategoryModal
+        status={showAddModal}
+        onClose={() => setShowAddModal(false)}
+      />
+      {/* Edit category modal */}
       <EditCategoryModal
         status={showEditModal}
         data={current}
         onClose={() => setShowEditModal(false)}
       />
-      <AddCategoryModal
-        status={showAddModal}
-        onClose={() => setShowAddModal(false)}
+      {/* Delete category modal */}
+      <DeleteCategoryModal
+        status={showDeleteModal}
+        data={current}
+        onClose={() => setShowDeleteModal(false)}
       />
     </React.Fragment>
   );
