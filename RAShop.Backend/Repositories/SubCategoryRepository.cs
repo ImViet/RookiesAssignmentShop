@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using RAShop.Backend.Data;
+using RAShop.Backend.Extensions;
 using RAShop.Backend.Models;
 using RAShop.Shared.DTO;
 
@@ -15,9 +16,31 @@ namespace RAShop.Backend
             _context = context;
             _mapper = mapper;
         }
+        public async Task<PagingDTO<SubCateDTO>> GetSubCategoryAdmin(string search, string sortOrder, int pageNumber, int pageSize)
+        {
+            //Query category
+            var cateQuery = _context.SubCategories.AsQueryable();
+            if (search != "")
+            {
+                cateQuery = cateQuery.Where(x => x.SubCategoryName.ToUpper().Contains(search.ToUpper()));
+            }
+
+            //Sort 
+            cateQuery = SortCategory.SortingSubCate(cateQuery, sortOrder);
+
+            var countCate = await cateQuery.CountAsync();
+            //Paging
+            var categories = await cateQuery.Skip((pageNumber - 1) * pageSize)
+                                    .Include(c => c.Category)
+                                    .Take(pageSize)
+                                    .ToListAsync();
+            var listCateDTO = _mapper.Map<List<SubCateDTO>>(categories);
+            var totalPages = (int)Math.Ceiling((double)countCate / pageSize);
+            return new PagingDTO<SubCateDTO> { TotalPages = totalPages, items = listCateDTO };
+        }
         public async Task<List<SubCateDTO>> GetAllSubCategory()
         {
-            var categories = await _context.SubCategories.Include(p => p.Products).ToListAsync();
+            var categories = await _context.SubCategories.Include(p => p.Products).Include(c => c.Category).ToListAsync();
             var listCateDTO = _mapper.Map<List<SubCateDTO>>(categories);
             return listCateDTO;
         }
@@ -29,20 +52,16 @@ namespace RAShop.Backend
             SubCateDTO cateDto = _mapper.Map<SubCateDTO>(category);
             return cateDto;
         }
-        public async Task<SubCategory> CreateSubCate(SubCategory newCate)
+        public async Task<SubCateDTO> CreateSubCate(CreateSubCategoryDTO newCate)
         {
-            var cate = new SubCategory()
-            {
-                SubCategoryId = newCate.SubCategoryId,
-                SubCategoryName = newCate.SubCategoryName,
-                Description = newCate.Description
-            };
+            var cate = _mapper.Map<SubCategory>(newCate);
             await _context.SubCategories.AddAsync(cate);
             await _context.SaveChangesAsync();
-            return cate;
+            var result = _mapper.Map<SubCateDTO>(cate);
+            return result;
         }
 
-        public async Task<SubCategory> DeleteSubCategory(int id)
+        public async Task<SubCateDTO> DeleteSubCategory(int id)
         {
             var category = _context.SubCategories.FirstOrDefault(x => x.SubCategoryId == id);
             if (category != null)
@@ -50,19 +69,21 @@ namespace RAShop.Backend
                 _context.SubCategories.Remove(category);
                 await _context.SaveChangesAsync();
             }
-            return category;
+            var result = _mapper.Map<SubCateDTO>(category);
+            return result;
         }
 
-        public async Task<SubCategory> EditSubCategory(int id, SubCategory newCategory)
+        public async Task<SubCateDTO> EditSubCategory(EditSubCategoryDTO newCate)
         {
-            var category = _context.SubCategories.Find(id);
+            var category = _context.SubCategories.Include(c => c.Category).FirstOrDefault(x => x.SubCategoryId == newCate.SubCateId);
             if (category != null)
             {
-                category.SubCategoryName = newCategory.SubCategoryName;
-                category.Description = newCategory.Description;
+                _context.SubCategories.Update(category);
+                _mapper.Map(newCate, category);
+                await _context.SaveChangesAsync();
             }
-            await _context.SaveChangesAsync();
-            return category;
+            var result = _mapper.Map<SubCateDTO>(category);
+            return result;
         }
 
 

@@ -11,7 +11,6 @@ namespace RAShop.Backend.Models
         [StringLength(50)]
         public string ProductName { get; set; }
         public decimal Price { get; set; }  
-        public int Quantity { get; set; }
         public DateTime? DateCreated {get; set;} 
         public DateTime? DateUpdated {get; set;}
         public string? Description { get; set; }

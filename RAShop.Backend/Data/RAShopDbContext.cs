@@ -24,6 +24,14 @@ namespace RAShop.Backend.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Category>()
+                .HasMany<Product>(p => p.Products)
+                .WithOne(c => c.Category)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Category>()
+                .HasMany<SubCategory>()
+                .WithOne(s => s.Category)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

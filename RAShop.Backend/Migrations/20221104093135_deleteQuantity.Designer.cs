@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RAShop.Backend.Data;
 
@@ -11,9 +12,10 @@ using RAShop.Backend.Data;
 namespace RAShop.Backend.Migrations
 {
     [DbContext(typeof(RAShopDbContext))]
-    partial class RAShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221104093135_deleteQuantity")]
+    partial class deleteQuantity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -185,9 +187,6 @@ namespace RAShop.Backend.Migrations
                     b.Property<int>("CateId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -202,8 +201,6 @@ namespace RAShop.Backend.Migrations
                     b.HasKey("SubCategoryId");
 
                     b.HasIndex("CateId");
-
-                    b.HasIndex("CategoryId");
 
                     b.ToTable("SubCategories");
                 });
@@ -231,8 +228,7 @@ namespace RAShop.Backend.Migrations
                 {
                     b.HasOne("RAShop.Backend.Models.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("CateId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CateId");
 
                     b.HasOne("RAShop.Backend.Models.SubCategory", "SubCategory")
                         .WithMany("Products")
@@ -257,14 +253,10 @@ namespace RAShop.Backend.Migrations
             modelBuilder.Entity("RAShop.Backend.Models.SubCategory", b =>
                 {
                     b.HasOne("RAShop.Backend.Models.Category", "Category")
-                        .WithMany()
+                        .WithMany("SubCates")
                         .HasForeignKey("CateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("RAShop.Backend.Models.Category", null)
-                        .WithMany("SubCates")
-                        .HasForeignKey("CategoryId");
 
                     b.Navigation("Category");
                 });

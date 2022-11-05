@@ -20,6 +20,13 @@ namespace RAShop.Backend.Controllers
         {
              _subCategoryRepo = subCategoryRepo;
         }
+         //Lay danh muc cho Admin
+        [HttpPost]
+        public async Task<ActionResult<PagingDTO<SubCateDTO>>> GetSubCategoryAdmin(
+            [FromBody] SubCategoryAdminSearchDTO model)
+        {
+            return await _subCategoryRepo.GetSubCategoryAdmin(model.Query, model.SortOrder, model.Page, model.PageSize);
+        }
         //Lay tat ca loai san pham
         [HttpGet]
         public async Task<ActionResult<List<SubCateDTO>>> GetAllSubCategory()
@@ -37,23 +44,23 @@ namespace RAShop.Backend.Controllers
 
         //Tao moi loai san pham
         [HttpPost]
-        public async Task<ActionResult<SubCategory>> CreateSubCate(SubCategory newCate)
+        public async Task<ActionResult<SubCateDTO>> CreateSubCate(CreateSubCategoryDTO newCate)
         {
             return await _subCategoryRepo.CreateSubCate(newCate);
          
         }
 
         //Sua mot category
-        [HttpPut("{id}")]
-        public async Task<ActionResult<SubCategory>> EditSubCategory(int id, SubCategory newCategory)
+        [HttpPut]
+        public async Task<ActionResult<SubCateDTO>> EditSubCategory(EditSubCategoryDTO newCategory)
         {
-            return await _subCategoryRepo.EditSubCategory(id, newCategory);
+            return await _subCategoryRepo.EditSubCategory(newCategory);
             
         }
 
         //Xoa category
         [HttpDelete("{id}")]
-        public async Task<ActionResult<SubCategory>> DeleteSubCategory(int id)
+        public async Task<ActionResult<SubCateDTO>> DeleteSubCategory(int id)
         {
             return await _subCategoryRepo.DeleteSubCategory(id);
            

@@ -152,7 +152,6 @@ namespace RAShop.Backend
                 ProductId = newProduct.ProductId,
                 ProductName = newProduct.ProductName,
                 Price = newProduct.Price,
-                Quantity = newProduct.Quantity,
                 Unit = newProduct.Unit,
                 Origin = newProduct.Origin,
                 Description = newProduct.Description,
@@ -183,7 +182,6 @@ namespace RAShop.Backend
                 product.ProductId = newProduct.ProductId;
                 product.ProductName = newProduct.ProductName;
                 product.Price = newProduct.Price;
-                product.Quantity = newProduct.Quantity;
                 product.Unit = newProduct.Unit;
                 product.Origin = newProduct.Origin;
                 product.Description = newProduct.Description;
