@@ -5,31 +5,35 @@ import {
   Form,
   Dropdown,
   DropdownButton,
-  Col,
   Row,
+  Col,
 } from "react-bootstrap";
-import { getProductAPI } from "../../api/Product";
-import AddProductModal from "../../components/Modal/Product/AddProductModal";
-import DetailProductModal from "../../components/Modal/Product/DetailProductModal";
-function Product() {
-  const [productsData, setProductsData] = useState();
+import { getSubCategoryAPI } from "../../api/SubCategory";
+import AddSubCategoryModal from "../../components/Modal/SubCategory/AddSubCategoryModal";
+import EditSubCategoryModal from "../../components/Modal/SubCategory/EditSubCategoryModal";
+import DeleteSubCategoryModal from "../../components/Modal/SubCategory/DeleteSubCategoryModal";
+import DetailSubCategoryModal from "../../components/Modal/SubCategory/DetailSubCategoryModal";
+function Category() {
+  const [categoriesData, setCatesData] = useState();
   const [sort, setSort] = useState("0");
   const [query, setQuery] = useState("");
   const [pageIndex, setPageIndex] = useState(1);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [current, setCurrent] = useState();
-  const [showAddModal, setShowAddModal] = useState(false);
   useEffect(() => {
-    getProductAPI(query, pageIndex, sort)
+    getSubCategoryAPI(query, pageIndex, sort)
       .then((res) => {
-        setProductsData(res);
+        setCatesData(res);
       })
       .catch((err) => console.log(err));
-  }, [query, pageIndex, sort, showAddModal]);
+  }, [query, pageIndex, sort, showAddModal, showEditModal, showDeleteModal]);
 
   //Start: Function handle pagination
   function handleNextPage() {
-    if (pageIndex < productsData.totalPages) {
+    if (pageIndex < categoriesData.totalPages) {
       setPageIndex((i) => i + 1);
     }
   }
@@ -65,38 +69,12 @@ function Product() {
             id="dropdown-item-button"
             title="Sắp xếp"
           >
-            <Dropdown.Item
-              onClick={() => {
-                setSort((s) => "price");
-                setPageIndex((i) => (i = 1));
-              }}
-            >
-              Giá tăng dần
-            </Dropdown.Item>
-            <Dropdown.Item
-              as="button"
-              onClick={() => {
-                setSort((s) => "price_desc");
-                setPageIndex((i) => (i = 1));
-              }}
-            >
-              Giá giảm dần
-            </Dropdown.Item>
-            <Dropdown.Item
-              as="button"
-              onClick={() => {
-                setSort((s) => "name");
-                setPageIndex((i) => (i = 1));
-              }}
-            >
+            <Dropdown.Item as="button" onClick={() => setSort((s) => "name")}>
               Tên a-z
             </Dropdown.Item>
             <Dropdown.Item
               as="button"
-              onClick={() => {
-                setSort((s) => "name_desc");
-                setPageIndex((i) => (i = 1));
-              }}
+              onClick={() => setSort((s) => "name_desc")}
             >
               Tên z-a
             </Dropdown.Item>
@@ -113,24 +91,16 @@ function Product() {
         <thead>
           <tr>
             <th scope="col">Id</th>
-            <th scope="col">Sản phẩm</th>
-            <th scope="col">Giá</th>
             <th scope="col">Danh mục</th>
-            <th scope="col">Loại SP</th>
-            <th scope="col">Ngày tạo</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          {productsData &&
-            productsData.items.map((item) => (
-              <tr key={item.productId}>
-                <td>{item.productId}</td>
-                <td>{item.productName}</td>
-                <td>{item.price}</td>
-                <td>{item.categoryName}</td>
+          {categoriesData &&
+            categoriesData.items.map((item) => (
+              <tr key={item.subCategoryId}>
+                <td>{item.subCategoryId}</td>
                 <td>{item.subCategoryName}</td>
-                <td>{item.dateCreated}</td>
                 <td>
                   <Button
                     onClick={() => {
@@ -141,13 +111,28 @@ function Product() {
                   >
                     Chi tiết
                   </Button>
-                  <Button variant="outline-warning">Sửa</Button>
-                  <Button variant="outline-danger">Xóa</Button>
+                  <Button
+                    onClick={() => {
+                      setCurrent(item);
+                      setShowEditModal(true);
+                    }}
+                    variant="outline-warning"
+                  >
+                    Sửa
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setCurrent(item);
+                      setShowDeleteModal(true);
+                    }}
+                    variant="outline-danger"
+                  >
+                    Xóa
+                  </Button>
                 </td>
               </tr>
             ))}
         </tbody>
-
         <Button variant="outline-secondary" onClick={handlePrePage}>
           Trước
         </Button>
@@ -155,18 +140,31 @@ function Product() {
           Sau
         </Button>
       </table>
-      <DetailProductModal
+      {/* Add sub category modal */}
+      <AddSubCategoryModal
+        status={showAddModal}
+        onClose={() => setShowAddModal(false)}
+      />
+      {/* Edit sub category modal */}
+      <EditSubCategoryModal
+        status={showEditModal}
+        data={current}
+        onClose={() => setShowEditModal(false)}
+      />
+      {/* Delete sub category modal */}
+      <DeleteSubCategoryModal
+        status={showDeleteModal}
+        data={current}
+        onClose={() => setShowDeleteModal(false)}
+      />
+      {/* Detail sub category modal  */}
+      <DetailSubCategoryModal
         status={showDetailModal}
         data={current}
         onClose={() => setShowDetailModal(false)}
-      />
-      {/* Add Product Modal  */}
-      <AddProductModal
-        status={showAddModal}
-        onClose={() => setShowAddModal(false)}
       />
     </React.Fragment>
   );
 }
 
-export default Product;
+export default Category;

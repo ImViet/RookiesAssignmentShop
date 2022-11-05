@@ -1,9 +1,10 @@
+import { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import {deleteCategoryAPI} from "../../../api/Category";
-function DeleteCategoryModal({status, onClose, data}) {
+import {deleteSubCategoryAPI} from "../../../api/SubCategory";
+function DeleteSubCategoryModal({status, onClose, data}) {
     function handleDelete(){
-        console.log(data.categoryId)
-        deleteCategoryAPI(data.categoryId);
+        console.log(data.subCategoryId)
+        deleteSubCategoryAPI(data.subCategoryId);
     }
     return (
         <Modal
@@ -20,10 +21,10 @@ function DeleteCategoryModal({status, onClose, data}) {
           <Button variant="secondary" onClick={onClose}>
             Đóng
           </Button>
-          <Button type="submit" onClick={() => {handleDelete(); onClose()}} variant="primary">Xóa</Button>
+          <Button type="submit" onClick={()=>{handleDelete(); onClose()}} variant="primary">Xóa</Button>
         </Modal.Footer>
       </Modal>
       
     );
   }
-  export default DeleteCategoryModal;
+  export default DeleteSubCategoryModal;

@@ -5,8 +5,12 @@ export const getCategoryAPI = (query, page, sortOrder) => {
         query: query,
         page: page,
         sortOrder: sortOrder,
-        PageSize: 2
+        PageSize: 8
     });
+}
+
+export const getCategorySelect = () => {
+    return axiosClient.get(`category/getallcategory`);
 }
 
 export const postCategoryAPI = (newCategory) => {

@@ -8,3 +8,15 @@ export const getProductAPI = (query, page, sortOrder) => {
         PageSize: 10
     });
 }
+
+export const postProductAPI = (newProduct) => {
+    return axiosClient.post(`product/createproduct`, newProduct);
+}
+
+export const putProductAPI = (newProduct) => {
+    return axiosClient.put(`product/editproduct`, newProduct);
+}
+
+export const deleteProductAPI = (id) => {
+    return axiosClient.delete(`product/deleteproduct/${id}`);
+}

@@ -14,6 +14,7 @@ function SideBar() {
       <Button variant="outline-success" size="sm" onClick={() =>{navigate('/')}}>Tổng quan</Button>
       <Button variant="outline-success" size="sm" onClick={() =>{navigate('/product')}}>Sản phẩm</Button>
       <Button variant="outline-success" size="sm" onClick={() =>{navigate('/category')}}>Danh mục</Button>
+      <Button variant="outline-success" size="sm" onClick={() =>{navigate('/subcategory')}}>Danh mục con</Button>
       </div>
     </div>
   );

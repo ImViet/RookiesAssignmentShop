@@ -1,14 +1,14 @@
 import { Modal, Button } from "react-bootstrap";
-import AddCategoryForm from "../../Form/Category/AddCategoryForm";
+import AddSubCategoryForm from "../../Form/SubCategory/AddSubCategoryForm";
 
-function AddCategoryModal({status, onClose}) {
+function AddSubCategoryModal({status, onClose}) {
   return (
-    <Modal size="lg" show={status}>
+    <Modal show={status}>
       <Modal.Header>
         <Modal.Title>Tạo danh mục</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <AddCategoryForm onSubmit={()=>onClose()} />
+        <AddSubCategoryForm onSubmit={()=>onClose()}/>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onClose}>Đóng</Button>
@@ -16,4 +16,4 @@ function AddCategoryModal({status, onClose}) {
     </Modal>
   );
 }
-export default AddCategoryModal;
+export default AddSubCategoryModal;

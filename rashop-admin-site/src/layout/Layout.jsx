@@ -6,6 +6,7 @@ import NavBar from "./Navbar/NavBar";
 import { Routes, Route } from "react-router-dom";
 import Product from '../pages/Product/Product';
 import Category from '../pages/Category/Category';
+import SubCategory from '../pages/SubCategory/SubCategory';
 function Layout() {
     return (
         <Container fluid className="p-0 h-100">
@@ -19,6 +20,7 @@ function Layout() {
                         <Routes>
                             <Route path='/product' element={<Product/>} />
                             <Route path='/category' element={<Category/>} />
+                            <Route path='/subcategory' element={<SubCategory/>} />
                         </Routes>
                     </Row>
                 </Col>

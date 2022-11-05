@@ -1,16 +1,25 @@
-import { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { useState } from "react";
 import { postCategoryAPI } from "../../../api/Category";
-function AddCategoryForm() {
+import {
+  MDBValidation,
+  MDBValidationItem,
+  MDBInput,
+  MDBBtn,
+  MDBTextArea,
+} from "mdb-react-ui-kit";
+function AddCategoryForm({ onSubmit }) {
   const [cate, setCate] = useState({
     cateName: "",
     description: "",
     image: "",
   });
   function handleSubmit(e) {
-    // e.preventDefault();
-    console.log(cate);
-    postCategoryAPI(cate);
+    if (cate.cateName !== "") {
+      e.preventDefault();
+      console.log(cate);
+      postCategoryAPI(cate);
+      onSubmit(cate);
+    } else console.log("Ko hop le");
   }
   const setValues = (e) => {
     setCate((previousState) => {
@@ -19,32 +28,30 @@ function AddCategoryForm() {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group className="mt-2">
-        <Form.Control
-          name="cateName"
-          type="text"
-          placeholder="Tên danh mục..."
+    <MDBValidation onSubmit={handleSubmit} className="row g-3">
+      <MDBValidationItem tooltip className="col-md-12">
+        <MDBInput
           onChange={setValues}
+          name="cateName"
+          id="cateName"
+          size="lg"
+          label="Tên danh mục"
           required
         />
-      </Form.Group>
-      <Form.Group className="mt-2">
-        <Form.Control
-          as="textarea"
-          name="description"
-          placeholder="Mô tả..."
+      </MDBValidationItem>
+      <MDBValidationItem tooltip className="col-md-12">
+        <MDBTextArea
           onChange={setValues}
-          row={3}
+          name="description"
+          id="description"
+          label="Mô tả"
+          size="lg"
         />
-      </Form.Group>
-      <Form.Group className="mt-2">
-        <Form.Control type="file" name="image" onChange={setValues} />
-      </Form.Group>
-      <Button className="mt-5" variant="success" type="submit">
-        Tạo
-      </Button>
-    </Form>
+      </MDBValidationItem>
+      <div className="col-12">
+        <MDBBtn type="submit">Xong</MDBBtn>
+      </div>
+    </MDBValidation>
   );
 }
 export default AddCategoryForm;

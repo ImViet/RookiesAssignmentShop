@@ -12,6 +12,8 @@ import { getCategoryAPI } from "../../api/Category";
 import AddCategoryModal from "../../components/Modal/Category/AddCategoryModal";
 import EditCategoryModal from "../../components/Modal/Category/EditCategoryModal";
 import DeleteCategoryModal from "../../components/Modal/Category/DeleteCategoryModal";
+import DetailCategoryModal from "../../components/Modal/Category/DetailCategoryModal";
+// import AddSuccess from "../../Toasts/AddSuccess";
 function Category() {
   const [categoriesData, setCatesData] = useState();
   const [sort, setSort] = useState("0");
@@ -20,6 +22,7 @@ function Category() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDetailModal, setShowDetailModal] = useState(false);
   const [current, setCurrent] = useState();
   useEffect(() => {
     getCategoryAPI(query, pageIndex, sort)
@@ -27,7 +30,7 @@ function Category() {
         setCatesData(res);
       })
       .catch((err) => console.log(err));
-  }, [query, pageIndex, sort]);
+  }, [query, pageIndex, sort, showAddModal, showEditModal, showDeleteModal]);
 
   //Start: Function handle pagination
   function handleNextPage() {
@@ -100,20 +103,33 @@ function Category() {
                 <td>{item.categoryId}</td>
                 <td>{item.categoryName}</td>
                 <td>
-                  <Button variant="outline-primary">Chi tiết</Button>
                   <Button
-                    variant="outline-warning"
+                    onClick={() => {
+                      setCurrent(item);
+                      setShowDetailModal(true);
+                    }}
+                    variant="outline-primary"
+                  >
+                    Chi tiết
+                  </Button>
+                  <Button
                     onClick={() => {
                       setCurrent(item);
                       setShowEditModal(true);
                     }}
+                    variant="outline-warning"
                   >
                     Sửa
                   </Button>
-                  <Button  onClick={() => {
+                  <Button
+                    onClick={() => {
                       setCurrent(item);
                       setShowDeleteModal(true);
-                    }} variant="outline-danger">Xóa</Button>
+                    }}
+                    variant="outline-danger"
+                  >
+                    Xóa
+                  </Button>
                 </td>
               </tr>
             ))}
@@ -125,6 +141,7 @@ function Category() {
           Sau
         </Button>
       </table>
+
       {/* Add category modal */}
       <AddCategoryModal
         status={showAddModal}
@@ -141,6 +158,12 @@ function Category() {
         status={showDeleteModal}
         data={current}
         onClose={() => setShowDeleteModal(false)}
+      />
+      {/* Detail category modal  */}
+      <DetailCategoryModal
+        status={showDetailModal}
+        data={current}
+        onClose={() => setShowDetailModal(false)}
       />
     </React.Fragment>
   );

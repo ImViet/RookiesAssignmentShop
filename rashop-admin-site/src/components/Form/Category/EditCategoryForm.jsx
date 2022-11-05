@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
 import { putCategoryAPI } from "../../../api/Category";
-
-function EditCategoryForm({ data }) {
+import {
+  MDBValidation,
+  MDBValidationItem,
+  MDBInput,
+  MDBBtn,
+  MDBTextArea,
+} from "mdb-react-ui-kit";
+function EditCategoryForm({ data, onSubmit }) {
   const [cate, setCate] = useState({
     cateId: data.categoryId,
     cateName: data.categoryName,
@@ -15,54 +20,40 @@ function EditCategoryForm({ data }) {
     });
   };
   function handleSubmit(e) {
-    // e.preventDefault();
-    console.log(cate);
-    putCategoryAPI(cate);
+    if (cate.cateName !== "") {
+      e.preventDefault();
+      console.log(cate);
+      // putCategoryAPI(cate);
+      onSubmit(cate);
+    } else console.log("Ko hop le");
   }
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group className="mt-2">
-        <Form.Control
+    <MDBValidation onSubmit={handleSubmit} className="row g-3">
+      <MDBValidationItem tooltip className="col-md-12">
+        <MDBInput
+          onChange={setValues}
           name="cateName"
-          type="text"
-          placeholder="Tên danh mục..."
-          required
-          defaultValue={data.categoryId}
-          disabled={true}
-        />
-      </Form.Group>
-      <Form.Group className="mt-2">
-        <Form.Control
-          name="cateName"
-          type="text"
-          placeholder="Tên danh mục..."
-          required
+          id="cateName"
+          label="Tên danh mục"
+          size="lg"
           defaultValue={data.categoryName}
-          onChange={setValues}
+          required
         />
-      </Form.Group>
-      <Form.Group className="mt-2">
-        <Form.Control
-          as="textarea"
+      </MDBValidationItem>
+      <MDBValidationItem tooltip className="col-md-12">
+        <MDBTextArea
+          onChange={setValues}
           name="description"
-          placeholder="Mô tả..."
-          row={3}
+          id="description"
+          label="Mô tả"
+          size="lg"
           defaultValue={data.description}
-          onChange={setValues}
         />
-      </Form.Group>
-      <Form.Group className="mt-2">
-        <Form.Control
-          type="file"
-          name="image"
-          placeholder="Chon anh"
-          onChange={setValues}
-        />
-      </Form.Group>
-      <Button className="mt-5" variant="success" type="submit" block>
-        Xong
-      </Button>
-    </Form>
+      </MDBValidationItem>
+      <div className="col-12">
+        <MDBBtn type="submit">Xong</MDBBtn>
+      </div>
+    </MDBValidation>
   );
 }
 export default EditCategoryForm;
