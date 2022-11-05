@@ -13,6 +13,7 @@ namespace RAShop.Shared.DTO
         public string? Origin { get; set; }
         public string? Unit { get; set; }
         public string CategoryName { get; set; }
+        public string? SubCategoryName { get; set; }
         public string MainImg { get; set; }
         public IList<RatingDTO>? Ratings {get; set;} = null;
 
