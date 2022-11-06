@@ -36,6 +36,14 @@ namespace RAShop.Backend.Controllers
 
         //Lay loai san pham theo id
         [HttpGet("{id}")]
+        public async Task<ActionResult<List<SubCateDTO>>> GetSubCategoryByCateId(int id)
+        {
+            return await _subCategoryRepo.GetSubCategoryByCateId(id);
+            
+        }
+
+        //Lay loai san pham theo id
+        [HttpGet("{id}")]
         public async Task<ActionResult<SubCateDTO>> GetSubCategoryById(int id)
         {
             return await _subCategoryRepo.GetSubCategoryById(id);
@@ -44,7 +52,7 @@ namespace RAShop.Backend.Controllers
 
         //Tao moi loai san pham
         [HttpPost]
-        public async Task<ActionResult<SubCateDTO>> CreateSubCate(CreateSubCategoryDTO newCate)
+        public async Task<ActionResult<SubCateDTO>> CreateSubCate([FromBody]CreateSubCategoryDTO newCate)
         {
             return await _subCategoryRepo.CreateSubCate(newCate);
          
@@ -52,7 +60,7 @@ namespace RAShop.Backend.Controllers
 
         //Sua mot category
         [HttpPut]
-        public async Task<ActionResult<SubCateDTO>> EditSubCategory(EditSubCategoryDTO newCategory)
+        public async Task<ActionResult<SubCateDTO>> EditSubCategory([FromBody]EditSubCategoryDTO newCategory)
         {
             return await _subCategoryRepo.EditSubCategory(newCategory);
             

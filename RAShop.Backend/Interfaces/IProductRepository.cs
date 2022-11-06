@@ -13,9 +13,9 @@ namespace RAShop.Backend
         Task<PagingDTO<ProductDTO>> GetProductBySubCateId(int cateid, string sortOrder, int pageNumber, int pageSize);
         Task<PagingDTO<ProductDTO>> SearchProducts(string searchString, string sortOrder, int pageNumber, int pageSize);
         Task<double> RatingAVG(int id);
-        Task<Product> CreateProduct(Product newProduct);
-        Task<Product> EditProduct(int id, Product newProduct);
-        Task<Product> DeleteProduct(int id);
+        Task<ProductDTO> CreateProduct(CreateProductDTO newProduct);
+        Task<ProductDTO> EditProduct(EditProductDTO newProduct);
+        Task<ProductDTO> DeleteProduct(int id);
 
     }
 }

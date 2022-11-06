@@ -8,6 +8,7 @@ namespace RAShop.Backend
     {
         Task<PagingDTO<SubCateDTO>> GetSubCategoryAdmin(string search,  string sortOrder, int pageNumber, int pageSize);
         Task<List<SubCateDTO>> GetAllSubCategory();
+        Task<List<SubCateDTO>> GetSubCategoryByCateId(int id);
         Task<SubCateDTO> GetSubCategoryById(int id);
         Task<SubCateDTO> CreateSubCate(CreateSubCategoryDTO newCate);
         Task<SubCateDTO> EditSubCategory(EditSubCategoryDTO newCategory);

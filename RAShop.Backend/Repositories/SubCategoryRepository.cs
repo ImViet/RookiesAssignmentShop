@@ -44,11 +44,16 @@ namespace RAShop.Backend
             var listCateDTO = _mapper.Map<List<SubCateDTO>>(categories);
             return listCateDTO;
         }
+        public async Task<List<SubCateDTO>> GetSubCategoryByCateId(int id)
+        {
+            var category = await _context.SubCategories.Where(x => x.CategoryId == id).ToListAsync();
+            List<SubCateDTO> cateDto = _mapper.Map<List<SubCateDTO>>(category);
+            return cateDto;
+        }
 
         public async Task<SubCateDTO> GetSubCategoryById(int id)
         {
             var category = await _context.SubCategories.FirstOrDefaultAsync(x => x.SubCategoryId == id);
-            //return category;
             SubCateDTO cateDto = _mapper.Map<SubCateDTO>(category);
             return cateDto;
         }

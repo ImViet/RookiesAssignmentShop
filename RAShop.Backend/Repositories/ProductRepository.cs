@@ -145,25 +145,16 @@ namespace RAShop.Backend
             return ratingAvg;
         }
 
-        public async Task<Product> CreateProduct(Product newProduct)
+        public async Task<ProductDTO> CreateProduct(CreateProductDTO newProduct)
         {
-            var product = new Product()
-            {
-                ProductId = newProduct.ProductId,
-                ProductName = newProduct.ProductName,
-                Price = newProduct.Price,
-                Unit = newProduct.Unit,
-                Origin = newProduct.Origin,
-                Description = newProduct.Description,
-                MainImg = newProduct.MainImg,
-                SubCategory = newProduct.SubCategory
-            };
+            var product = _mapper.Map<Product>(newProduct);
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
-            return product;
+            var result = _mapper.Map<ProductDTO>(product);
+            return result;
         }
 
-        public async Task<Product> DeleteProduct(int id)
+        public async Task<ProductDTO> DeleteProduct(int id)
         {
             var product = _context.Products.FirstOrDefault(x => x.ProductId == id);
             if (product != null)
@@ -171,25 +162,21 @@ namespace RAShop.Backend
                 _context.Products.Remove(product);
                 await _context.SaveChangesAsync();
             }
-            return product;
+            var result = _mapper.Map<ProductDTO>(product);
+            return result;
         }
 
-        public async Task<Product> EditProduct(int id, Product newProduct)
+        public async Task<ProductDTO> EditProduct(EditProductDTO newProduct)
         {
-            var product = _context.Products.Find(id);
+            var product = _context.Products.Include(c => c.Category).Include(s => s.SubCategory).FirstOrDefault(x => x.ProductId == newProduct.ProductId);
             if (product != null)
             {
-                product.ProductId = newProduct.ProductId;
-                product.ProductName = newProduct.ProductName;
-                product.Price = newProduct.Price;
-                product.Unit = newProduct.Unit;
-                product.Origin = newProduct.Origin;
-                product.Description = newProduct.Description;
-                product.MainImg = newProduct.MainImg;
-                product.SubCategory = newProduct.SubCategory;
+                _context.Products.Update(product);
+                _mapper.Map(newProduct, product);
+                await _context.SaveChangesAsync();
             }
-            await _context.SaveChangesAsync();
-            return product;
+            var result = _mapper.Map<ProductDTO>(product);
+            return result;
         }
 
 

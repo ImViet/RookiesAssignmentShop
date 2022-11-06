@@ -66,14 +66,14 @@ namespace RAShop.Backend.Controllers
 
         //Tao moi san pham
         [HttpPost]
-        public async Task<ActionResult<ProductDTO>> CreateProduct(CreateProductDTO newProduct)
+        public async Task<ActionResult<ProductDTO>> CreateProduct([FromBody]CreateProductDTO newProduct)
         {
             return await _productRepo.CreateProduct(newProduct);
         }
 
         //Sua mot san pham
         [HttpPut]
-        public async Task<ActionResult<ProductDTO>> EditProduct(EditProductDTO newProduct)
+        public async Task<ActionResult<ProductDTO>> EditProduct([FromBody]EditProductDTO newProduct)
         {
             return await _productRepo.EditProduct(newProduct);
         }
