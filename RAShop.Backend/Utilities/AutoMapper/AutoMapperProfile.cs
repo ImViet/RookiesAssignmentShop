@@ -8,10 +8,18 @@ namespace RAShop.Backend.Utilities.AutoMapper
         public AutoMapperProfile()
         {
             CreateMap<Product, ProductDTO>()
+            .ForMember(dest => dest.CategoryId, cof => cof.MapFrom(src => src.CateId))
               .ForMember(dest => dest.CategoryName, cof => cof.MapFrom(src => src.Category.CategoryName))
+              .ForMember(dest => dest.SubCategoryId, cof => cof.MapFrom(src => src.SubCateId))
               .ForMember(dest => dest.SubCategoryName, cof => cof.MapFrom(src => src.SubCategory.SubCategoryName))
               .ForMember(dest => dest.MainImg, cof => cof.MapFrom(src => src.MainImg))
               .ForMember(dest => dest.Ratings, cof => cof.MapFrom(src => src.Ratings));
+            CreateMap<CreateProductDTO, Product>()
+                .ForMember(dest => dest.CateId, cof => cof.MapFrom(src => src.CategoryId))
+                .ForMember(dest => dest.SubCateId, cof => cof.MapFrom(src => src.SubCategoryId));
+            CreateMap<EditProductDTO, Product>()
+             .ForMember(dest => dest.CateId, cof => cof.MapFrom(src => src.CategoryId))
+             .ForMember(dest => dest.SubCateId, cof => cof.MapFrom(src => src.SubCategoryId));
             CreateMap<Rating, RatingDTO>();
             CreateMap<AddRatingDTO, Rating>()
                 .ForMember(dest => dest.ProductId, cof => cof.MapFrom(src => src.ProductId));
@@ -28,10 +36,10 @@ namespace RAShop.Backend.Utilities.AutoMapper
                 .ForMember(dest => dest.CategoryParentName, cof => cof.MapFrom(src => src.Category.CategoryName))
                 .ForMember(dest => dest.Products, cof => cof.MapFrom(src => src.Products));
             CreateMap<CreateSubCategoryDTO, SubCategory>()
-            .ForMember(dest => dest.CateId, cof => cof.MapFrom(src => src.CategoryId))
+            .ForMember(dest => dest.CategoryId, cof => cof.MapFrom(src => src.CategoryId))
             .ForMember(dest => dest.SubCategoryName, cof => cof.MapFrom(src => src.SubCateName));
             CreateMap<EditSubCategoryDTO, SubCategory>()
-                .ForMember(dest => dest.CateId, cof => cof.MapFrom(src => src.CategoryParentId))
+                .ForMember(dest => dest.CategoryId, cof => cof.MapFrom(src => src.CategoryParentId))
                 .ForMember(dest => dest.SubCategoryName, cof => cof.MapFrom(src => src.SubCateName));
 
         }
