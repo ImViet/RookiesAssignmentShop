@@ -8,7 +8,9 @@ export const getSubCategoryAPI = (query, page, sortOrder) => {
         PageSize: 8
     });
 }
-
+export const getSubCategorySelect = () => {
+    return axiosClient.get(`subcate/getallsubcategory`);
+}
 export const postSubCategoryAPI = (newCategory) => {
     return axiosClient.post(`subcate/createsubcate`, newCategory);
 }

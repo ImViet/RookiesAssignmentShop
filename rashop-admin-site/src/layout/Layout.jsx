@@ -16,12 +16,12 @@ function Layout() {
                 </Col>
                 <Col md={10} className="p-0">
                     <Row className="m-0">
-                        <NavBar />
+                        <NavBar/>
                         <Routes>
                             <Route path='/product' element={<Product/>} />
                             <Route path='/category' element={<Category/>} />
                             <Route path='/subcategory' element={<SubCategory/>} />
-                        </Routes>
+                        </Routes>           
                     </Row>
                 </Col>
             </Row>

@@ -9,19 +9,21 @@ import { Form, Col } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { getCategorySelect } from "../../../api/Category";
 import { getSubCategorySelect } from "../../../api/SubCategory";
-import { postProductAPI } from "../../../api/Product";
-function AddProductForm( {onSubmit}) {
+import { putProductAPI } from "../../../api/Product";
+
+function EditProductForm({ data, onSubmit }) {
   const [product, setProduct] = useState({
-    productName: "",
-    price: "",
-    dateCreated: new Date(),
-    dateUpdated: null,
-    description: "",
-    origin: "",
-    unit: "",
-    mainImg: "",
-    categoryId: '0',
-    subCategoryId: null,
+    productId: data.productId,
+    productName: data.productName,
+    price: data.price,
+    dateCreated: data.dateCreated,
+    dateUpdated: new Date(),
+    description: data.description,
+    origin: data.origin,
+    unit: data.unit,
+    mainImg: data.mainImg,
+    categoryId: data.categoryId,
+    subCategoryId: data.subCategoryId,
   });
   const [categoriesData, setCatesData] = useState();
   const [subCategoriesData, setSubCatesData] = useState();
@@ -39,25 +41,56 @@ function AddProductForm( {onSubmit}) {
       })
       .catch((err) => console.log(err));
   }, []);
-  function handleSubmit(e) {
-    if(product.categoryId === "0")
-    {
-        alert("Vui lòng chọn danh mục cha !!!");
-    }
-    if (product.cateName !== "" && product.price !=="" && product.categoryId !== "0") {
-      e.preventDefault();
-      console.log(product);
-      postProductAPI(product);
-      onSubmit(product);
-    } else console.log("Ko hop le");
-  }
   const setValues = (e) => {
     setProduct((previousState) => {
       return { ...previousState, [e.target.name]: e.target.value };
     });
   };
+  function handleSubmit(e) {
+    if (product.cateName !== "" && product.price !=="" && product.categoryId !== "") {
+      e.preventDefault();
+      console.log(product);
+      putProductAPI(product);
+      onSubmit(product);
+    } else console.log("Ko hop le");
+  }
   return (
     <MDBValidation onSubmit={handleSubmit} className="row g-3">
+      <MDBValidationItem tooltip className="col-md-12">
+        <MDBInput
+          name="productId"
+          id="productId"
+          label="Id"
+          required
+          disabled
+          defaultValue={data.productId}
+          onChange={setValues}
+        />
+      </MDBValidationItem>
+      <MDBValidationItem tooltip invalid className="col-md-6">
+        <MDBInput
+          name="dateCreated"
+          id="dateCreated"
+          label="Ngày tạo"
+          required
+          disabled
+          defaultValue={data.dateCreated}
+          onChange={setValues}
+        />
+      </MDBValidationItem>
+      <MDBValidationItem tooltip invalid className="col-md-6">
+        <MDBInput
+          name="dateUpdated"
+          id="dateUpdated"
+          label="Ngày cập nhật"
+          required
+          disabled
+          defaultValue={
+            data.dateUpdated !== null ? data.dateUpdated : "Chưa cập nhật"
+          }
+          onChange={setValues}
+        />
+      </MDBValidationItem>
       <MDBValidationItem
         tooltip
         feedback="Vui lòng nhập tên"
@@ -69,6 +102,7 @@ function AddProductForm( {onSubmit}) {
           id="productName"
           label="Tên sản phẩm"
           required
+          defaultValue={data.productName}
           onChange={setValues}
         />
       </MDBValidationItem>
@@ -83,6 +117,7 @@ function AddProductForm( {onSubmit}) {
           id="origin"
           label="Xuất xứ"
           required
+          defaultValue={data.origin}
           onChange={setValues}
         />
       </MDBValidationItem>
@@ -97,6 +132,7 @@ function AddProductForm( {onSubmit}) {
           id="unit"
           label="Đơn vị tính"
           required
+          defaultValue={data.unit}
           onChange={setValues}
         />
       </MDBValidationItem>
@@ -111,19 +147,18 @@ function AddProductForm( {onSubmit}) {
           id="price"
           label="Giá"
           required
+          defaultValue={data.price}
           onChange={setValues}
         />
       </MDBValidationItem>
       <Form.Group as={Col} controlId="formGridState" className="col-md-6">
         <Form.Label>Danh mục cha</Form.Label>
         <Form.Select
+          defaultValue={data.categoryId}
           name="categoryId"
           onChange={setValues}
-          required
         >
-          <option value="0">
-              Chọn...
-            </option>
+          <option>Hiện tại thuộc: {data.categoryName}</option>
           {categoriesData &&
             categoriesData.map((item) => (
               <option key={item.categoryId} value={item.categoryId}>
@@ -135,13 +170,12 @@ function AddProductForm( {onSubmit}) {
       <Form.Group as={Col} controlId="formGridState" className="col-md-6">
         <Form.Label>Danh mục con</Form.Label>
         <Form.Select
+          defaultValue={data.subCategoryId}
           name="subCategoryId"
           onChange={setValues}
           invalid
         >
-          <option value="0" >
-              Chọn...
-            </option>
+          <option>Hiện tại thuộc: {data.subCategoryName}</option>
           {subCategoriesData &&
             subCategoriesData.map((item) => (
               <option key={item.subCategoryId} value={item.subCategoryId}>
@@ -160,6 +194,7 @@ function AddProductForm( {onSubmit}) {
           name="mainImg"
           id="mainImg"
           label="Link ảnh"
+          defaultValue={data.mainImg}
           onChange={setValues}
         />
       </MDBValidationItem>
@@ -173,6 +208,7 @@ function AddProductForm( {onSubmit}) {
           name="description"
           id="description"
           label="Mô tả"
+          defaultValue={data.description}
           onChange={setValues}
         />
       </MDBValidationItem>
@@ -183,5 +219,4 @@ function AddProductForm( {onSubmit}) {
     </MDBValidation>
   );
 }
-
-export default AddProductForm;
+export default EditProductForm;

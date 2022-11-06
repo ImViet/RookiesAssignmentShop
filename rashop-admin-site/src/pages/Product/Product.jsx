@@ -11,21 +11,26 @@ import {
 import { getProductAPI } from "../../api/Product";
 import AddProductModal from "../../components/Modal/Product/AddProductModal";
 import DetailProductModal from "../../components/Modal/Product/DetailProductModal";
+import EditProductModal from "../../components/Modal/Product/EditProductModal";
+import DeleteProductModal from "../../components/Modal/Product/DeleteProductModal";
 function Product() {
   const [productsData, setProductsData] = useState();
   const [sort, setSort] = useState("0");
   const [query, setQuery] = useState("");
   const [pageIndex, setPageIndex] = useState(1);
   const [showDetailModal, setShowDetailModal] = useState(false);
-  const [current, setCurrent] = useState();
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [current, setCurrent] = useState();
   useEffect(() => {
     getProductAPI(query, pageIndex, sort)
       .then((res) => {
         setProductsData(res);
+        console.log("re-render");
       })
       .catch((err) => console.log(err));
-  }, [query, pageIndex, sort, showAddModal]);
+  }, [query, pageIndex, sort, showAddModal, showEditModal, showDeleteModal]);
 
   //Start: Function handle pagination
   function handleNextPage() {
@@ -39,12 +44,6 @@ function Product() {
     }
   }
   //End: Function handle pagination
-
-  //Start: Function handle click to call modal
-  function handleShowAddModal() {
-    setShowAddModal(true);
-  }
-  //End: Function handle click to call modal
   return (
     <React.Fragment>
       <InputGroup className="mb-3">
@@ -103,7 +102,7 @@ function Product() {
           </DropdownButton>
         </Col>
         <Col>
-          <Button onClick={handleShowAddModal} variant="success">
+          <Button onClick={() => setShowAddModal(true)} variant="success">
             Tạo mới
           </Button>
         </Col>
@@ -141,8 +140,24 @@ function Product() {
                   >
                     Chi tiết
                   </Button>
-                  <Button variant="outline-warning">Sửa</Button>
-                  <Button variant="outline-danger">Xóa</Button>
+                  <Button
+                    onClick={() => {
+                      setCurrent(item);
+                      setShowEditModal(true);
+                    }}
+                    variant="outline-warning"
+                  >
+                    Sửa
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setCurrent(item);
+                      setShowDeleteModal(true);
+                    }}
+                    variant="outline-danger"
+                  >
+                    Xóa
+                  </Button>
                 </td>
               </tr>
             ))}
@@ -155,15 +170,28 @@ function Product() {
           Sau
         </Button>
       </table>
+      {/* Add Product Modal  */}
+      <AddProductModal
+        status={showAddModal}
+        onClose={() => setShowAddModal(false)}
+      />
+      {/* Detail Product Modal */}
       <DetailProductModal
         status={showDetailModal}
         data={current}
         onClose={() => setShowDetailModal(false)}
       />
-      {/* Add Product Modal  */}
-      <AddProductModal
-        status={showAddModal}
-        onClose={() => setShowAddModal(false)}
+      {/* Edit Product Modal */}
+      <EditProductModal
+        status={showEditModal}
+        data={current}
+        onClose={() => setShowEditModal(false)}
+      />
+      {/* Delete Product Modal */}
+      <DeleteProductModal
+        status={showDeleteModal}
+        data={current}
+        onClose={() => setShowDeleteModal(false)}
       />
     </React.Fragment>
   );

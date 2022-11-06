@@ -1,6 +1,6 @@
 import { Modal, Button } from "react-bootstrap";
-import AddProductForm from "../../Form/Product/AddProductForm";
-function AddProductModal({status, onClose}) {
+import EditProductForm from "../../Form/Product/EditProductForm";
+function EditProductModal({status, onClose, data}) {
   return (
     <Modal
         show={status}
@@ -10,11 +10,11 @@ function AddProductModal({status, onClose}) {
       >
         <Modal.Header>
           <Modal.Title id="example-custom-modal-styling-title">
-            Thêm mới
+            Chỉnh sửa
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AddProductForm onSubmit={() => onClose()}/>
+          <EditProductForm data={data} onSubmit={()=> onClose()}/>
         </Modal.Body>
         <Modal.Footer>
         <Button variant="secondary" onClick={onClose}>Đóng</Button>
@@ -22,4 +22,4 @@ function AddProductModal({status, onClose}) {
       </Modal>
   );
 }
-export default AddProductModal;
+export default EditProductModal;

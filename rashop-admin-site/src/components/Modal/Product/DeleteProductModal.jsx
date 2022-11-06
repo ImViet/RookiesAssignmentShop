@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import {deleteSubCategoryAPI} from "../../../api/SubCategory";
-function DeleteSubCategoryModal({status, onClose, data}) {
+import { deleteProductAPI } from "../../../api/Product";
+function DeleteProductModal({status, onClose, data}) {
     function handleDelete(){
-        console.log(data.subCategoryId)
-        deleteSubCategoryAPI(data.subCategoryId)
+        console.log(data.productId)
+        deleteProductAPI(data.productId)
         .then((res) => {if(res.status === 200){alert("Xóa thành công")}     
         })
         .catch((err) => {setTimeout(() => {
@@ -26,10 +25,10 @@ function DeleteSubCategoryModal({status, onClose, data}) {
           <Button variant="secondary" onClick={onClose}>
             Đóng
           </Button>
-          <Button type="submit" onClick={()=>{handleDelete(); onClose()}} variant="primary">Xóa</Button>
+          <Button type="submit" onClick={() => {handleDelete(); onClose()}} variant="primary">Xóa</Button>
         </Modal.Footer>
       </Modal>
       
     );
   }
-  export default DeleteSubCategoryModal;
+  export default DeleteProductModal;

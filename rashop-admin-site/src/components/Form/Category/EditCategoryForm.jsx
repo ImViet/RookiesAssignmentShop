@@ -23,12 +23,24 @@ function EditCategoryForm({ data, onSubmit }) {
     if (cate.cateName !== "") {
       e.preventDefault();
       console.log(cate);
-      // putCategoryAPI(cate);
+      putCategoryAPI(cate);
       onSubmit(cate);
     } else console.log("Ko hop le");
   }
   return (
     <MDBValidation onSubmit={handleSubmit} className="row g-3">
+      <MDBValidationItem tooltip className="col-md-12">
+        <MDBInput
+          onChange={setValues}
+          name="cateId"
+          id="cateId"
+          label="Id"
+          size="lg"
+          defaultValue={data.categoryId}
+          required
+          disabled
+        />
+      </MDBValidationItem>
       <MDBValidationItem tooltip className="col-md-12">
         <MDBInput
           onChange={setValues}

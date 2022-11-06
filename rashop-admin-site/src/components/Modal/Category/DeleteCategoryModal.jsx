@@ -3,7 +3,12 @@ import {deleteCategoryAPI} from "../../../api/Category";
 function DeleteCategoryModal({status, onClose, data}) {
     function handleDelete(){
         console.log(data.categoryId)
-        deleteCategoryAPI(data.categoryId);
+        deleteCategoryAPI(data.categoryId)
+        .then((res) => {if(res.status === 200){ alert("Xóa thành công")}     
+        })
+        .catch((err) => {setTimeout(() => {
+          alert("Xóa thất bại, có sản phẩm liên quan!!!")
+        }, 300); });
     }
     return (
         <Modal

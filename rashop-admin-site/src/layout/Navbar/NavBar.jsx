@@ -2,9 +2,10 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import classes from './NavBar.module.css';
 function NavBar() {
     return (
-      <Navbar bg="light" expand="lg">
+      <Navbar bg="light" expand="lg" className={classes.navbar}>
         <Container>
           <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />

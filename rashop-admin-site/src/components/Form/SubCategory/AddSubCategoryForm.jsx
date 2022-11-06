@@ -17,6 +17,10 @@ function AddSubCategoryForm({ onSubmit }) {
   });
   const [categoriesData, setCatesData] = useState();
   function handleSubmit(e) {
+    if(subCate.categoryId === "0")
+    {
+        alert("Vui lòng chọn danh mục !!!");
+    }
     if (subCate.subCateName !== "" && subCate.categoryId !== "0") {
       e.preventDefault();
       console.log(subCate);
