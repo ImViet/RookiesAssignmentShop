@@ -4,7 +4,7 @@
 
 namespace RAShop.Backend.Migrations
 {
-    public partial class fixDb : Migration
+    public partial class fixDeleteBehaviorv2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,16 +12,9 @@ namespace RAShop.Backend.Migrations
                 name: "FK_Products_Categories_CateId",
                 table: "Products");
 
-            migrationBuilder.AddColumn<int>(
-                name: "CategoryId",
-                table: "SubCategories",
-                type: "int",
-                nullable: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SubCategories_CategoryId",
-                table: "SubCategories",
-                column: "CategoryId");
+            migrationBuilder.DropForeignKey(
+                name: "FK_Products_SubCategories_SubCateId",
+                table: "Products");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Products_Categories_CateId",
@@ -32,11 +25,12 @@ namespace RAShop.Backend.Migrations
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_SubCategories_Categories_CategoryId",
-                table: "SubCategories",
-                column: "CategoryId",
-                principalTable: "Categories",
-                principalColumn: "CategoryId");
+                name: "FK_Products_SubCategories_SubCateId",
+                table: "Products",
+                column: "SubCateId",
+                principalTable: "SubCategories",
+                principalColumn: "SubCategoryId",
+                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -46,16 +40,8 @@ namespace RAShop.Backend.Migrations
                 table: "Products");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_SubCategories_Categories_CategoryId",
-                table: "SubCategories");
-
-            migrationBuilder.DropIndex(
-                name: "IX_SubCategories_CategoryId",
-                table: "SubCategories");
-
-            migrationBuilder.DropColumn(
-                name: "CategoryId",
-                table: "SubCategories");
+                name: "FK_Products_SubCategories_SubCateId",
+                table: "Products");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Products_Categories_CateId",
@@ -63,6 +49,13 @@ namespace RAShop.Backend.Migrations
                 column: "CateId",
                 principalTable: "Categories",
                 principalColumn: "CategoryId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Products_SubCategories_SubCateId",
+                table: "Products",
+                column: "SubCateId",
+                principalTable: "SubCategories",
+                principalColumn: "SubCategoryId");
         }
     }
 }

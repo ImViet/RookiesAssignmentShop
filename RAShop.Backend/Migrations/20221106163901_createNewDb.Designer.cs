@@ -12,8 +12,8 @@ using RAShop.Backend.Data;
 namespace RAShop.Backend.Migrations
 {
     [DbContext(typeof(RAShopDbContext))]
-    [Migration("20221104093135_deleteQuantity")]
-    partial class deleteQuantity
+    [Migration("20221106163901_createNewDb")]
+    partial class createNewDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -184,7 +184,7 @@ namespace RAShop.Backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubCategoryId"), 1L, 1);
 
-                    b.Property<int>("CateId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -200,7 +200,7 @@ namespace RAShop.Backend.Migrations
 
                     b.HasKey("SubCategoryId");
 
-                    b.HasIndex("CateId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("SubCategories");
                 });
@@ -254,9 +254,8 @@ namespace RAShop.Backend.Migrations
                 {
                     b.HasOne("RAShop.Backend.Models.Category", "Category")
                         .WithMany("SubCates")
-                        .HasForeignKey("CateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Category");
                 });

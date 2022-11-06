@@ -3,7 +3,7 @@ using RAShop.Backend.Models;
 
 namespace RAShop.Backend.Data
 {
-    public class RAShopDbContext: DbContext 
+    public class RAShopDbContext : DbContext
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -11,7 +11,7 @@ namespace RAShop.Backend.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Rating> Ratings { get; set; }
-        
+
 
         public RAShopDbContext(DbContextOptions options) : base(options)
         {
@@ -28,8 +28,13 @@ namespace RAShop.Backend.Data
                 .HasMany<Product>(p => p.Products)
                 .WithOne(c => c.Category)
                 .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<SubCategory>()
+            .HasMany<Product>(p => p.Products)
+            .WithOne(c => c.SubCategory)
+            .OnDelete(DeleteBehavior.SetNull);
+
             modelBuilder.Entity<Category>()
-                .HasMany<SubCategory>()
+                .HasMany<SubCategory>(s => s.SubCates)
                 .WithOne(s => s.Category)
                 .OnDelete(DeleteBehavior.Cascade);
         }

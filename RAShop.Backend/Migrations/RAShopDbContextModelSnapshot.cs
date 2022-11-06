@@ -182,9 +182,6 @@ namespace RAShop.Backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubCategoryId"), 1L, 1);
 
-                    b.Property<int>("CateId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
@@ -200,8 +197,6 @@ namespace RAShop.Backend.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("SubCategoryId");
-
-                    b.HasIndex("CateId");
 
                     b.HasIndex("CategoryId");
 
@@ -236,7 +231,8 @@ namespace RAShop.Backend.Migrations
 
                     b.HasOne("RAShop.Backend.Models.SubCategory", "SubCategory")
                         .WithMany("Products")
-                        .HasForeignKey("SubCateId");
+                        .HasForeignKey("SubCateId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Category");
 
@@ -257,14 +253,9 @@ namespace RAShop.Backend.Migrations
             modelBuilder.Entity("RAShop.Backend.Models.SubCategory", b =>
                 {
                     b.HasOne("RAShop.Backend.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RAShop.Backend.Models.Category", null)
                         .WithMany("SubCates")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Category");
                 });
