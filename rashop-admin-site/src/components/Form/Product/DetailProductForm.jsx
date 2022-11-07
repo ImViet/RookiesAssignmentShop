@@ -13,6 +13,7 @@ function DetailProductForm({data}) {
           name="productId"
           id="productId"
           label="Id"
+          size="lg"
           required
           disabled
           defaultValue={data.productId}
@@ -23,6 +24,7 @@ function DetailProductForm({data}) {
           name="dateCreated"
           id="dateCreated"
           label="Ngày tạo"
+          size="lg"
           required
           disabled
           defaultValue={data.dateCreated}
@@ -33,6 +35,7 @@ function DetailProductForm({data}) {
           name="dateUpdated"
           id="dateUpdated"
           label="Ngày cập nhật"
+          size="lg"
           required
           disabled
           defaultValue={
@@ -50,6 +53,7 @@ function DetailProductForm({data}) {
           name="productName"
           id="productName"
           label="Tên sản phẩm"
+          size="lg"
           required
           defaultValue={data.productName}
         />
@@ -64,6 +68,7 @@ function DetailProductForm({data}) {
           name="origin"
           id="origin"
           label="Xuất xứ"
+          size="lg"
           required
           defaultValue={data.origin}
         />
@@ -78,6 +83,7 @@ function DetailProductForm({data}) {
           name="unit"
           id="unit"
           label="Đơn vị tính"
+          size="lg"
           required
           defaultValue={data.unit}
         />
@@ -92,6 +98,7 @@ function DetailProductForm({data}) {
           name="price"
           id="price"
           label="Giá"
+          size="lg"
           required
           defaultValue={data.price}
         />
@@ -105,6 +112,7 @@ function DetailProductForm({data}) {
           name="categoryName"
           id="categoryName"
           label="Danh mục cha"
+          size="lg"
           required
           defaultValue={data.categoryName !== null ? data.categoryName : "Không"}
         />
@@ -118,6 +126,7 @@ function DetailProductForm({data}) {
           name="subCategoryName"
           id="subCategoryName"
           label="Danh mục con"
+          size="lg"
           required
           defaultValue={data.subCategoryName !== null ? data.subCategoryName : "Không"}
         />
@@ -131,6 +140,7 @@ function DetailProductForm({data}) {
           name="mainImg"
           id="mainImg"
           label="Link ảnh"
+          size="lg"
           defaultValue={data.mainImg !== "" ? data.mainImg : "Chưa cập nhật"}
         />
       </MDBValidationItem>
@@ -144,6 +154,7 @@ function DetailProductForm({data}) {
           name="description"
           id="description"
           label="Mô tả"
+          size="lg"
           defaultValue={data.description}
         />
       </MDBValidationItem>

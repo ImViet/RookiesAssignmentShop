@@ -68,6 +68,7 @@ function AddProductForm( {onSubmit}) {
           name="productName"
           id="productName"
           label="Tên sản phẩm"
+          size="lg"
           required
           onChange={setValues}
         />
@@ -82,6 +83,7 @@ function AddProductForm( {onSubmit}) {
           name="origin"
           id="origin"
           label="Xuất xứ"
+          size="lg"
           required
           onChange={setValues}
         />
@@ -96,6 +98,7 @@ function AddProductForm( {onSubmit}) {
           name="unit"
           id="unit"
           label="Đơn vị tính"
+          size="lg"
           required
           onChange={setValues}
         />
@@ -110,6 +113,7 @@ function AddProductForm( {onSubmit}) {
           name="price"
           id="price"
           label="Giá"
+          size="lg"
           required
           onChange={setValues}
         />
@@ -160,6 +164,7 @@ function AddProductForm( {onSubmit}) {
           name="mainImg"
           id="mainImg"
           label="Link ảnh"
+          size="lg"
           onChange={setValues}
         />
       </MDBValidationItem>
@@ -173,6 +178,7 @@ function AddProductForm( {onSubmit}) {
           name="description"
           id="description"
           label="Mô tả"
+          size="lg"
           onChange={setValues}
         />
       </MDBValidationItem>

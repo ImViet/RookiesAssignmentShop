@@ -61,6 +61,7 @@ function EditProductForm({ data, onSubmit }) {
           name="productId"
           id="productId"
           label="Id"
+          size="lg"
           required
           disabled
           defaultValue={data.productId}
@@ -72,6 +73,7 @@ function EditProductForm({ data, onSubmit }) {
           name="dateCreated"
           id="dateCreated"
           label="Ngày tạo"
+          size="lg"
           required
           disabled
           defaultValue={data.dateCreated}
@@ -83,6 +85,7 @@ function EditProductForm({ data, onSubmit }) {
           name="dateUpdated"
           id="dateUpdated"
           label="Ngày cập nhật"
+          size="lg"
           required
           disabled
           defaultValue={
@@ -101,6 +104,7 @@ function EditProductForm({ data, onSubmit }) {
           name="productName"
           id="productName"
           label="Tên sản phẩm"
+          size="lg"
           required
           defaultValue={data.productName}
           onChange={setValues}
@@ -116,6 +120,7 @@ function EditProductForm({ data, onSubmit }) {
           name="origin"
           id="origin"
           label="Xuất xứ"
+          size="lg"
           required
           defaultValue={data.origin}
           onChange={setValues}
@@ -131,6 +136,7 @@ function EditProductForm({ data, onSubmit }) {
           name="unit"
           id="unit"
           label="Đơn vị tính"
+          size="lg"
           required
           defaultValue={data.unit}
           onChange={setValues}
@@ -146,6 +152,7 @@ function EditProductForm({ data, onSubmit }) {
           name="price"
           id="price"
           label="Giá"
+          size="lg"
           required
           defaultValue={data.price}
           onChange={setValues}
@@ -187,13 +194,15 @@ function EditProductForm({ data, onSubmit }) {
       <MDBValidationItem
         tooltip
         feedback="Vui lòng nhập link ảnh"
-        invalid
         className="col-md-12"
+        size="lg"
+        invalid
       >
         <MDBInput
           name="mainImg"
           id="mainImg"
           label="Link ảnh"
+          size="lg"
           defaultValue={data.mainImg}
           onChange={setValues}
         />
@@ -208,6 +217,7 @@ function EditProductForm({ data, onSubmit }) {
           name="description"
           id="description"
           label="Mô tả"
+          size="lg"
           defaultValue={data.description}
           onChange={setValues}
         />

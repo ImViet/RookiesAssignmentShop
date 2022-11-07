@@ -8,6 +8,13 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
+import {
+  MDBBtn,
+  MDBTable,
+  MDBTableHead,
+  MDBTableBody,
+  MDBInput,
+} from "mdb-react-ui-kit";
 import { getCategoryAPI } from "../../api/Category";
 import AddCategoryModal from "../../components/Modal/Category/AddCategoryModal";
 import EditCategoryModal from "../../components/Modal/Category/EditCategoryModal";
@@ -52,17 +59,18 @@ function Category() {
   //End: Function handle click to call modal
   return (
     <React.Fragment>
-      <InputGroup className="mb-3">
-        <Form.Control
-          placeholder="Nhập để tìm kiếm..."
-          aria-label="Recipient's username"
-          aria-describedby="basic-addon2"
+      <Row className="mt-3 mb-2">
+        <MDBInput
+          className="mt-1 mb-0"
+          label="Tìm kiếm"
+          id="search"
+          type="text"
           onChange={(e) => {
             setQuery(e.target.value);
             setPageIndex((i) => (i = 1));
           }}
         />
-      </InputGroup>
+      </Row>
       <Row>
         <Col>
           <DropdownButton
@@ -70,78 +78,102 @@ function Category() {
             id="dropdown-item-button"
             title="Sắp xếp"
           >
-            <Dropdown.Item as="button" onClick={() => setSort((s) => "name")}>
+            <Dropdown.Item
+              as="button"
+              onClick={() => {
+                setSort((s) => "name");
+                setPageIndex((i) => (i = 1));
+              }}
+            >
               Tên a-z
             </Dropdown.Item>
             <Dropdown.Item
               as="button"
-              onClick={() => setSort((s) => "name_desc")}
+              onClick={() => {
+                setSort((s) => "name_desc");
+                setPageIndex((i) => (i = 1));
+              }}
             >
               Tên z-a
             </Dropdown.Item>
           </DropdownButton>
         </Col>
         <Col>
-          <Button onClick={handleShowAddModal} variant="success">
+          <Button onClick={() => setShowAddModal(true)} variant="success">
             Tạo mới
           </Button>
         </Col>
       </Row>
 
-      <table className="table table-striped table-hover table-boredered">
-        <thead>
-          <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Danh mục</th>
-            <th></th>
+      <MDBTable align="middle" className="mt-4" responsive="md">
+        <MDBTableHead>
+          <tr className="table-danger">
+            <th scope="col">ID</th>
+            <th scope="col">Danh Mục</th>
+            <th scope="col"></th>
           </tr>
-        </thead>
-        <tbody>
+        </MDBTableHead>
+        <MDBTableBody>
           {categoriesData &&
             categoriesData.items.map((item) => (
-              <tr key={item.categoryId}>
-                <td>{item.categoryId}</td>
+              <tr>
+                <th scope="row">{item.categoryId}</th>
                 <td>{item.categoryName}</td>
                 <td>
-                  <Button
+                  <MDBBtn
+                    outline
+                    rounded
+                    className="mx-1"
+                    color="info"
                     onClick={() => {
                       setCurrent(item);
                       setShowDetailModal(true);
                     }}
-                    variant="outline-primary"
                   >
                     Chi tiết
-                  </Button>
-                  <Button
+                  </MDBBtn>
+                  <MDBBtn
+                    outline
+                    rounded
+                    className="mx-1"
+                    color="warning"
                     onClick={() => {
                       setCurrent(item);
                       setShowEditModal(true);
                     }}
-                    variant="outline-warning"
                   >
                     Sửa
-                  </Button>
-                  <Button
+                  </MDBBtn>
+                  <MDBBtn
+                    outline
+                    rounded
+                    className="mx-1"
+                    color="danger"
                     onClick={() => {
                       setCurrent(item);
                       setShowDeleteModal(true);
                     }}
-                    variant="outline-danger"
                   >
                     Xóa
-                  </Button>
+                  </MDBBtn>
                 </td>
               </tr>
             ))}
-        </tbody>
-        <Button variant="outline-secondary" onClick={handlePrePage}>
+        </MDBTableBody>
+      </MDBTable>
+      <Col className="mb-3">
+        <MDBBtn
+          className="me-2"
+          color="light"
+          rippleColor="dark"
+          onClick={handlePrePage}
+        >
           Trước
-        </Button>
-        <Button variant="outline-secondary" onClick={handleNextPage}>
+        </MDBBtn>
+        <MDBBtn color="light" rippleColor="dark" onClick={handleNextPage}>
           Sau
-        </Button>
-      </table>
-
+        </MDBBtn>
+      </Col>
       {/* Add category modal */}
       <AddCategoryModal
         status={showAddModal}

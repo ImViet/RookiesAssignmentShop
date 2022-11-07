@@ -11,12 +11,12 @@ function Layout() {
     return (
         <Container fluid className="p-0 h-100">
             <Row className="p-0 m-0">
-                <Col md={2} className="p-0">
+                <Col md={2} className="p-0 vh-100">
                     <SideBar />
                 </Col>
                 <Col md={10} className="p-0">
                     <Row className="m-0">
-                        <NavBar/>
+                        {/* <NavBar/> */}
                         <Routes>
                             <Route path='/product' element={<Product/>} />
                             <Route path='/category' element={<Category/>} />
