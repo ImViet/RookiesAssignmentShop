@@ -37,23 +37,23 @@ namespace RAShop.CustomerSite.Services
             session.Remove(CARTKEY);
         }
         //Luu Cart
-        public void SaveCartSession (List<CartDTO> lst)
+        public void SaveCartSession(List<CartDTO> lst)
         {
-        var session = _httpContextAccessor.HttpContext.Session;
-        string jsoncart = JsonConvert.SerializeObject (lst);
-        session.SetString (CARTKEY, jsoncart);
+            var session = _httpContextAccessor.HttpContext.Session;
+            string jsoncart = JsonConvert.SerializeObject(lst);
+            session.SetString(CARTKEY, jsoncart);
         }
-          //Them 1 san pham vao Cart
+        //Them 1 san pham vao Cart
         public async void AddToCart(int productid)
         {
             var product = _productService.GetProductDetail(productid);
             var cart = GetCart();
             var cartItem = cart.Find(p => p.Product.ProductId == productid);
-            if(cartItem != null)
+            if (cartItem != null)
             {
                 cartItem.Quantity++;
             }
-            else 
+            else
             {
                 CartDTO newItem = new CartDTO()
                 {
@@ -74,9 +74,17 @@ namespace RAShop.CustomerSite.Services
         }
         public int CountItem()
         {
-            if(GetCart().Count() == 0)
-                return 0;
-            return GetCart().Count;
+            var listCart = GetCart();
+            int count = 0;
+            if ( listCart.Count() != 0)
+            {
+                foreach(var item in listCart)
+                {
+                    count += item.Quantity;
+                }
+                return count;
+            }
+            return 0;
         }
     }
 }
