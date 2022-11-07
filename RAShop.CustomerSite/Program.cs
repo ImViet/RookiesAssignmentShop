@@ -26,6 +26,7 @@ builder.Services.AddSession(options =>
 
 //Interfaces
 builder.Services.AddScoped<ICategory, CategoryService>();
+builder.Services.AddScoped<IRating, RatingService>();
 builder.Services.AddScoped<ISubCategory, SubCategoryService>();
 builder.Services.AddScoped<IProduct, ProductService>();
 builder.Services.AddScoped<ICart, CartService>();

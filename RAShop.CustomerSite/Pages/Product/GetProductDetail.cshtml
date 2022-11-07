@@ -1,9 +1,11 @@
 @page
 @using RAShop.CustomerSite.Pages.Home
+@using RAShop.Shared.DTO
 @model GetProductDetail
 @{
     var pathImage = "../../frontend/assets/img/product/" + Model.product.MainImg;
     var ratingAvg = Convert.ToDouble(ViewData["ratingAvg"]);
+    var listRatings = ViewData["listRatings"] as List<RatingDTO>;
 }
 <section class="py-4">
     <div class="container px-4 px-lg-5  ">
@@ -138,7 +140,7 @@
                                 }
                                 else
                                 {
-                                    foreach (var rating in Model.product.Ratings)
+                                    foreach (var rating in listRatings)
                                     {
                                         <div class="row" style="min-height: 100px; margin-bottom: 15px;">
                                             <div>

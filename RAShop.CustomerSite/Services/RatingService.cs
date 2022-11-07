@@ -14,6 +14,16 @@ namespace RAShop.CustomerSite.Services
         {
             _clientFactory = clientFactory;
         }
+        public async Task<List<RatingDTO>> GetProductRatings(int id)
+        {
+            var httpClient = _clientFactory.CreateClient("myclient");
+            string url = $"/rating/getproductratings/{id}";
+            var response =  httpClient.GetAsync(url).Result;
+            var jsonData =  response.Content.ReadAsStringAsync().Result;
+            var data = JsonConvert.DeserializeObject<List<RatingDTO>>(jsonData);
+            return data;
+
+        }
         public async Task<RatingDTO> CreateRating(AddRatingDTO newRating)
         {
             var httpClient = _clientFactory.CreateClient("myclient");

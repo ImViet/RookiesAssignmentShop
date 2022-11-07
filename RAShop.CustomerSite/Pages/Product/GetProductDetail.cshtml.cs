@@ -7,16 +7,19 @@ namespace RAShop.CustomerSite.Pages.Home
     public class GetProductDetail : PageModel
     {
         private readonly IProduct _productService;
+        private readonly IRating _ratingService;
         [BindProperty]
         public ProductDTO product { get; set; } = new ProductDTO();
-        public GetProductDetail(IProduct productService)
+        public GetProductDetail(IProduct productService, IRating ratingService)
         {
             _productService = productService;
+            _ratingService = ratingService;
         }
         public async Task<IActionResult> OnGetAsync(int id, string sortOrder = "0", int pageCurrent = 1)
         {
             product = await _productService.GetProductDetail(id);
             var ratingAvg = await _productService.GetRatingAVG(id);
+            ViewData["listRatings"] = await _ratingService.GetProductRatings(id);
             if (ratingAvg != 0)
             {
                 ViewData["ratingAvg"] = ratingAvg;
