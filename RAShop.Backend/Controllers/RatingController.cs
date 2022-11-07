@@ -20,6 +20,11 @@ namespace RAShop.Backend.Controllers
         {
             _ratingRepo = ratingRepo;
         }
+        [HttpGet("{id}")]
+        public async Task<List<RatingDTO>> GetProductRatings(int id)
+        {
+            return await _ratingRepo.GetProductRatings(id);
+        }
         [HttpPost]
         public async Task<RatingDTO> CreateRating(AddRatingDTO newRating)
         {
