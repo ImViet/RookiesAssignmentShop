@@ -36,6 +36,7 @@ function AddCategoryForm({ onSubmit }) {
           id="cateName"
           size="lg"
           label="Tên danh mục"
+          maxLength={50}
           required
         />
       </MDBValidationItem>

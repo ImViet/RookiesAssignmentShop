@@ -12,6 +12,6 @@ namespace RAShop.Shared.DTO
         public string? Unit { get; set; }
         public string? MainImg { get; set; }
         public int CategoryId { get; set; }
-        public int? SubCategoryId { get; set; }
+        public int? SubCategoryId { get; set; } = null;
     }
 }

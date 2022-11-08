@@ -105,6 +105,7 @@ function EditProductForm({ data, onSubmit }) {
           id="productName"
           label="Tên sản phẩm"
           size="lg"
+          maxLength={250}
           required
           defaultValue={data.productName}
           onChange={setValues}
@@ -165,7 +166,7 @@ function EditProductForm({ data, onSubmit }) {
           name="categoryId"
           onChange={setValues}
         >
-          <option value={"0"} disabled>Hiện tại thuộc: {data.categoryName}</option>
+          <option value={data.categoryId}>Hiện tại thuộc: {data.categoryName}</option>
           {categoriesData &&
             categoriesData.map((item) => (
               <option key={item.categoryId} value={item.categoryId}>
@@ -182,7 +183,7 @@ function EditProductForm({ data, onSubmit }) {
           onChange={setValues}
           invalid
         >
-          <option>Hiện tại thuộc: {data.subCategoryName}</option>
+          {data.subCategoryId !== null ? <option value={data.subCategoryId}>Hiện tại thuộc: {data.subCategoryName}</option> : <option value={null}>Không</option>}
           {subCategoriesData &&
             subCategoriesData.map((item) => (
               <option key={item.subCategoryId} value={item.subCategoryId}>

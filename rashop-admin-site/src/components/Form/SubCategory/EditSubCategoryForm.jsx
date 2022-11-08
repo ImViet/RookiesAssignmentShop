@@ -48,6 +48,7 @@ function EditSubCategoryForm({ data, onSubmit }) {
             size="lg"
             label="Id"
             defaultValue={data.subCategoryId}
+            maxLength={50}
             required
             disabled
           />

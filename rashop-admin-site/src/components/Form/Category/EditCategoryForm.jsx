@@ -48,6 +48,7 @@ function EditCategoryForm({ data, onSubmit }) {
           id="cateName"
           label="Tên danh mục"
           size="lg"
+          maxLength={50}
           defaultValue={data.categoryName}
           required
         />

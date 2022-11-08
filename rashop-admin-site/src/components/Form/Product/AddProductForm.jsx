@@ -72,6 +72,7 @@ function AddProductForm({ onSubmit }) {
           id="productName"
           label="Tên sản phẩm"
           size="lg"
+          maxLength={250}
           required
           onChange={setValues}
         />
