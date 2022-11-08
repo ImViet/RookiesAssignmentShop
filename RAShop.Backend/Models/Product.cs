@@ -8,7 +8,7 @@ namespace RAShop.Backend.Models
     {
         public int ProductId { get; set; }
         [Required]
-        [StringLength(50)]
+        [StringLength(250)]
         public string ProductName { get; set; }
         public decimal Price { get; set; }  
         public DateTime? DateCreated {get; set;} 

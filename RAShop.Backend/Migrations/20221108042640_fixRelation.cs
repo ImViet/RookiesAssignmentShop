@@ -4,7 +4,7 @@
 
 namespace RAShop.Backend.Migrations
 {
-    public partial class fixDeleteBehaviorv3 : Migration
+    public partial class fixRelation : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,8 +32,7 @@ namespace RAShop.Backend.Migrations
                 table: "Products",
                 column: "SubCateId",
                 principalTable: "SubCategories",
-                principalColumn: "SubCategoryId",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "SubCategoryId");
         }
     }
 }

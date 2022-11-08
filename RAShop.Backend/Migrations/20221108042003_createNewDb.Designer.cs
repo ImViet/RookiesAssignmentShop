@@ -12,8 +12,8 @@ using RAShop.Backend.Data;
 namespace RAShop.Backend.Migrations
 {
     [DbContext(typeof(RAShopDbContext))]
-    [Migration("20221106164638_fixDeleteBehaviorv3")]
-    partial class fixDeleteBehaviorv3
+    [Migration("20221108042003_createNewDb")]
+    partial class createNewDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -131,8 +131,8 @@ namespace RAShop.Backend.Migrations
 
                     b.Property<string>("ProductName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<int?>("SubCateId")
                         .HasColumnType("int");
@@ -233,8 +233,7 @@ namespace RAShop.Backend.Migrations
 
                     b.HasOne("RAShop.Backend.Models.SubCategory", "SubCategory")
                         .WithMany("Products")
-                        .HasForeignKey("SubCateId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("SubCateId");
 
                     b.Navigation("Category");
 
