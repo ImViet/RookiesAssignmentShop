@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using RAShop.Backend.Models;
 
 namespace RAShop.Backend.Data
 {
-    public class RAShopDbContext : DbContext
+    public class RAShopDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -13,7 +14,7 @@ namespace RAShop.Backend.Data
         public DbSet<Rating> Ratings { get; set; }
 
 
-        public RAShopDbContext(DbContextOptions options) : base(options)
+        public RAShopDbContext(DbContextOptions<RAShopDbContext> options) : base(options)
         {
         }
 
@@ -24,15 +25,6 @@ namespace RAShop.Backend.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Category>()
-                .HasMany<Product>(p => p.Products)
-                .WithOne(c => c.Category)
-                .OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<SubCategory>()
-            .HasMany<Product>(p => p.Products)
-            .WithOne(c => c.SubCategory)
-            .OnDelete(DeleteBehavior.SetNull);
-
             modelBuilder.Entity<Category>()
                 .HasMany<SubCategory>(s => s.SubCates)
                 .WithOne(s => s.Category)
