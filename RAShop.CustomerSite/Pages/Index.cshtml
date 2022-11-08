@@ -65,8 +65,8 @@
 						<div class="slider">
 							@foreach (var product in item.Products)
 							{
-								var pathImage = "../../frontend/assets/img/product/" + @product.MainImg;
-								<img src="@pathImage" style="margin: 0 5px; " />
+								@* var pathImage = "../../frontend/assets/img/product/" + @product.MainImg; *@
+								<img src="@product.MainImg" style="margin: 0 5px; " />
 							}
 						</div>
 						</div>
@@ -94,8 +94,8 @@
 						<div class="slider">
 							@foreach (var product in item.Products)
 							{
-								var pathImage = "../../frontend/assets/img/product/" + product.MainImg;
-								<img src="@pathImage" style="margin: 0 5px;" />
+								@* var pathImage = "../../frontend/assets/img/product/" + product.MainImg; *@
+								<img src="@product.MainImg" style="margin: 0 5px;" />
 							}
 						</div>
 					</div>

@@ -1,31 +1,50 @@
 @using RAShop.CustomerSite.Models;
- <header>
-        <div style="background-color:#b1d238 ;">
-        </div>
-        <nav id="navbar_top" class="navbar navbar-expand-lg navbar-dark" style="background-color: #0c6363">
-            <div class="">
+<header>
+    <div style="background-color:#b1d238 ;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-3 d-flex justify-content-space align-items-center">
+                    <i class="fas fa-map-marker-alt me-2"></i>
+                    <p class="p-0 m-0">73 Ngô Thời Nhiệm, Phường 6, Quận 3, TPHCM</p>
+                </div>
+                <div class="col-2 d-flex justify-content-space align-items-center">
+                    <i class="fas fa-envelope me-2"></i>
+                    <p class="p-0 m-0">info@chotinhcuaboo.com</p>
+                </div>
+                <div class="col-2 d-flex justify-content-space align-items-center">
+                    <i class="fas fa-phone me-2"></i>
+                    <p class="p-0 m-0"> 028-3930 1113 / 0912 887 883</p>
+                </div>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="main_nav">
-                    @*Category view component*@
-                    @await Component.InvokeAsync("Category")
-                    <a class="navbar-brand container-logo" asp-page="/Index">
-                        <img class="header-logo text-center" src="~/frontend/assets/img/logo/boologo.png">
-                    </a>
-                    <form class="d-flex ms-5" role="search" method="get">
-                        <input class="form-control me-2" name="searchString" type="search" placeholder="Nhập tên sản phẩm..."
-                            aria-label="Search" required>
-                        <button class="btn btn-light" type="submit" asp-page="/Product/SearchProduct">Tìm</button>
-                    </form>
-                    <div class="btn-nav">
-                        <div class="cart-icon">
-                            <a class="fa-solid fa-bag-shopping" asp-page="/Cart/ShoppingCart" style="color: #fff; font-size: 30px; margin-left: 30px"></a>
-                            <span class="badge badge-warning" id="lblCartCount"> @CountCart.countItem </span>
-                        </div>
+            </div>
+        </div>
+    </div>
+    <nav id="navbar_top" class="navbar navbar-expand-lg navbar-dark" style="background-color: #0c6363">
+        <div class="">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="main_nav">
+                <a class="navbar-brand container-logo" asp-page="/Index">
+                    <img class="header-logo text-center" src="~/frontend/assets/img/logo/boologo.png">
+                </a>
+                @*Category view component*@
+                @await Component.InvokeAsync("Category")
+
+                <form class="d-flex ms-5" role="search" method="get">
+                    <input class="form-control me-2" name="searchString" type="search"
+                        placeholder="Nhập tên sản phẩm..." aria-label="Search" required>
+                    <button class="btn btn-light" type="submit" asp-page="/Product/SearchProduct">Tìm</button>
+                </form>
+                <div class="btn-nav">
+                    <div class="cart-icon">
+                        <a class="fa-solid fa-bag-shopping" asp-page="/Cart/ShoppingCart"
+                            style="color: #fff; font-size: 30px; margin-left: 30px"></a>
+                        <span class="badge badge-warning" id="lblCartCount"> @CountCart.countItem </span>
                     </div>
-                </div> <!-- navbar-collapse.// -->
-            </div> <!-- container-fluid.// -->
-        </nav>
-    </header>
+                </div>
+            </div> <!-- navbar-collapse.// -->
+        </div> <!-- container-fluid.// -->
+    </nav>
+</header>

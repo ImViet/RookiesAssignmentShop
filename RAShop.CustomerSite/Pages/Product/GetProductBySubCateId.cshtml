@@ -71,13 +71,23 @@
     <div class="d-flex flex-wrap">
         @foreach (var item in products)
         {
-            var pathImage = "../frontend/assets/img/product/" + @item.MainImg;
             <div class="card-fix">
                 <a asp-page="/Product/GetProductDetail" asp-route-id="@item.ProductId">
-                    <img src="@pathImage" class="card-img-top" alt="@item.ProductName">
+                    <img title="@item.ProductName" src="@item.MainImg" class="card-img-top" alt="@item.ProductName">
                 </a>
                 <div class="card-body">
-                    <h5 class="card-title ms-3">@item.ProductName</h5>
+                     @{
+                            var name = "";
+                            if (item.ProductName.Length < 26)
+                            {
+                                name = item.ProductName;
+                            }
+                            else
+                            {
+                                name = item.ProductName.Substring(0, 26) + "...";
+                            }
+                        }
+                        <h5 class="card-title ms-3 style="font-size: 18px;"">@name</h5>
                     <hr>
                     <p class="card-text text-center fs-5" style="color:#e68b24 ;">@string.Format("{0:#,##0.##}₫",
                     @item.Price)</p>

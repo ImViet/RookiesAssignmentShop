@@ -3,14 +3,14 @@
 @using RAShop.Shared.DTO
 @model GetProductDetail
 @{
-    var pathImage = "../../frontend/assets/img/product/" + Model.product.MainImg;
-    var ratingAvg = Convert.ToDouble(ViewData["ratingAvg"]);
+    var ratingAvgtemp = Convert.ToDouble(ViewData["ratingAvg"]);
+    var ratingAvg = string.Format("{0:0.##}%", (Convert.ToDouble(ViewData["ratingAvg"]) / 5) * 100);
     var listRatings = ViewData["listRatings"] as List<RatingDTO>;
 }
 <section class="py-4">
-    <div class="container px-4 px-lg-5  ">
+    <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
-            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="@pathImage" alt="..." /></div>
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="@Model.product.MainImg" alt="..." /></div>
             <div class="col-md-6">
                 <div class="small mb-1 pb-3" style="display: inline-block ;">Loại sản phẩm: @Model.product.CategoryName
                 </div>
@@ -89,10 +89,18 @@
                 <div class="accordion-body">
                     <div class="row">
                         <div class="col-4">
-                            <h1>@string.Format("{0:#,##0.##}",@ratingAvg)<i style="color: #FDD836;"
-                                    class="fas fa-star"></i></h1>
+                            <div class="star-ratings" style="display: inline-block;">
+                                <div class="fill-ratings" id="star-avg" style="width: @ratingAvg;">
+                                    <span>★★★★★</span>
+                                </div>
+                                <div class="empty-ratings">
+                                    <span>★★★★★</span>
+                                </div>
+                                <p>@ratingAvg (@listRatings?.Count() đánh giá)</p>
+                            </div>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal" data-bs-whatever="@@getbootstrap">Viết đánh giá</button>
+                                data-bs-target="#exampleModal" data-bs-whatever="@@getbootstrap"
+                                style="display:block ;">Viết đánh giá</button>
                             @* Start form rating *@
 
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -100,31 +108,42 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Đánh giá: @Model.product.ProductName</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Đánh giá:
+                                                @Model.product.ProductName</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form asp-page="/Product/GetProductDetail" asp-page-handler="CreateRating" method="post">
-                                                <div class="mb-3">
-                                                    <label for="star" 
-                                                        class="col-form-label">Số sao:</label>
-                                                    <input type="number" name="Star" min="1" max="5" class="form-control" id="star">
+                                            <form asp-page="/Product/GetProductDetail" asp-page-handler="CreateRating"
+                                                method="post" onsubmit="">
+
+                                                <div class="star-rating">
+                                                    <input type="radio" id="5-stars" name="Star" value="5" checked />
+                                                    <label for="5-stars" class="star">&#9733;</label>
+                                                    <input type="radio" id="4-stars" name="Star" value="4" />
+                                                    <label for="4-stars" class="star">&#9733;</label>
+                                                    <input type="radio" id="3-stars" name="Star" value="3" />
+                                                    <label for="3-stars" class="star">&#9733;</label>
+                                                    <input type="radio" id="2-stars" name="Star" value="2" />
+                                                    <label for="2-stars" class="star">&#9733;</label>
+                                                    <input type="radio" id="1-star" name="Star" value="1" />
+                                                    <label for="1-star" class="star">&#9733;</label>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="comment" class="col-form-label">Nhận xét:</label>
-                                                    <textarea class="form-control" name="Comment" id="comment"></textarea>
+                                                    <textarea class="form-control" name="Comment" id="comment"
+                                                        placeholder="Viết nhận xét..." required></textarea>
                                                 </div>
                                                 <div class="mb-3" hidden>
-                                                    <label for="productid" name="Star"
-                                                        class="col-form-label">Số sao:</label>
-                                                    <input type="text" class="form-control" name="ProductId" value="@Model.product.ProductId" id="productid">
+                                                    <label for="productid" name="Star" class="col-form-label">Số
+                                                        sao:</label>
+                                                    <input type="text" class="form-control" name="ProductId"
+                                                        value="@Model.product.ProductId" id="productid">
                                                 </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Đóng</button>
-                                                <button type="submit" class="btn btn-primary">Đánh giá</button>
-                                            </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Đóng</button>
+                                                    <button type="submit" class="btn btn-primary">Đánh giá</button>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
@@ -134,7 +153,7 @@
                         </div>
                         <div class="col-8">
                             @{
-                                if (ratingAvg == 0)
+                                if (ratingAvgtemp == 0)
                                 {
                                     <h3>Chưa có đánh giá</h3>
                                 }
@@ -144,7 +163,14 @@
                                     {
                                         <div class="row" style="min-height: 100px; margin-bottom: 15px;">
                                             <div>
-                                                <h4>@rating.Star<i style="color: #FDD836;" class="fas fa-star"></i></h4>
+                                                @{
+                                                    var i = 0;
+                                                    while (i < rating.Star)
+                                                    {
+                                                        <i style="color: #FDD836;" class="fas fa-star"></i>
+                                                        i++;
+                                                    }
+                                                }
                                                 <p>@rating.DateCreated</p>
                                                 <p>@rating.Comment</p>
                                             </div>
@@ -159,6 +185,7 @@
         </div>
     </div>
 </div>
+
 <style>
     .accordion-button:not(.collapsed) {
         background-color: #fff;
@@ -174,10 +201,67 @@
         border-color: #fff;
         box-shadow: none;
     }
+
+    .star-rating {
+        display: flex;
+        flex-direction: row-reverse;
+        font-size: 3.5em;
+        justify-content: space-around;
+        padding: 0 .2em;
+        text-align: center;
+        width: 5em;
+    }
+
+    .star-rating input {
+        display: none;
+    }
+
+    .star-rating label {
+        color: #ccc;
+        cursor: pointer;
+    }
+
+    .star-rating :checked~label {
+        color: #f90;
+    }
+
+    .star-rating label:hover,
+    .star-rating label:hover~label {
+        color: #fc0;
+    }
+
+    .star-ratings {
+        unicode-bidi: bidi-override;
+        color: #ccc;
+        font-size: 64px;
+        position: relative;
+        margin: 0;
+        padding: 0;
+    }
+
+    .fill-ratings {
+        color: #e7711b;
+        padding: 0;
+        position: absolute;
+        z-index: 1;
+        display: block;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+    }
+
+    // Allows us to grab the width of the span elements
+    span {
+        display: inline-block;
+    }
+
+    .empty-ratings {
+        padding: 0;
+        display: block;
+        z-index: 0;
+    }
+    .star-ratings > p{
+        font-size: 15px;
+    }
 </style>
-<script>
-    const starInput = document.getElementById('star');
-    starInput.addEventListener('keypress', (e) => {
-  e.preventDefault();
-});
-</script>
+
