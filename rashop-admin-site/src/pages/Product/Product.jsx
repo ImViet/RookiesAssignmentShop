@@ -156,7 +156,7 @@ function Product() {
                 <td>
                   <div className="d-flex align-items-center">
                     <img
-                      src="https://product.hstatic.net/1000223746/product/fox_sakura_cleansing_oil_924eaee7c74e49df904af97fae0f26e6_master.png"
+                      src= {item.mainImg}
                       alt=""
                       style={{ width: "60px", height: "60px" }}
                       className="rounded-circle"

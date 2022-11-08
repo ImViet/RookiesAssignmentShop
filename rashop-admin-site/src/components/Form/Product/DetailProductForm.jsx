@@ -136,13 +136,14 @@ function DetailProductForm({data}) {
         invalid
         className="col-md-12"
       >
-        <MDBInput
+        {/* <MDBInput
           name="mainImg"
           id="mainImg"
           label="Link ảnh"
           size="lg"
           defaultValue={data.mainImg !== "" ? data.mainImg : "Chưa cập nhật"}
-        />
+        /> */}
+        <img className='img-fluid mx-auto d-block rounded w-50' src={data.mainImg} alt={data.productName} />
       </MDBValidationItem>
 
       <MDBValidationItem

@@ -1,5 +1,6 @@
 import { Modal, Button } from "react-bootstrap";
 import AddProductForm from "../../Form/Product/AddProductForm";
+
 function AddProductModal({status, onClose}) {
   return (
     <Modal

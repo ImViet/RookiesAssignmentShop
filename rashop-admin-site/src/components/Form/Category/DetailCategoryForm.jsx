@@ -9,6 +9,16 @@ import {
 function DetailCategoryForm({data}) {
   return (
     <MDBValidation className='row g-3'>
+      <MDBValidationItem tooltip className='col-md-12'>
+      <MDBInput
+        name='cateId'
+        id='cateId'
+        size="lg"
+        label='ID'
+        defaultValue={data.categoryId}
+        required
+      />
+    </MDBValidationItem>
     <MDBValidationItem tooltip className='col-md-12'>
       <MDBInput
         name='cateName'
@@ -28,9 +38,6 @@ function DetailCategoryForm({data}) {
         defaultValue={data.description}
       />
     </MDBValidationItem>
-    <div className='col-12'>
-      <MDBBtn type='submit'>Xong</MDBBtn>
-    </div>
   </MDBValidation>
   );
 }

@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { getCategorySelect } from "../../../api/Category";
 import { getSubCategorySelect } from "../../../api/SubCategory";
 import { postProductAPI } from "../../../api/Product";
-function AddProductForm( {onSubmit}) {
+function AddProductForm({ onSubmit }) {
   const [product, setProduct] = useState({
     productName: "",
     price: "",
@@ -20,7 +20,7 @@ function AddProductForm( {onSubmit}) {
     origin: "",
     unit: "",
     mainImg: "",
-    categoryId: '0',
+    categoryId: "0",
     subCategoryId: null,
   });
   const [categoriesData, setCatesData] = useState();
@@ -31,20 +31,23 @@ function AddProductForm( {onSubmit}) {
         setCatesData(res);
       })
       .catch((err) => console.log(err));
-  }, []);
-  useEffect(() => {
+
     getSubCategorySelect()
       .then((res) => {
         setSubCatesData(res);
       })
       .catch((err) => console.log(err));
   }, []);
+
   function handleSubmit(e) {
-    if(product.categoryId === "0")
-    {
-        alert("Vui lòng chọn danh mục cha !!!");
+    if (product.categoryId === "0") {
+      alert("Vui lòng chọn danh mục cha !!!");
     }
-    if (product.cateName !== "" && product.price !=="" && product.categoryId !== "0") {
+    if (
+      product.cateName !== "" &&
+      product.price !== "" &&
+      product.categoryId !== "0"
+    ) {
       e.preventDefault();
       console.log(product);
       postProductAPI(product);
@@ -110,6 +113,8 @@ function AddProductForm( {onSubmit}) {
         className="col-md-4"
       >
         <MDBInput
+          type="number"
+          min="0"
           name="price"
           id="price"
           label="Giá"
@@ -120,14 +125,8 @@ function AddProductForm( {onSubmit}) {
       </MDBValidationItem>
       <Form.Group as={Col} controlId="formGridState" className="col-md-6">
         <Form.Label>Danh mục cha</Form.Label>
-        <Form.Select
-          name="categoryId"
-          onChange={setValues}
-          required
-        >
-          <option value="0">
-              Chọn...
-            </option>
+        <Form.Select name="categoryId" onChange={setValues} required>
+          <option value="0">Chọn...</option>
           {categoriesData &&
             categoriesData.map((item) => (
               <option key={item.categoryId} value={item.categoryId}>
@@ -138,14 +137,8 @@ function AddProductForm( {onSubmit}) {
       </Form.Group>
       <Form.Group as={Col} controlId="formGridState" className="col-md-6">
         <Form.Label>Danh mục con</Form.Label>
-        <Form.Select
-          name="subCategoryId"
-          onChange={setValues}
-          invalid
-        >
-          <option value="0" >
-              Chọn...
-            </option>
+        <Form.Select name="subCategoryId" onChange={setValues} invalid>
+          <option value="0">Chọn...</option>
           {subCategoriesData &&
             subCategoriesData.map((item) => (
               <option key={item.subCategoryId} value={item.subCategoryId}>
@@ -169,11 +162,7 @@ function AddProductForm( {onSubmit}) {
         />
       </MDBValidationItem>
 
-      <MDBValidationItem
-        tooltip
-        invalid
-        className="col-md-12"
-      >
+      <MDBValidationItem tooltip invalid className="col-md-12">
         <MDBTextArea
           name="description"
           id="description"

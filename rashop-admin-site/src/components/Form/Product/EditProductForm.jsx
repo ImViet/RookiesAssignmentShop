@@ -47,7 +47,7 @@ function EditProductForm({ data, onSubmit }) {
     });
   };
   function handleSubmit(e) {
-    if (product.cateName !== "" && product.price !=="" && product.categoryId !== "") {
+    if (product.productName !== "" && product.price !=="" && product.categoryId !== "0") {
       e.preventDefault();
       console.log(product);
       putProductAPI(product);
@@ -165,7 +165,7 @@ function EditProductForm({ data, onSubmit }) {
           name="categoryId"
           onChange={setValues}
         >
-          <option>Hiện tại thuộc: {data.categoryName}</option>
+          <option value={"0"} disabled>Hiện tại thuộc: {data.categoryName}</option>
           {categoriesData &&
             categoriesData.map((item) => (
               <option key={item.categoryId} value={item.categoryId}>
