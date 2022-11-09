@@ -1,11 +1,13 @@
 import axiosClient from "./axiosClient";
 
-export const getProductAPI = (query, page, sortOrder) => {
+export const getProductAPI = (query, page, pageSize, sortOrder, cateId , subCateId) => {
     return axiosClient.post(`product/getproductadmin`, {
         query: query,
         page: page,
         sortOrder: sortOrder,
-        PageSize: 8
+        PageSize: pageSize,
+        cateId: cateId,
+        subCateId: subCateId,
     });
 }
 
