@@ -6,7 +6,7 @@ namespace RAShop.Shared.DTO
         public string ProductName { get; set; }
         public decimal Price { get; set; }
         public DateTime? DateCreated { get; set; }
-        public DateTime? DateUpdated { get; set; }
+        public DateTime? DateUpdated { get; set; } = DateTime.Now;
         public string? Description { get; set; }
         public string? Origin { get; set; }
         public string? Unit { get; set; }

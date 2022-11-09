@@ -148,6 +148,7 @@ namespace RAShop.Backend
         public async Task<ProductDTO> CreateProduct(CreateProductDTO newProduct)
         {
             var product = _mapper.Map<Product>(newProduct);
+            product.DateCreated = DateTime.Now;
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
             var result = _mapper.Map<ProductDTO>(product);
@@ -173,6 +174,7 @@ namespace RAShop.Backend
             {
                 _context.Products.Update(product);
                 _mapper.Map(newProduct, product);
+                product.DateUpdated = DateTime.Now;
                 await _context.SaveChangesAsync();
             }
             var result = _mapper.Map<ProductDTO>(product);
