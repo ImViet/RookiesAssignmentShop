@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { putSubCategoryAPI } from "../../../api/SubCategory";
 import { getCategorySelect } from "../../../api/Category";
 import { Form, Col } from "react-bootstrap";
 import {
@@ -25,8 +24,6 @@ function EditSubCategoryForm({ data, onSubmit }) {
   function handleSubmit(e) {
     if (subCate.subCateName !== "" && subCate.categoryId !== "0") {
       e.preventDefault();
-      console.log(subCate);
-      putSubCategoryAPI(subCate);
       onSubmit(subCate);
     } else console.log(subCate.categoryId);
   }

@@ -9,7 +9,6 @@ import { Form, Col } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { getCategorySelect } from "../../../api/Category";
 import { getSubCategorySelect } from "../../../api/SubCategory";
-import { putProductAPI } from "../../../api/Product";
 
 function EditProductForm({ data, onSubmit }) {
   const [product, setProduct] = useState({
@@ -17,7 +16,7 @@ function EditProductForm({ data, onSubmit }) {
     productName: data.productName,
     price: data.price,
     dateCreated: data.dateCreated,
-    dateUpdated: new Date(),
+    // dateUpdated: new Date(),
     description: data.description,
     origin: data.origin,
     unit: data.unit,
@@ -33,9 +32,7 @@ function EditProductForm({ data, onSubmit }) {
         setCatesData(res);
       })
       .catch((err) => console.log(err));
-  }, []);
-  useEffect(() => {
-    getSubCategorySelect()
+      getSubCategorySelect()
       .then((res) => {
         setSubCatesData(res);
       })
@@ -47,10 +44,9 @@ function EditProductForm({ data, onSubmit }) {
     });
   };
   function handleSubmit(e) {
-    if (product.productName !== "" && product.price !=="" && product.categoryId !== "0") {
+    if (product.productName !== "" && product.price !=="" && product.categoryId !== "0" &&
+        product.origin !=="" && product.unit !=="" && product.price !== 0) {
       e.preventDefault();
-      console.log(product);
-      putProductAPI(product);
       onSubmit(product);
     } else console.log("Ko hop le");
   }

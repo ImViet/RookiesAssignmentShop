@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { postCategoryAPI } from "../../../api/Category";
 import {
   MDBValidation,
   MDBValidationItem,
@@ -16,8 +15,6 @@ function AddCategoryForm({ onSubmit }) {
   function handleSubmit(e) {
     if (cate.cateName !== "") {
       e.preventDefault();
-      console.log(cate);
-      postCategoryAPI(cate);
       onSubmit(cate);
     } else console.log("Ko hop le");
   }

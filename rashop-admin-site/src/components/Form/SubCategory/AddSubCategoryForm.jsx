@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { getCategorySelect } from "../../../api/Category";
-import { postSubCategoryAPI } from "../../../api/SubCategory";
 import { Form, Col } from "react-bootstrap";
 import {
   MDBValidation,
@@ -23,8 +22,6 @@ function AddSubCategoryForm({ onSubmit }) {
     }
     if (subCate.subCateName !== "" && subCate.categoryId !== "0") {
       e.preventDefault();
-      console.log(subCate);
-      postSubCategoryAPI(subCate);
       onSubmit(subCate);
     } else console.log(subCate.categoryId);
   }

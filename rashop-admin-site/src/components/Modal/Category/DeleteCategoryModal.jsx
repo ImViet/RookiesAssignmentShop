@@ -2,13 +2,20 @@ import { Button, Modal } from "react-bootstrap";
 import {deleteCategoryAPI} from "../../../api/Category";
 function DeleteCategoryModal({status, onClose, data}) {
     function handleDelete(){
-        console.log(data.categoryId)
-        deleteCategoryAPI(data.categoryId)
-        .then((res) => {if(res.status === 200){ alert("Xóa thành công")}     
+      console.log(data.categoryId);
+      deleteCategoryAPI(data.categoryId)
+        .then(() => {
+          onClose();
+            setTimeout(() => {
+              alert("Xóa thành công!!!");
+            }, 200);
         })
-        .catch((err) => {setTimeout(() => {
-          alert("Xóa thất bại, có sản phẩm liên quan!!!")
-        }, 300); });
+        .catch(() => {
+          onClose();
+          setTimeout(() => {
+            alert("Xoá thất bại, có sản phẩm liên quan!!!");
+          }, 200);
+        });
     }
     return (
         <Modal
@@ -25,7 +32,7 @@ function DeleteCategoryModal({status, onClose, data}) {
           <Button variant="secondary" onClick={onClose}>
             Đóng
           </Button>
-          <Button type="submit" onClick={() => {handleDelete(); onClose()}} variant="primary">Xóa</Button>
+          <Button type="submit" onClick={handleDelete} variant="primary">Xóa</Button>
         </Modal.Footer>
       </Modal>
       

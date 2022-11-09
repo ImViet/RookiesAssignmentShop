@@ -20,6 +20,7 @@ import AddProductModal from "../../components/Modal/Product/AddProductModal";
 import DetailProductModal from "../../components/Modal/Product/DetailProductModal";
 import EditProductModal from "../../components/Modal/Product/EditProductModal";
 import DeleteProductModal from "../../components/Modal/Product/DeleteProductModal";
+
 function Product() {
   const [productsData, setProductsData] = useState();
   const [sort, setSort] = useState("0");
@@ -30,6 +31,7 @@ function Product() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [current, setCurrent] = useState();
+  
   useEffect(() => {
     getProductAPI(query, pageIndex, sort)
       .then((res) => {
@@ -37,7 +39,7 @@ function Product() {
         console.log("re-render");
       })
       .catch((err) => console.log(err));
-  }, [query, pageIndex, sort, productsData ]);
+  }, [query, pageIndex, sort, showAddModal, showEditModal, showDeleteModal]);
 
   //Start: Function handle pagination
   function handleNextPage() {

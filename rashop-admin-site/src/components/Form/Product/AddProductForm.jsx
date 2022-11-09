@@ -9,7 +9,6 @@ import { Form, Col } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { getCategorySelect } from "../../../api/Category";
 import { getSubCategorySelect } from "../../../api/SubCategory";
-import { postProductAPI } from "../../../api/Product";
 function AddProductForm({ onSubmit }) {
   const [product, setProduct] = useState({
     productName: "",
@@ -46,11 +45,9 @@ function AddProductForm({ onSubmit }) {
     if (
       product.cateName !== "" &&
       product.price !== "" &&
-      product.categoryId !== "0"
+      product.categoryId !== "0" && product.origin !=="" && product.unit !=="" && product.price !== 0
     ) {
       e.preventDefault();
-      console.log(product);
-      postProductAPI(product);
       onSubmit(product);
     } else console.log("Ko hop le");
   }
