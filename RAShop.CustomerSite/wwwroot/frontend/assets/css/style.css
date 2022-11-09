@@ -96,6 +96,7 @@ ul .nav-item{
     cursor: pointer;
     text-decoration: none;
     border: 2px solid #c47135;
+    border-radius: 20px;
 }
 
 .btn-addtocart:hover {
@@ -116,6 +117,7 @@ ul .nav-item{
     cursor: pointer;
     text-decoration: none;
     border: 2px solid #c47135;
+    border-radius: 20px;
 }
 
 .btn-backtolist:hover {
