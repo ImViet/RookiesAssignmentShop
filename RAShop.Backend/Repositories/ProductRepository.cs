@@ -15,15 +15,22 @@ namespace RAShop.Backend
             _context = context;
             _mapper = mapper;
         }
-        public async Task<PagingDTO<ProductDTO>> GetProductAdmin(string search,  string sortOrder, int pageNumber, int pageSize)
+        public async Task<PagingDTO<ProductDTO>> GetProductAdmin(string search, string sortOrder, int pageNumber, int pageSize, int cateId, int subCateId)
         {
             //Query product
             var productQuery = _context.Products.AsQueryable();
-            if(search != "")
+            if (search != "")
             {
                 productQuery = productQuery.Where(x => x.ProductName.ToUpper().Contains(search.ToUpper()));
             }
-           
+            if (cateId != 0)
+            {
+                productQuery = productQuery.Where(x => x.Category.CategoryId == Convert.ToInt32(cateId));
+            }
+            if (subCateId != 0)
+            {
+                productQuery = productQuery.Where(x => x.SubCategory.SubCategoryId == Convert.ToInt32(subCateId));
+            }
             //Sort 
             productQuery = SortProduct.Sorting(productQuery, sortOrder);
 
@@ -115,7 +122,7 @@ namespace RAShop.Backend
                 productQuery = SortProduct.Sorting(productQuery, sortOrder);
             }
             else
-                return new PagingDTO<ProductDTO>{TotalPages = 1, items = null};
+                return new PagingDTO<ProductDTO> { TotalPages = 1, items = null };
             //Paging
             var products = await productQuery
                                     .Skip((pageNumber - 1) * pageSize)

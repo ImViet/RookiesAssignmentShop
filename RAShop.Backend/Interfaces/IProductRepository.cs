@@ -6,7 +6,7 @@ namespace RAShop.Backend
 {
     public interface IProductRepository
     {
-        Task<PagingDTO<ProductDTO>> GetProductAdmin(string query, string sortOrder, int pageNumber, int pageSize);
+        Task<PagingDTO<ProductDTO>> GetProductAdmin(string query, string sortOrder, int pageNumber, int pageSize, int cateId, int subCateId);
         Task<PagingDTO<ProductDTO>> GetAllProduct(string sortOrder, int pageNumber, int pageSize);
         Task<ProductDTO> GetProductById(int id);
         Task<PagingDTO<ProductDTO>> GetProductByCateId(int cateid, string sortOrder, int pageNumber, int pageSize);

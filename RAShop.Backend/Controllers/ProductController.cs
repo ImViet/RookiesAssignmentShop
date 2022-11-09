@@ -22,7 +22,7 @@ namespace RAShop.Backend.Controllers
         public async Task<ActionResult<PagingDTO<ProductDTO>>> GetProductAdmin(
             [FromBody] ProductAdminSearchDTO model)
         {
-            return await _productRepo.GetProductAdmin(model.Query, model.SortOrder, model.Page, model.PageSize);
+            return await _productRepo.GetProductAdmin(model.Query, model.SortOrder, model.Page, model.PageSize, model.cateId, model.subCateId);
         }
         //Lay tat ca san pham
         [HttpGet]
