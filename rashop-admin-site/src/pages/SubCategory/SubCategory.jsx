@@ -37,7 +37,7 @@ function Category() {
         console.log("re-render");
       })
       .catch((err) => console.log(err));
-  }, [query, pageIndex, sort, categoriesData]);
+  }, [query, pageIndex, sort, categoriesData ]);
 
   //Start: Function handle pagination
   function handleNextPage() {
