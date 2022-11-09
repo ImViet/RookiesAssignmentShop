@@ -44,8 +44,8 @@ function AddSubCategoryForm({ onSubmit }) {
 
   return (
     <React.Fragment>
-      <MDBValidation onSubmit={handleSubmit} className="row g-3">
-        <MDBValidationItem tooltip className="col-md-12">
+      <MDBValidation onSubmit={handleSubmit} className="row g-3" >
+        <MDBValidationItem tooltip feedback="Vui lòng nhập tên danh mục" invalid className="col-md-12">
           <MDBInput
             onChange={setValues}
             name="subCateName"
@@ -56,14 +56,14 @@ function AddSubCategoryForm({ onSubmit }) {
             required
           />
         </MDBValidationItem>
-        <Form.Group as={Col} controlId="formGridState">
+        <Form.Group as={Col} feedback="Vui lòng chọn danh mục"  controlId="formGridState">
           <Form.Label>Danh mục cha</Form.Label>
           <Form.Select
             defaultValue={subCate.categoryId}
             name="categoryId"
             onChange={setValues}
           >
-            <option value="0" disabled>
+            <option selected value="0" disabled>
               Chọn...
             </option>
             {categoriesData &&
@@ -74,7 +74,7 @@ function AddSubCategoryForm({ onSubmit }) {
               ))}
           </Form.Select>
         </Form.Group>
-        <MDBValidationItem tooltip className="col-md-12">
+        <MDBValidationItem tooltip feedback="Được" invalid className="col-md-12">
           <MDBTextArea
             onChange={setValues}
             name="description"

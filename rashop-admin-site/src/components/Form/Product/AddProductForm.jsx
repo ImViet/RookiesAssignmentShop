@@ -163,7 +163,7 @@ function AddProductForm({ onSubmit }) {
         />
       </MDBValidationItem>
 
-      <MDBValidationItem tooltip invalid className="col-md-12">
+      <MDBValidationItem tooltip feedback="Được" invalid className="col-md-12">
         <MDBTextArea
           name="description"
           id="description"

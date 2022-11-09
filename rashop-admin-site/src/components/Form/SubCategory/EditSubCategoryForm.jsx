@@ -53,7 +53,7 @@ function EditSubCategoryForm({ data, onSubmit }) {
             disabled
           />
         </MDBValidationItem>
-        <MDBValidationItem tooltip className="col-md-12">
+        <MDBValidationItem tooltip feedback="Vui lòng nhập tên danh mục" invalid className="col-md-12">
           <MDBInput
             onChange={setValues}
             defaultValue={data.subCategoryName}
@@ -82,7 +82,7 @@ function EditSubCategoryForm({ data, onSubmit }) {
               ))}
           </Form.Select>
         </Form.Group>
-        <MDBValidationItem tooltip className="col-md-12">
+        <MDBValidationItem tooltip feedback="Được" invalid className="col-md-12">
           <MDBTextArea
             onChange={setValues}
             defaultValue={data.description}

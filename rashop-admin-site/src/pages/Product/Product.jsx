@@ -37,7 +37,7 @@ function Product() {
         console.log("re-render");
       })
       .catch((err) => console.log(err));
-  }, [query, pageIndex, sort, showAddModal, showEditModal, showDeleteModal]);
+  }, [query, pageIndex, sort, productsData]);
 
   //Start: Function handle pagination
   function handleNextPage() {

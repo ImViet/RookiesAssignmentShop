@@ -41,7 +41,7 @@ function EditCategoryForm({ data, onSubmit }) {
           disabled
         />
       </MDBValidationItem>
-      <MDBValidationItem tooltip className="col-md-12">
+      <MDBValidationItem tooltip feedback="Vui lòng nhập tên danh mục" invalid className="col-md-12">
         <MDBInput
           onChange={setValues}
           name="cateName"
@@ -53,7 +53,7 @@ function EditCategoryForm({ data, onSubmit }) {
           required
         />
       </MDBValidationItem>
-      <MDBValidationItem tooltip className="col-md-12">
+      <MDBValidationItem tooltip feedback="Được" className="col-md-12">
         <MDBTextArea
           onChange={setValues}
           name="description"

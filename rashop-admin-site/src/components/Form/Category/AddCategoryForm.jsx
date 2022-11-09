@@ -29,7 +29,7 @@ function AddCategoryForm({ onSubmit }) {
 
   return (
     <MDBValidation onSubmit={handleSubmit} className="row g-3">
-      <MDBValidationItem tooltip className="col-md-12">
+      <MDBValidationItem tooltip feedback="Vui lòng nhập tên danh mục" invalid className="col-md-12">
         <MDBInput
           onChange={setValues}
           name="cateName"
@@ -40,7 +40,7 @@ function AddCategoryForm({ onSubmit }) {
           required
         />
       </MDBValidationItem>
-      <MDBValidationItem tooltip className="col-md-12">
+      <MDBValidationItem tooltip feedback="Được" className="col-md-12">
         <MDBTextArea
           onChange={setValues}
           name="description"

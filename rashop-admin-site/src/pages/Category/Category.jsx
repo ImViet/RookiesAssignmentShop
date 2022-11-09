@@ -35,9 +35,10 @@ function Category() {
     getCategoryAPI(query, pageIndex, sort)
       .then((res) => {
         setCatesData(res);
+        console.log("re-render");
       })
       .catch((err) => console.log(err));
-  }, [query, pageIndex, sort, showAddModal, showEditModal, showDeleteModal]);
+  }, [query, pageIndex, sort, categoriesData]);
 
   //Start: Function handle pagination
   function handleNextPage() {
