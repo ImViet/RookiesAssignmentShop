@@ -44,6 +44,7 @@ function EditProductForm({ data, onSubmit }) {
     });
   };
   function handleSubmit(e) {
+    if(product.subCategoryId === "") product.subCategoryId = null;
     if (product.productName !== "" && product.price !=="" && product.categoryId !== "0" &&
         product.origin !=="" && product.unit !=="" && product.price !== 0) {
       e.preventDefault();
@@ -179,7 +180,8 @@ function EditProductForm({ data, onSubmit }) {
           onChange={setValues}
           invalid
         >
-          {data.subCategoryId !== null ? <option value={data.subCategoryId}>Hiện tại thuộc: {data.subCategoryName}</option> : <option value={null}>Không</option>}
+          {data.subCategoryId !== null ? <option value={data.subCategoryId} disabled>Hiện tại thuộc: {data.subCategoryName}</option> : <option value={null} disabled>Không</option>}
+          <option value = "">Không</option>
           {subCategoriesData &&
             subCategoriesData.map((item) => (
               <option key={item.subCategoryId} value={item.subCategoryId}>

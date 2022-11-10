@@ -295,7 +295,7 @@ function Product() {
           </MDBBtn>
         </Col>
         <Col xs={2}>
-          <Form.Select onChange={(e)=>setValues(e.target.value)} aria-label="Default select example">
+          <Form.Select onChange={(e)=>{setValues(e.target.value); setPageIndex((i) => (i = 1))}} aria-label="Default select example">
             <option name="pageSize" value="4">Số lượng: 4</option>
             <option name="pageSize" value="8" selected>Số lượng: 8</option>
             <option name="pageSize" value="15">Số lượng: 15</option>
