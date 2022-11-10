@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="~/frontend/assets/css/rating.css">
     <link rel="stylesheet" href="~/frontend/assets/css/cart.css">
     <link rel="stylesheet" href="~/frontend/assets/css/slickslider.css">
+    <link rel="stylesheet" href="~/frontend/assets/css/footer.css">
     <script>(function (w, d) { w.CollectId = "60827f2b34b8b76f099ef81c"; var h = d.head || d.getElementsByTagName("head")[0]; var s = d.createElement("script"); s.setAttribute("type", "text/javascript"); s.async = true; s.setAttribute("src", "https://collectcdn.com/launcher.js"); h.appendChild(s); })(window, document);</script>
 </head>
 
@@ -27,11 +28,8 @@
             @RenderBody()
         </main>
     </div>
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - DemoWebMVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+    <partial name="Footer/FooterPartialView" />
+   
     @* <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script> *@

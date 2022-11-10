@@ -33,7 +33,7 @@
                 <td class="p-4">
                   <div class="media align-items-center">
                     <img src="@item.Product.MainImg" class="d-inline-block ui-w-40 ui-bordered mr-4" alt="@item.Product.ProductName">
-                      <a href="#" class="d-inline-block text-dark fs-5">@item.Product.ProductName</a>
+                      <a asp-page="/Product/GetProductDetail" asp-route-id="@item.Product.ProductId" class="d-inline-block text-dark fs-5">@item.Product.ProductName</a>
                     <div class="media-body">
                       <small>
                         <span class="text-muted">Xuất xứ: @item.Product.Origin</span>

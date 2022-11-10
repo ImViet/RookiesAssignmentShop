@@ -10,6 +10,13 @@
 }
 <div class="container mt-5">
     <div class="row">
+        <nav>
+        <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-page="/Index">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a asp-page="/Product/ProductIndex">Tất cả sản phẩm</a></li>
+                <li class="breadcrumb-item active">Tìm kiếm sản phẩm</li>
+            </ol>
+            </nav>
         <div class="btn-group float-end" style="width: 15%!important; margin-bottom: 20px;">
             @switch (sort)
             {
@@ -88,7 +95,7 @@
                             }
                             else
                             {
-                                name = item.ProductName.Substring(0, 26) + "...";
+                                name = item.ProductName.Substring(0, 25) + "...";
                             }
                         }
                     <h5 class="card-title ms-3" style="font-size: 18px;">@name</h5>

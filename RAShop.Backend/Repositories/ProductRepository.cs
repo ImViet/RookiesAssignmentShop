@@ -108,7 +108,7 @@ namespace RAShop.Backend
         public async Task<ProductDTO> GetProductById(int id)
         {
             //Query product
-            var product = await _context.Products.Include(x => x.SubCategory).Include(r => r.Ratings).FirstOrDefaultAsync(x => x.ProductId == id);
+            var product = await _context.Products.Include(x => x.SubCategory).Include(s => s.Category).Include(r => r.Ratings).FirstOrDefaultAsync(x => x.ProductId == id);
             ProductDTO productDto = _mapper.Map<ProductDTO>(product);
             return productDto;
         }

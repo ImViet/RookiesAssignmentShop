@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RAShop.CustomerSite.Interfaces;
+using RAShop.Shared.DTO;
 
 namespace RAShop.CustomerSite.Pages.Home
 {
@@ -26,6 +27,9 @@ namespace RAShop.CustomerSite.Pages.Home
             else
                 ViewData["sort"] = "0";
             var data = await _productService.GetProductBySubCateId(cateid, sortOrder, pageCurrent);
+            var temp = data.items.Find(x => x.SubCategoryId == cateid);
+            ViewData["nameSubCate"] = temp.SubCategoryName;
+            ViewData["nameCate"] = temp.CategoryName;
             ViewData["totalPage"] = data.TotalPages;
             ViewData["cateId"] = cateid;
             ViewData["products"] = data.items;

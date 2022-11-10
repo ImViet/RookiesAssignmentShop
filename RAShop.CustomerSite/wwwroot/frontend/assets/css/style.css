@@ -29,6 +29,27 @@ ul .nav-item{
 .nav-item {
     margin: 0px 12px;
 }
+
+.breadcrumb{
+    flex-wrap: wrap;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    list-style: none;
+    background-color: #F5D7DA;
+    border-radius: 0.25rem;
+}
+.breadcrumb li {
+    text-decoration: none;
+    font-size: 18px;
+}
+.breadcrumb a {
+    text-decoration: none;
+    color: #000;
+}
+.breadcrumb a:hover {
+    text-decoration: none;
+    color: #0c6363;
+}
 .badge {
     padding-left: 9px;
     padding-right: 9px;

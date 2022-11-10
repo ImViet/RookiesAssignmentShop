@@ -9,11 +9,29 @@
 }
 <section class="py-4">
     <div class="container px-4 px-lg-5">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-page="/Index">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a asp-page="/Product/ProductIndex">Tất cả sản phẩm</a></li>
+                @if (Model.product.SubCategoryId != null)
+                {
+                    <li class="breadcrumb-item"><a asp-page="/Product/GetProductByCateId" asp-route-cateid="@Model.product.CategoryId">@Model.product.CategoryName</a></li>
+                    <li class="breadcrumb-item"><a asp-page="/Product/GetProductBySubCateId" asp-route-cateid="@Model.product.SubCategoryId">@Model.product.SubCategoryName</a></li>
+                }
+                else
+                {
+                    <li class="breadcrumb-item"><a asp-page="/Product/GetProductByCateId" asp-route-cateid="@Model.product.CategoryId">@Model.product.CategoryName</a></li>
+                }
+
+
+            </ol>
+        </nav>
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="@Model.product.MainImg" alt="..." /></div>
             <div class="col-md-6">
-                @* <div class="small mb-1 pb-3" style="display: inline-block ;">Loại sản phẩm: @Model.product.CategoryName
-                </div> *@
+                @* <div class="small mb-1 pb-3" style="display: inline-block ;">Loại sản phẩm:
+                    @Model.product.CategoryName
+                    </div> *@
                 <h1 class="display-6 fw-bolder">@Model.product.ProductName</h1>
                 <div class="small mb-1" style="display: inline-block ;">Xuất xứ: @Model.product.Origin</div>
                 <div class="small mb-1" style="display: inline-block ; float:right;">Đơn vị tính: @Model.product.Unit
@@ -23,13 +41,13 @@
                     <span style="color:#e68b24"> @string.Format("{0:#,##0.##}₫", Model.product.Price)</span>
                 </div>
                 <div class="star-ratings" style="display: inline-block; font-size: 18px">
-                                <div class="fill-ratings" id="star-avg" style="width: @ratingAvg;">
-                                    <span>★★★★★</span>
-                                </div>
-                                <div class="empty-ratings">
-                                    <span>★★★★★</span>
-                                </div>
-                            </div>
+                    <div class="fill-ratings" id="star-avg" style="width: @ratingAvg;">
+                        <span>★★★★★</span>
+                    </div>
+                    <div class="empty-ratings">
+                        <span>★★★★★</span>
+                    </div>
+                </div>
                 <hr>
                 <pre class="commit">
         CAM KẾT KHI MUA SẮM
@@ -268,8 +286,8 @@
         display: block;
         z-index: 0;
     }
-    .star-ratings > p{
+
+    .star-ratings>p {
         font-size: 15px;
     }
 </style>
-

@@ -26,6 +26,8 @@ namespace RAShop.CustomerSite.Pages.Home
             else
                 ViewData["sort"] = "0";
             var data = await _productService.GetProductByCateId(cateid, sortOrder, pageCurrent);
+            var temp = data.items.Find(x => x.CategoryId == cateid);
+            ViewData["nameCate"] = temp.CategoryName;
             ViewData["totalPage"] = data.TotalPages;
             ViewData["cateId"] = cateid;
             ViewData["products"] = data.items;
