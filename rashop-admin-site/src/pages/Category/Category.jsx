@@ -53,11 +53,6 @@ function Category() {
   }
   //End: Function handle pagination
 
-  //Start: Function handle click to call modal
-  function handleShowAddModal() {
-    setShowAddModal(true);
-  }
-  //End: Function handle click to call modal
   return (
     <React.Fragment>
       <Row className="mt-3 mb-2">
