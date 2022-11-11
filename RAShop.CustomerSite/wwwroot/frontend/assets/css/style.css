@@ -7,6 +7,7 @@ html {
     font-family: myFont;
     src: url(RAShop.CustomerSite/wwwroot/frontend/assets/font/Pacifico-Regular.ttf);
 }
+
 body{
     font-family: myFont;
 }
@@ -17,7 +18,11 @@ ul .nav-item{
     max-width: 148px;
     height: auto;
 }
-
+.fixed-top {
+    top: -40px;
+    transform: translateY(40px);
+    transition: transform .3s;
+}
 .logo-hide {
     display: none;
 }
