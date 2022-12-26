@@ -7,9 +7,9 @@
     int cateId = (int)ViewData["cateId"];
     string sort = (string)ViewData["sort"];
     var products =  ViewData["products"] as List<ProductDTO>;
-    var nameCate = (string)ViewData["nameCate"];
+    @* var nameCate = (string)ViewData["nameCate"]; *@
 }
-@if(ViewBag.Products.Count != 0)
+@if(products.Count != null)
 {
 <div class="container mt-5">
     <div class="row">
@@ -17,7 +17,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a asp-page="/Index">Trang chủ</a></li>
                 <li class="breadcrumb-item"><a asp-page="/Product/ProductIndex">Tất cả sản phẩm</a></li>
-                <li class="breadcrumb-item active">@nameCate</li>
+                @* <li class="breadcrumb-item active">@nameCate</li> *@
             </ol>
         </nav>
                 <div class="btn-group float-end" style="width: 15%!important; margin-bottom: 20px;">
