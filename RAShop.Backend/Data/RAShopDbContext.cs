@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using RAShop.Backend.Models;
 
 namespace RAShop.Backend.Data
 {
-    public class RAShopDbContext : DbContext
+    public class RAShopDbContext : IdentityDbContext<AppUser, AppRole, string>
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
