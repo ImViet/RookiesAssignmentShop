@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using RAShop.Backend.Models;
 using RAShop.Shared.DTO;
+using RAShop.Shared.DTO.Auth;
+
 namespace RAShop.Backend.Utilities.AutoMapper
 {
     public class AutoMapperProfile : Profile
@@ -41,6 +43,10 @@ namespace RAShop.Backend.Utilities.AutoMapper
             CreateMap<EditSubCategoryDTO, SubCategory>()
                 .ForMember(dest => dest.CategoryId, cof => cof.MapFrom(src => src.CategoryParentId))
                 .ForMember(dest => dest.SubCategoryName, cof => cof.MapFrom(src => src.SubCateName));
+
+            CreateMap<AppUser, AccountDTO>()
+                .ForMember(dest => dest.Token, cof => cof.Ignore()); 
+            CreateMap<RegisterRequestDTO, AppUser>();
 
         }
     }

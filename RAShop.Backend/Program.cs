@@ -1,9 +1,13 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RAShop.Backend;
 using RAShop.Backend.Data;
+using RAShop.Backend.Interfaces;
+using RAShop.Backend.Models;
+using RAShop.Backend.Repositories;
 using RAShop.Backend.Utilities.AutoMapper;
 using System.Text;
 using System.Text.Json;
@@ -48,11 +52,12 @@ builder.Services.AddAuthorization();
 builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper
 (typeof(AutoMapperProfile).Assembly);
-
+builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<RAShopDbContext>().AddDefaultTokenProviders();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
 builder.Services.AddScoped<IRatingRepository, RatingRepository>();
+builder.Services.AddTransient<IAuthRepository, AuthRepository>();
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.

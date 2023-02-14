@@ -4,7 +4,7 @@ namespace RAShop.Backend.Interfaces
 {
     public interface IAuthRepository
     {
-        Task<string> Login(LoginRequestDTO userLogin);
-        Task<bool> Register(RegisterRequestDTO userRegister);
+        Task<AccountDTO> LoginAsync(LoginRequestDTO userLogin);
+        Task<bool> RegisterAsync(RegisterRequestDTO userRegister);
     }
 }
