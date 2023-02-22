@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RAShop.Backend.Data;
@@ -63,21 +65,21 @@ namespace RAShop.Backend.Controllers
         {
             return await _productRepo.RatingAVG(id);
         }
-
+        [Authorize(AuthenticationSchemes = "Bearer")]
         //Tao moi san pham
         [HttpPost]
         public async Task<ActionResult<ProductDTO>> CreateProduct([FromBody]CreateProductDTO newProduct)
         {
             return await _productRepo.CreateProduct(newProduct);
         }
-
+        [Authorize(AuthenticationSchemes = "Bearer")]
         //Sua mot san pham
         [HttpPut]
         public async Task<ActionResult<ProductDTO>> EditProduct([FromBody]EditProductDTO newProduct)
         {
             return await _productRepo.EditProduct(newProduct);
         }
-
+        [Authorize(AuthenticationSchemes = "Bearer")]
         //Xoa san pham
         [HttpDelete("{id}")]
         public async Task<ActionResult<ProductDTO>> DeleteProduct(int id)

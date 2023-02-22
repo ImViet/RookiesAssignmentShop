@@ -15,10 +15,10 @@ namespace RAShop.Backend.Controllers
             _authRepository = authRepository;
         }
         [HttpPost]
-        public async Task<ActionResult<AccountDTO>> LoginAsync([FromBody] LoginRequestDTO userLogin)
+        public async Task<ActionResult<AccountDTO>> LoginAsync(LoginRequestDTO userLogin)
         {
             var account = await _authRepository.LoginAsync(userLogin);
-            if(account == null)
+            if (account == null)
             {
                 return BadRequest("Username or Password is incorrect. Please try again");
             }
@@ -27,12 +27,16 @@ namespace RAShop.Backend.Controllers
         [HttpPost]
         public async Task<ActionResult> RegisterAsync([FromBody] RegisterRequestDTO userRegister)
         {
+            if (userRegister.Password != userRegister.ConfirmPassword)
+            {
+                return BadRequest("Password is incorrect with confirmpassword");
+            }
             var result = await _authRepository.RegisterAsync(userRegister);
-            if(!result)
+            if (result == null)
             {
                 return BadRequest("Register is unsuccessful");
             }
-            return Ok();
+            return Ok(userRegister);
         }
     }
 }

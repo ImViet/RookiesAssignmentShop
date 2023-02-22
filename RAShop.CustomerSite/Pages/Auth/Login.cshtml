@@ -1,0 +1,20 @@
+@page 
+@using RAShop.CustomerSite.Pages.Home
+@using RAShop.Shared.DTO.Auth
+@model Login
+<div class="container container-login-form">
+  <h2>Đăng nhập</h2>
+  <form asp-page="/Auth/Login" asp-page-handler="Login" id="loginForm" method="post" class="login-form">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="userName" name="UserName" placeholder="UserName">
+          <label for="floatingInput">Tên đăng nhập</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" class="form-control" id="password" name="Password" placeholder="Password">
+          <label for="floatingPassword">Mật khẩu</label>
+        </div>
+        <button type="submit" class="btn btn-success btn-login" id="btnLogin">Đăng nhập</button>
+  </form>
+  <h2>hoặc</h2>
+  <p style="font-size: 20px"><a asp-page="/Auth/Register" class="register-link">Đăng ký</a> ngay tại đây</p>
+</div>

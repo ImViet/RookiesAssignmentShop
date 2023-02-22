@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using RAShop.Backend.Interfaces;
 using RAShop.Backend.Models;
@@ -10,7 +11,7 @@ using System.Text;
 
 namespace RAShop.Backend.Repositories
 {
-    public class AuthRepository: IAuthRepository        
+    public class AuthRepository : IAuthRepository
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
@@ -34,7 +35,7 @@ namespace RAShop.Backend.Repositories
                 throw new Exception("Cannot find this user");
             }
             var result = await _signInManager.PasswordSignInAsync(user, userLogin.Password, true, true);
-            if(!result.Succeeded)
+            if (!result.Succeeded)
             {
                 return null;
             }
@@ -44,16 +45,16 @@ namespace RAShop.Backend.Repositories
             return account;
         }
 
-        public async Task<bool> RegisterAsync(RegisterRequestDTO userRegister)
+        public async Task<RegisterRequestDTO> RegisterAsync(RegisterRequestDTO userRegister)
         {
             var user = _mapper.Map<AppUser>(userRegister);
             user.Id = Guid.NewGuid().ToString();
             var result = await _userManager.CreateAsync(user, userRegister.Password);
             if (!result.Succeeded)
             {
-                return false;
+                return null;
             }
-            return true;
+            return userRegister;
         }
         private string CreateToken(AppUser user)
         {
@@ -67,8 +68,8 @@ namespace RAShop.Backend.Repositories
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
             var token = new JwtSecurityToken(
-                _config["Issuer"],
-                _config["Audience"],
+                _config["JWT:Issuer"],
+                _config["JWT:Audience"],
                 claims: claims,
                 expires: DateTime.Now.AddHours(1),
                 signingCredentials: creds

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.ComponentModel;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RAShop.Backend.Controllers
 {
@@ -49,7 +50,7 @@ namespace RAShop.Backend.Controllers
             return await _subCategoryRepo.GetSubCategoryById(id);
             
         }
-
+        [Authorize(AuthenticationSchemes = "Bearer")]
         //Tao moi loai san pham
         [HttpPost]
         public async Task<ActionResult<SubCateDTO>> CreateSubCate([FromBody]CreateSubCategoryDTO newCate)
@@ -57,7 +58,7 @@ namespace RAShop.Backend.Controllers
             return await _subCategoryRepo.CreateSubCate(newCate);
          
         }
-
+        [Authorize(AuthenticationSchemes = "Bearer")]
         //Sua mot category
         [HttpPut]
         public async Task<ActionResult<SubCateDTO>> EditSubCategory([FromBody]EditSubCategoryDTO newCategory)
@@ -65,7 +66,7 @@ namespace RAShop.Backend.Controllers
             return await _subCategoryRepo.EditSubCategory(newCategory);
             
         }
-
+        [Authorize(AuthenticationSchemes = "Bearer")]
         //Xoa category
         [HttpDelete("{id}")]
         public async Task<ActionResult<SubCateDTO>> DeleteSubCategory(int id)

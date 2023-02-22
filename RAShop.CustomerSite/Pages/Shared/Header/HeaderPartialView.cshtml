@@ -1,4 +1,9 @@
 @using RAShop.CustomerSite.Models;
+@using RAShop.Shared.DTO;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    var userName = HttpContextAccessor.HttpContext?.Session.GetString("UserName");
+}
 <header>
     <div style="background-color:#b1d238 ;">
         <div class="container-fluid">
@@ -44,6 +49,26 @@
                         <span class="badge badge-warning" id="lblCartCount"> @CountCart.countItem </span>
                     </div>
                 </div>
+                @if(userName==null)
+                {
+                    <div>
+                        <a class="login" asp-page="/Auth/Login">Đăng nhập</a>
+                    </div>
+                }
+                else
+                {
+                    <ul class="navbar-nav ms-auto auth">
+                    <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" style="text-transform: uppercase" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Hi @userName
+                </a>
+                <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" asp-page="/Auth/Login" asp-page-handler="Logout">Đăng xuất</a></li>       
+                </ul>
+            </li>
+                    </ul>
+                }
+               
             </div> <!-- navbar-collapse.// -->
         </div> <!-- container-fluid.// -->
     </nav>

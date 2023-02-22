@@ -1,10 +1,14 @@
-﻿<!DOCTYPE html>
+﻿
+@{
+    var userName = ViewData["UserLogin"];
+}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - DemoWebMVC</title>
+    <title>Chợ tình của Boo</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/DemoWebMVC.styles.css" asp-append-version="true" />
@@ -18,11 +22,12 @@
     <link rel="stylesheet" href="~/frontend/assets/css/cart.css">
     <link rel="stylesheet" href="~/frontend/assets/css/slickslider.css">
     <link rel="stylesheet" href="~/frontend/assets/css/footer.css">
+    <link rel="stylesheet" href="~/frontend/assets/css/auth.css">
     <script>(function (w, d) { w.CollectId = "60827f2b34b8b76f099ef81c"; var h = d.head || d.getElementsByTagName("head")[0]; var s = d.createElement("script"); s.setAttribute("type", "text/javascript"); s.async = true; s.setAttribute("src", "https://collectcdn.com/launcher.js"); h.appendChild(s); })(window, document);</script>
 </head>
 
 <body>
-    <partial name="Header/HeaderPartialView" />
+    <partial name="Header/HeaderPartialView" data="@userName" />
     <div class="container-flud">
         <main role="main" class="">
             @RenderBody()
@@ -42,8 +47,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
         integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="~/frontend/assets/js/main.js"></script>
-    <script src="~/frontend/assets/js/slickslider.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" 
+        integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="~/frontend/assets/js/main.js" asp-append-version="true"></script>
+    <script src="~/frontend/assets/js/slickslider.js" asp-append-version="true"></script>
+    <script src="~/frontend/assets/js/auth.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 

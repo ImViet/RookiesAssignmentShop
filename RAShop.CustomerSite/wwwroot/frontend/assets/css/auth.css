@@ -1,0 +1,31 @@
+.container-login-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.container-login-form > h2 {
+  border-bottom: 4px solid #ccc;
+  margin-top: 20px;
+}
+.login-form {
+  width: 500px;
+  margin: 10px 40px;
+}
+.btn-login {
+  margin-top: 10px;
+}
+.register-link {
+  font-size: 20px;
+  text-decoration: none;
+}
+
+input.error {
+  border: 1px solid red;
+  margin-bottom: 5px;
+}
+
+label.error {
+  display: contents;
+  color: red;
+}

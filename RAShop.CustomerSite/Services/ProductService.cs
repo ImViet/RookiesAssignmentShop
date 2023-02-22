@@ -3,15 +3,18 @@ using RAShop.CustomerSite.Interfaces;
 using RAShop.Shared.DTO;
 using RAShop.CustomerSite.Extensions;
 using System.Text;
+using System.Net.Http.Headers;
 
 namespace RAShop.CustomerSite.Services
 {
     public class ProductService : IProduct
     {
         private readonly IHttpClientFactory _clientFactory;
-        public ProductService(IHttpClientFactory clientFactory)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public ProductService(IHttpClientFactory clientFactory, IHttpContextAccessor httpContextAccessor)
         {
             _clientFactory = clientFactory;
+            _httpContextAccessor = httpContextAccessor;
         }
         //Lay tat ca san pham
         public async Task<PagingDTO<ProductDTO>> GetAll(string sortOrder, int pageNumber)
@@ -70,8 +73,10 @@ namespace RAShop.CustomerSite.Services
         {
             var httpClient = _clientFactory.CreateClient("myclient");
             string url = "/rating/createrating";
+            var token = _httpContextAccessor.HttpContext?.Session.GetString("JWTToken");
             var jsonString = JsonConvert.SerializeObject(newRating);
             HttpContent content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var response = await httpClient.PostAsync(url, content);
             var jsonData = response.Content.ReadAsStringAsync().Result;
             var data = JsonConvert.DeserializeObject<RatingDTO>(jsonData);
