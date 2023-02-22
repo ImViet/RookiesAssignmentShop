@@ -30,6 +30,7 @@ builder.Services.AddScoped<IRating, RatingService>();
 builder.Services.AddScoped<ISubCategory, SubCategoryService>();
 builder.Services.AddScoped<IProduct, ProductService>();
 builder.Services.AddScoped<ICart, CartService>();
+builder.Services.AddScoped<IAuth, AuthService>();
 
 //Razor Page
 builder.Services.AddRazorPages()

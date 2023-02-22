@@ -2,10 +2,12 @@
 @using RAShop.CustomerSite.Pages.Home
 @using RAShop.Shared.DTO
 @model GetProductDetail
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
     var ratingAvgtemp = Convert.ToDouble(ViewData["ratingAvg"]);
     var ratingAvg = string.Format("{0:0.##}%", (Convert.ToDouble(ViewData["ratingAvg"]) / 5) * 100);
     var listRatings = ViewData["listRatings"] as List<RatingDTO>;
+    var userName = HttpContextAccessor.HttpContext?.Session.GetString("UserName");
 }
 <section class="py-4">
     <div class="container px-4 px-lg-5">

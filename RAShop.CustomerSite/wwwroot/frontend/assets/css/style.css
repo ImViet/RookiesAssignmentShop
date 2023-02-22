@@ -1,216 +1,235 @@
 html {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 @font-face {
-    font-family: myFont;
-    src: url(RAShop.CustomerSite/wwwroot/frontend/assets/font/Pacifico-Regular.ttf);
+  font-family: myFont;
+  src: url(RAShop.CustomerSite/wwwroot/frontend/assets/font/Pacifico-Regular.ttf);
 }
 
-body{
-    font-family: myFont;
+body {
+  font-family: myFont;
 }
-ul .nav-item{
-    margin: 0 5px;
+ul .nav-item {
+  margin: 0 5px;
 }
 .container-logo {
-    max-width: 148px;
-    height: auto;
+  max-width: 148px;
+  height: auto;
 }
 .fixed-top {
-    top: -40px;
-    transform: translateY(40px);
-    transition: transform .3s;
+  top: -40px;
+  transform: translateY(40px);
+  transition: transform 0.3s;
 }
 .logo-hide {
-    display: none;
+  display: none;
 }
 
 .header-logo {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 .nav-item {
-    margin: 0px 12px;
+  margin: 0px 12px;
 }
 
-.breadcrumb{
-    flex-wrap: wrap;
-    padding: 0.75rem 1rem;
-    margin-bottom: 1rem;
-    list-style: none;
-    background-color: #F5D7DA;
-    border-radius: 0.25rem;
+.breadcrumb {
+  flex-wrap: wrap;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  list-style: none;
+  background-color: #f5d7da;
+  border-radius: 0.25rem;
 }
 .breadcrumb li {
-    text-decoration: none;
-    font-size: 18px;
+  text-decoration: none;
+  font-size: 18px;
 }
 .breadcrumb a {
-    text-decoration: none;
-    color: #000;
+  text-decoration: none;
+  color: #000;
 }
 .breadcrumb a:hover {
-    text-decoration: none;
-    color: #0c6363;
+  text-decoration: none;
+  color: #0c6363;
 }
 .badge {
-    padding-left: 9px;
-    padding-right: 9px;
-    -webkit-border-radius: 9px;
-    -moz-border-radius: 9px;
-    border-radius: 9px;
-  }
-  
-  .label-warning[href],
-  .badge-warning[href] {
-    background-color: #c67605;
-  }
-  #lblCartCount {
-      font-size: 14px;
-      background: #ff0000;
-      color: #fff;
-      padding: 0 5px;
-      vertical-align: top;
-      margin-left: -10px; 
-  }
-.card-fix{
-    box-shadow: none;
-    transition: transform 0.7s;
-    border: none;
-    margin: 6px;
-    width: 24%;
-    border-bottom: 2px solid transparent;
+  padding-left: 9px;
+  padding-right: 9px;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px;
 }
-.card-fix:hover{
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    -ms-transform: scale(0.5); /* IE 9 */
-    -webkit-transform: scale(0.5); /* Safari 3-8 */
-    transform: scale(1.03); 
-    border: rgba(0, 0, 0, 0.2);
-    border-bottom: 3px solid #0c6363;
+
+.label-warning[href],
+.badge-warning[href] {
+  background-color: #c67605;
+}
+#lblCartCount {
+  font-size: 14px;
+  background: #ff0000;
+  color: #fff;
+  padding: 0 5px;
+  vertical-align: top;
+  margin-left: -10px;
+}
+.card-fix {
+  box-shadow: none;
+  transition: transform 0.7s;
+  border: none;
+  margin: 6px;
+  width: 24%;
+  border-bottom: 2px solid transparent;
+}
+.card-fix:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -ms-transform: scale(0.5); /* IE 9 */
+  -webkit-transform: scale(0.5); /* Safari 3-8 */
+  transform: scale(1.03);
+  border: rgba(0, 0, 0, 0.2);
+  border-bottom: 3px solid #0c6363;
 }
 
 .btn-more {
-    background-color: white;
-    border: none;
-    color: black;
-    display: inline-block;
-    margin: auto;
-    transition-duration: 0.4s;
-    cursor: pointer;
-    text-decoration: none;
-    border: 2px solid #c47135;
+  background-color: white;
+  border: none;
+  color: black;
+  display: inline-block;
+  margin: auto;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  text-decoration: none;
+  border: 2px solid #c47135;
 }
 
 .btn-more:hover {
-    background-color: #0c6363;
-    color: #FF2;
-    text-decoration: none;
+  background-color: #0c6363;
+  color: #ff2;
+  text-decoration: none;
 }
 
 .btn-addtocart {
-    background-color: white;
-    border: none;
-    color: black;
-    padding: 8px 16px;
-    display: inline-block;
-    font-size: 16px;
-    margin: auto;
-    transition-duration: 0.4s;
-    cursor: pointer;
-    text-decoration: none;
-    border: 2px solid #c47135;
-    border-radius: 20px;
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 8px 16px;
+  display: inline-block;
+  font-size: 16px;
+  margin: auto;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  text-decoration: none;
+  border: 2px solid #c47135;
+  border-radius: 20px;
 }
 
 .btn-addtocart:hover {
-    background-color: #0c6363;
-    color: #FF2;
-    text-decoration: none;
+  background-color: #0c6363;
+  color: #ff2;
+  text-decoration: none;
 }
 
 .btn-backtolist {
-    background-color: #0c6363;
-    border: none;
-    color: white;
-    padding: 8px 16px;
-    display: inline-block;
-    font-size: 16px;
-    margin: auto;
-    transition-duration: 0.4s;
-    cursor: pointer;
-    text-decoration: none;
-    border: 2px solid #c47135;
-    border-radius: 20px;
+  background-color: #0c6363;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  display: inline-block;
+  font-size: 16px;
+  margin: auto;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  text-decoration: none;
+  border: 2px solid #c47135;
+  border-radius: 20px;
 }
 
 .btn-backtolist:hover {
-    background-color: #0c6363;
-    color: #FF2;
-    text-decoration: none;
+  background-color: #0c6363;
+  color: #ff2;
+  text-decoration: none;
 }
 
 .btn-pay {
-    background-color: white;
-    border: none;
-    color: #b61919;
-    cursor: pointer;
-    display: inline-block;
-    font-family: 'BenchNine', Arial, sans-serif;
-    font-size: 15px;
-    line-height: 1em;
-    margin: 15px 20px;
-    outline: none;
-    padding: 12px 40px 10px;
-    position: relative;
-    text-transform: uppercase;
-    font-weight: 700;
-    border: 1px solid #b61919;
-    width: 190px;
-    text-align: center;
+  background-color: white;
+  border: none;
+  color: #b61919;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "BenchNine", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1em;
+  margin: 15px 20px;
+  outline: none;
+  padding: 12px 40px 10px;
+  position: relative;
+  text-transform: uppercase;
+  font-weight: 700;
+  border: 1px solid #b61919;
+  width: 190px;
+  text-align: center;
 }
 
 .btn-pay:before,
 .btn-pay:after {
-    border-color: transparent;
-    -webkit-transition: all 0.25s;
-    transition: all 0.25s;
-    border-style: solid;
-    border-width: 0;
-    content: "";
-    height: 24px;
-    position: absolute;
-    width: 24px;
+  border-color: transparent;
+  -webkit-transition: all 0.25s;
+  transition: all 0.25s;
+  border-style: solid;
+  border-width: 0;
+  content: "";
+  height: 24px;
+  position: absolute;
+  width: 24px;
 }
 
 .btn-pay:before {
-    border-color: #c47135;
-    border-top-width: 2px;
-    left: 0px;
-    top: -5px;
+  border-color: #c47135;
+  border-top-width: 2px;
+  left: 0px;
+  top: -5px;
 }
 
 .btn-pay:after {
-    border-bottom-width: 2px;
-    border-color: #c47135;
-    bottom: -5px;
-    right: 0px;
+  border-bottom-width: 2px;
+  border-color: #c47135;
+  bottom: -5px;
+  right: 0px;
 }
 
 .btn-pay:hover,
 .btn-pay.hover {
-    background-color: #b61919;
-    text-decoration: none;
-    color: white;
+  background-color: #b61919;
+  text-decoration: none;
+  color: white;
 }
 
 .btn-pay:hover:before,
 .btn-pay.hover:before,
 .btn-pay:hover:after,
 .btn-pay.hover:after {
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
+.login {
+  color: #fff;
+  opacity: 0.8;
+  text-decoration: none;
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  text-transform: uppercase;
+}
+.login:hover {
+  color: #fff;
+  opacity: 1;
+}
+
+.auth {
+  position: absolute;
+  right: 70px;
+}

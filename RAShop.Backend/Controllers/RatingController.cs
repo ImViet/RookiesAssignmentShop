@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.ComponentModel;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RAShop.Backend.Controllers
 {
@@ -25,6 +26,7 @@ namespace RAShop.Backend.Controllers
         {
             return await _ratingRepo.GetProductRatings(id);
         }
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPost]
         public async Task<RatingDTO> CreateRating(AddRatingDTO newRating)
         {
