@@ -6,5 +6,6 @@ namespace RAShop.Backend.Interfaces
     {
         Task<AccountDTO> LoginAsync(LoginRequestDTO userLogin);
         Task<RegisterRequestDTO> RegisterAsync(RegisterRequestDTO userRegister);
+        Task<bool> CheckUserNameAsync(string userName);
     }
 }

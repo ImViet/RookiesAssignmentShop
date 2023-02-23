@@ -27,6 +27,7 @@ namespace RAShop.Backend.Repositories
             _config = config;
             _mapper = mapper;
         }
+
         public async Task<AccountDTO> LoginAsync(LoginRequestDTO userLogin)
         {
             var user = await _userManager.FindByNameAsync(userLogin.UserName);
@@ -55,6 +56,18 @@ namespace RAShop.Backend.Repositories
                 return null;
             }
             return userRegister;
+        }
+
+        public async Task<bool> CheckUserNameAsync(string userName)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+
+            if (user == null)
+            {
+                return true;
+            }
+            return false;
+
         }
         private string CreateToken(AppUser user)
         {

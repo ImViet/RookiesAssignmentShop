@@ -25,8 +25,13 @@ namespace RAShop.Backend.Controllers
             return Ok(account);
         }
         [HttpPost]
-        public async Task<ActionResult> RegisterAsync([FromBody] RegisterRequestDTO userRegister)
+        public async Task<ActionResult> RegisterAsync([FromForm] RegisterRequestDTO userRegister)
         {
+            var resultCheckUserName = await _authRepository.CheckUserNameAsync(userRegister.UserName);
+            if (!resultCheckUserName)
+            {
+                return BadRequest("UserName already exists");
+            }
             if (userRegister.Password != userRegister.ConfirmPassword)
             {
                 return BadRequest("Password is incorrect with confirmpassword");
@@ -37,6 +42,16 @@ namespace RAShop.Backend.Controllers
                 return BadRequest("Register is unsuccessful");
             }
             return Ok(userRegister);
+        }
+        [HttpPost]
+        public async Task<IActionResult> CheckUserIsNotAvailableAsync([FromForm] string userName)
+        {
+            var result = await _authRepository.CheckUserNameAsync(userName);
+            if (!result)
+            {
+                return Ok(false);
+            }
+            return Ok(true);
         }
     }
 }

@@ -1,32 +1,19 @@
 $(document).ready(function () {
-    $('#loginForm').validate(
-        {
-            rules: {
-                UserName: {
-                    required: true,
-                },
-                Password: {
-                    required: true,
-                    minlength: 6
-                }
-            },
-            messages: {
-                UserName: {
-                    required: "Nhập tên đăng nhập"
-                },
-                Password: {
-                    required: "Nhập mật khẩu",
-                    minlength: "Mật khẩu ít nhất 6 ký tự"
-                }
-            },
-        }
-    );
-});
-$(document).ready(function () {
+    console.log($("#userName").val())
     $('#registerForm').validate({
         rules: {
             UserName: {
                 required: true,
+                //remote: {
+                //    url: "https://localhost:7150/Auth/CheckUserIsNotAvailable",
+                //    type: "post",
+                //    datatype: "json",
+                //    // data: {
+                //    //     function() {
+                //    //         return $("#userName").val();
+                //    //     }
+                //    // },
+                //},
             },
             Email: {
                 required: true,
@@ -44,6 +31,7 @@ $(document).ready(function () {
         messages: {
             UserName: {
                 required: "Nhập tên đăng nhập",
+                remote: "Tên đăng nhập đã được sử dụng"
             },
             Email: {
                 required: "Nhập email",

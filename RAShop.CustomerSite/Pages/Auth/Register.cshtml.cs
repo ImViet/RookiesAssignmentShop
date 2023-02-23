@@ -25,7 +25,7 @@ namespace RAShop.CustomerSite.Pages.Home
             var result = await _authService.RegisterAsync(userRegister);
             if (result == null)
             {
-                return null;
+                return StatusCode(400, new {message = "Unsuccessful"});
             }
             return Redirect("/Auth/Login");
         }
